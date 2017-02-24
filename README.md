@@ -1,7 +1,26 @@
 ### description   : mortis
 boilerplate for web, mobile, desktop projects incluing a restapi and update server
 
-### general directory structure and motivation,
+there are several good boilerplate projects out there.  this isn't going to be one of them.
+it's gonna be a decent boilerplate, and it's gonna be a bit more than a boilerplate.
+
+few complete packages out there.  and when i say complete i mean,
+ - web     application, via angular ( with a clean set of directives )
+ - mobile  application, via ionic ( more directives and componants )
+ - desktop application, via electron with some sqlite3 caching
+ - restapi via node
+ - desktop application update server
+ - dockerized database server for primary storage
+ - dockerized redis server for relaying the realtime messages
+ - kubernetes yml files for deploying to gcloud
+ - all the scripts for run debugging, releasing
+ - all the gulp tasks for linting hinting
+ - and later once it it up and running better documentation
+ - and once the documentation is better, some audio video to explain things better.
+
+yeah, it's gonna be monolithic.
+
+### general directory structure,
 - each module contains
   - a directory for implementation
   - a directory for tests
