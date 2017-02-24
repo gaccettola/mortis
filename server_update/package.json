@@ -1,0 +1,15 @@
+{
+  "name": "mortis_update",
+  "version": "1.0.0",
+  "description": "the update server is designed to deliver desktop updates.",
+  "main": "./source/server_update.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "dotenv": "^4.0.0"
+  }
+}
