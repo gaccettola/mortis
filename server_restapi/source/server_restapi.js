@@ -6,25 +6,34 @@
 //
 // system requirements,
 
-
 var dotenv  = require ( 'dotenv'   ).config(),
     Promise = require ( 'bluebird' ),
     chalk   = require ( 'chalk'    );
+
+// ////////////////////////////////////////////////////////////////////////////
+//
+// common requirements,
+
+var constant_server_restapi = require ( './common/constant_server_restapi' );
+
+// ////////////////////////////////////////////////////////////////////////////
+//
+// implementation
 
     var vm = this || {};
 
     vm.status = true;
 
-    vm.central_relay = require ( './services/central_relay.js' )( );
+    vm.central_relay = require ( './services/central_relay.js' )( );    // in-memory message bus
 
-    vm.storage_agent = require ( './services/storage_agent.js' )( );
-    vm.storage_proxy = require ( './services/storage_proxy.js' )( );
+    vm.storage_agent = require ( './services/storage_agent.js' )( );    // database connection instance
+    vm.storage_proxy = require ( './services/storage_proxy.js' )( );    // database connection instance router
 
-    vm.message_agent = require ( './services/message_agent.js' )( );
-    vm.message_proxy = require ( './services/message_proxy.js' )( );
+    vm.message_agent = require ( './services/message_agent.js' )( );    // real-time framework instance
+    vm.message_proxy = require ( './services/message_proxy.js' )( );    // real-time framework instance router
 
-    vm.restapi_agent = require ( './services/restapi_agent.js' )( );
-    vm.restapi_proxy = require ( './services/restapi_proxy.js' )( );
+    vm.restapi_agent = require ( './services/restapi_agent.js' )( );    // express instance
+    vm.restapi_proxy = require ( './services/restapi_proxy.js' )( );    // express instance router
 
     function on_error_during_liftoff ( error )
     {
@@ -119,7 +128,7 @@ var dotenv  = require ( 'dotenv'   ).config(),
         {
             if ( true === vm.status )
             {
-                vm.central_relay.publish ( 'restapi_listen', {} );
+                vm.central_relay.publish ( constant_server_restapi.restapi_listen, {} );
 
             } else
             {

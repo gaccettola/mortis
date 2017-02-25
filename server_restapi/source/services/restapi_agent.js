@@ -2,6 +2,10 @@
 /*jslint node: true */
 'use strict';
 
+// ////////////////////////////////////////////////////////////////////////////
+//
+// system requirements,
+
 var dotenv      = require ( 'dotenv'      ).config(),
     Promise     = require ( 'bluebird'    ),
     chalk       = require ( 'chalk'       ),
@@ -10,6 +14,12 @@ var dotenv      = require ( 'dotenv'      ).config(),
     cors        = require ( 'cors'        ),
     compression = require ( 'compression' ),
     bodyParser  = require ( 'body-parser' );
+
+// ////////////////////////////////////////////////////////////////////////////
+//
+// common requirements,
+
+var constant_server_restapi = require ( '../common/constant_server_restapi' );
 
 // ////////////////////////////////////////////////////////////////////////////
 //
@@ -38,16 +48,22 @@ module.exports = function ( )
         {
             var retval = false;
 
+            // ////////////////////////////////////////////////////////////////
+            //
+            // framework resources
+
             vm.central_relay = central_relay;
             vm.storage_agent = storage_agent;
 
             // ////////////////////////////////////////////////////////////////
+            //
+            // instance setup
 
-            vm.app = express ();
+            vm.express = express ();
 
-            vm.app.use ( morgan ( 'dev' ) );
+            vm.express.use ( morgan ( 'dev' ) );
 
-            vm.app.use ( on_preflight );
+            vm.express.use ( on_preflight );
 
             vm.corsOptions =
             {
@@ -56,9 +72,9 @@ module.exports = function ( )
                 exposedHeaders  : [ 'Content-Encoding', 'Content-Length', 'Content-Range' ]
             };
 
-            vm.app.use ( '*', cors ( vm.corsOptions ) );
+            vm.express.use ( '*', cors ( vm.corsOptions ) );
 
-            vm.app.use ( compression (
+            vm.express.use ( compression (
 
                 {
                     filter : function ( req, res )
@@ -71,13 +87,16 @@ module.exports = function ( )
 
             ) );
 
-            vm.app.use ( bodyParser.json() );
+            vm.express.use ( bodyParser.json() );
 
-            vm.app.use ( bodyParser.urlencoded ( { extended: true, parameterLimit: 1048576 } ) );
+            vm.express.use ( bodyParser.urlencoded ( { extended: true, parameterLimit: 1048576 } ) );
 
             // ////////////////////////////////////////////////////////////////
+            //
+            // subscriptions
 
-            vm.central_relay.subscribe ( 'restapi_listen', on_central_relay_restapi_listen );
+            vm.central_relay.subscribe ( constant_server_restapi.restapi_listen,
+                                         on_central_relay_restapi_listen );
 
             // ////////////////////////////////////////////////////////////////
 
@@ -107,12 +126,12 @@ module.exports = function ( )
 
     function express_get ()
     {
-        return vm.app;
+        return vm.express;
     }
 
     function on_central_relay_restapi_listen ( data, envelope )
     {
-        vm.http_server = vm.app.listen ( process.env.SERVER_RESTAPI_PORT, function ( )
+        vm.http_server = vm.express.listen ( process.env.SERVER_RESTAPI_PORT, function ( )
         {
             console.log ( chalk.green ( 'system online and listening' ) );
 
