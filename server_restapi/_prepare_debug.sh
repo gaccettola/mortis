@@ -23,6 +23,10 @@ mkdir -p ./debug/
 cp ./source/.env ./debug/
 cp -a ./source/* ./debug/
 
+mkdir -p ./debug/common/
+
+cp ../common/source/* ./debug/common/
+
 cd debug
 
 npm install

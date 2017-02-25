@@ -23,6 +23,10 @@ mkdir -p ./release/
 cp ./source/.env ./release/
 cp -a ./source/* ./release/
 
+mkdir -p ./release/common/
+
+cp ../common/source/* ./release/common/
+
 cd release
 
 npm install

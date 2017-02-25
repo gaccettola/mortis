@@ -14,3 +14,6 @@ rm -rf ./release/
 
 mkdir -p ./debug/
 mkdir -p ./release/
+
+mkdir -p ./debug/common/
+mkdir -p ./release/common/
