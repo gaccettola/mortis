@@ -35,13 +35,25 @@ module.exports = function ( )
         {
             var retval = false;
 
+            // ////////////////////////////////////////////////////////////////
+            //
+            // framework resources
+            //
+            // { none }
+
             console.log ( chalk.green ( 'on the line :', service_name ( ) ) );
 
             // ////////////////////////////////////////////////////////////////
+            //
+            // instance setup
 
             service_init ( );
 
             // ////////////////////////////////////////////////////////////////
+            //
+            // subscriptions
+            //
+            // { none }
 
             retval = true;
 
