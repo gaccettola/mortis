@@ -119,11 +119,13 @@ var dotenv  = require ( 'dotenv'   ).config(),
         {
             if ( true === vm.status )
             {
-                console.log ( chalk.green ( 'system online' ) );
+                vm.central_relay.publish ( 'restapi_listen', {} );
 
             } else
             {
-                console.log ( chalk.red ( 'system offline, ', vm.reason ) );
+                console.log ( chalk.red ( 'system offline, shutting down', vm.reason ) );
+
+                process.exit ( 0 );
             }
 
         }
