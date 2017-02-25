@@ -18,13 +18,13 @@ MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 echo preparing server_restapi,
 
+mkdir -p ./debug/
+
 cp ./source/.env ./debug/
 cp -a ./source/* ./debug/
 
 cd debug
 
 npm install
-
-npm start
 
 cd ..

@@ -18,6 +18,8 @@ MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 echo preparing server_restapi,
 
+mkdir -p ./release/
+
 cp ./source/.env ./release/
 cp -a ./source/* ./release/
 
