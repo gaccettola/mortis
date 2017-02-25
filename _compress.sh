@@ -32,13 +32,18 @@ PART_PATH=$(printf '%s%s.%s.%s.tar.gz' ${PART_DEST} ${PART_BASE} ${DATE_PART} $(
 
 echo compressing path : $PART_PATH
 
+# skip the .git
+PART_SKIP=$(printf "%s%s" "--" "exclude-vcs")
+
+echo compressing skip : $PART_SKIP
+
 # get the options for the tar
 PART_FLAG='-zcf'
 
 # tell tar to do a decent job of it all
 export GZIP=-9
 
-WHOLE_CMD=$(printf "tar %s %s %s" ${PART_FLAG} ${PART_PATH} ${PART_BASE})
+WHOLE_CMD=$(printf "tar %s %s %s %s %s" ${PART_FLAG} ${PART_PATH} ${PART_BASE} ${PART_SKIP})
 
 echo compressing with : $WHOLE_CMD
 
