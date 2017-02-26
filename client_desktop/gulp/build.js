@@ -124,7 +124,7 @@ function bundle ( src, dest )
 
 }
 
-function bundleSync ( src )
+function bundle_part (src )
 {
     return bundle ( srcDir.path( src ), destDir.path( src ) );
 }
@@ -133,26 +133,26 @@ function bundle_application ( )
 {
     return Promise.all (
     [
-        bundleSync ( 'main.js' ),
-        bundleSync ( 'mainApp.js' ),
+        bundle_part ( 'main.js' ),
+        bundle_part ( 'mainApp.js' ),
 
-        bundleSync ( './window_main/window_main.js' ),
+        bundle_part ( './window_main/window_main.js' ),
 
-        bundleSync ( 'app.js' ),
-        bundleSync ( 'app.uiRouter.js' ),
+        bundle_part ( 'app.js' ),
+        bundle_part ( 'app.uiRouter.js' ),
     ] );
 }
 
 function bundle_task ( )
 {
-    return bundle_application();
+    return bundle_application ( );
 }
 
 function lessTask ( )
 {
     return gulp.src('app/stylesheets/main.less')
         .pipe( less() )
-        .pipe( gulp.dest(destDir.path('stylesheets') ) );
+        .pipe( gulp.dest( destDir.path('stylesheets') ) );
 }
 
 function copy_app_to_build (moduleName )
@@ -204,19 +204,19 @@ function copy_task ( )
 
     copy_app_to_build ( 'keyboardjs' );
 
-    gulp.src( paths.vendor_css, { cwd: 'app' })
-        .pipe( gulp.dest('./build/vendor' ));
+    gulp.src( paths.vendor_css, { cwd: 'app' } )
+        .pipe( gulp.dest ('./build/vendor'   ) );
 
-    gulp.src( paths.vendors_jquery, { cwd: 'app' })
-        .pipe( gulp.dest('./build/vendor' ));
+    gulp.src( paths.vendors_jquery, { cwd: 'app' } )
+        .pipe( gulp.dest ('./build/vendor'       ) );
 
-    gulp.src( paths.vendors_js, { cwd: 'app' })
-        .pipe( gulp.dest('./build/vendor' ));
+    gulp.src( paths.vendors_js, { cwd: 'app' } )
+        .pipe( gulp.dest ('./build/vendor' ) );
 
-    gulp.src( paths.vendor_ng, { cwd: 'app' })
-        .pipe( gulp.dest('./build/vendor' ));
+    gulp.src( paths.vendor_ng, { cwd: 'app' } )
+        .pipe( gulp.dest ('./build/vendor' ) );
 
-    return projectDir.copy( 'app', destDir.path(),
+    return projectDir.copy ( 'app', destDir.path(),
     {
         overwrite : true,
         matching  : paths.copy_app_dir
@@ -242,13 +242,7 @@ function finalize ( )
         case 'development':
 
             manifest.name           += '-dev';
-            manifest.productName    += ' Dev';
-            break;
-
-        case 'test':
-
-            manifest.name           += '-test';
-            manifest.productName    += ' Test';
+            manifest.productName    += '_Dev';
             break;
 
     }

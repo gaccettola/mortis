@@ -1,24 +1,10 @@
+
 <div ng-controller="window_main as vm" layout="column" flex
-     class="info-head" >
+     ng-init="vm.activate()" ng-cloak class="info-head" >
 
-    <div layout="row" class="info-row" >
-        <div layout="column" flex >Node</div>
-        <div layout="column" flex >{{ vm.version_node }}</div>
-    </div>
-
-    <div layout="row" class="info-row" >
-        <div layout="column" flex >Chrome</div>
-        <div layout="column" flex >{{ vm.version_chrome }}</div>
-    </div>
-
-    <div layout="row" class="info-row" >
-        <div layout="column" flex >Electron</div>
-        <div layout="column" flex >{{ vm.version_electron }}</div>
-    </div>
-
-    <div layout="row" class="info-row" >
-        <div layout="column" flex >SQLite Online </div>
-        <div layout="column" flex >{{ ! vm.sqlite_offline }}</div>
+    <div ng-repeat="item in vm.listof_info" layout="row" class="info-row" >
+        <div layout="column" flex >{{ ::item.name }}</div>
+        <div layout="column" flex >{{ ::item.info }}</div>
     </div>
 
 </div>
