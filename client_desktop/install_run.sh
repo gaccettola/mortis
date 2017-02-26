@@ -1,9 +1,4 @@
-#!/usr/bin/env bash
-
-
-# #############################################################################
-#
-# setup the enviroment
+#!/bin/bash
 
 NPM_PACKAGES="${HOME}/.npm-packages"
 prefix=${HOME}/.npm-packages
@@ -11,12 +6,6 @@ NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
 PATH="$NPM_PACKAGES/bin:$PATH"
 unset MANPATH
 MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
-
-# #############################################################################
-#
-# prepare module
-
-echo preparing client_desktop,
 
 rm -rf ./node_modules/
 rm -rf ./app/node_modules/
@@ -37,4 +26,4 @@ cd ..
 
 npm install
 
-node ./gulp/build
+node ./gulp/start

@@ -10,7 +10,7 @@ var dotenv  = require ( 'dotenv'   ).config(),
 //
 // message relay, real-time framework for work with sockets
 //
-// using primus as an abstration around the real-time framework in use
+// using primus as an abstration around the real-time framework in use ( uws )
 
 module.exports = function ( )
 {

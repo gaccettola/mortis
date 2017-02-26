@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 
 # #############################################################################
@@ -37,4 +37,4 @@ cd ..
 
 npm install
 
-node ./gulp/build
+gulp release --env=production

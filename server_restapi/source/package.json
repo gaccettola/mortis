@@ -7,7 +7,7 @@
     "start": "node server_restapi.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Accettola Systems",
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.4.7",
