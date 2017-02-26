@@ -20,9 +20,12 @@
     "lodash": "^4.17.4",
     "metroplex": "^1.0.0",
     "morgan": "^1.8.1",
+    "mysql": "^2.13.0",
     "omega-supreme": "^2.1.1",
     "postal": "^2.0.5",
     "rsvp": "^3.3.3",
+    "sprintf": "^0.1.5",
+    "statman-stopwatch": "^2.4.0",
     "uws": "^0.13.0",
     "ws": "^2.1.0"
   }
