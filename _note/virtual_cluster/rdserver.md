@@ -1,9 +1,9 @@
 
-### dbserver1601 for percona server 5.7
+### rdserver1601 for redis
 ```
 512 memory / 4gb disk (fixed)
-dbadmin
-dbadminpass
+rdadmin
+rdadminpass
 bridged network
 ```
 
@@ -22,13 +22,20 @@ sudo swapon /swapfile
 sudo echo '/swapfile none swap sw 0 0' >> /etc/fstab
 ```
 
-### percona 5.7
+### redis
 ```
 sudo apt-get update
 sudo apt-get upgrade
 
-wget https://repo.percona.com/apt/percona-release_0.1-4.$(lsb_release -sc)_all.deb
-sudo dpkg -i percona-release_0.1-4.$(lsb_release -sc)_all.deb
-sudo apt-get update
-sudo apt-get install percona-server-server-5.7
+sudo apt-get install build-essential
+sudo apt-get install tcl8.5
+
+wget http://download.redis.io/releases/redis-3.2.8.tar.gz
+tar xzf redis-3.2.8.tar.gz
+cd redis-3.2.8
+make
+sudo make install
+cd utils
+sudo ./install_server.sh
+
 ```
