@@ -124,7 +124,7 @@ module.exports = function ( )
     {
         console.log ( chalk.green ( 'starting message agent' ) );
 
-        var http_server = vm.restapi_agent.http_server_get ();
+        var http_server = vm.restapi_agent.http_server_get ( );
 
     }
 

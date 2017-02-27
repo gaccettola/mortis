@@ -37,3 +37,4 @@ sudo mv minikube /usr/local/bin/
 - one of the only parts of this soltion that is not open source and free
   - atom is better in some ways, worse in others
 
+### https://github.com/velikanov/opensource-candies

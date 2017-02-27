@@ -57,7 +57,7 @@ module.exports = function ( )
                     return connection_exec ( query_script );
 
                     // var iteration_count = 100000;
-                    //
+
                     // return connection_stress ( iteration_count );
 
                 },
