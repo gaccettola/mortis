@@ -16,16 +16,16 @@
 
         $urlRouterProvider.otherwise ( function ( $injector, $location )
         {
-            $location.path ( 'window_main', false );
+            $location.path ( 'app_info', false );
 
         } );
 
         $stateProvider
 
-            .state ( 'window_main',
+            .state ( 'app_info',
             {
-                url         : '/window_main',
-                templateUrl : 'window_main/window_main.html'
+                url         : '/app_info',
+                templateUrl : 'app_info/app_info.html'
             } )
         ;
 

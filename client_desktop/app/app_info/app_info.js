@@ -1,15 +1,15 @@
 
     'use strict';
     
-    var controllerId = 'window_main';
+    var controllerId = 'app_info';
     
     angular
         .module ( 'app' )
-        .controller ( controllerId, window_main );
+        .controller ( controllerId, app_info );
 
-    window_main.$inject = [ '$timeout' ];
+    app_info.$inject = [ '$timeout', 'dataframe', 'dataframe_sample_a', 'dataframe_sample_b' ];
     
-    function window_main ( $timeout )
+    function app_info ( $timeout, dataframe, dataframe_sample_a, dataframe_sample_b )
     {
         var vm = this; // jshint ignore:line
 
@@ -54,6 +54,38 @@
                 apppath_data_write ( );
 
                 sqlite3_data_write ( );
+
+                _.forEach ( dataframe.listof_module, function ( module )
+                {
+                    console.log ( 'registered module -', module.name );
+
+                } );
+
+                dataframe_sample_a.relay ( ).then (
+
+                    function ( value )
+                    {
+                        console.log ( 'ON_SAMPLE_A - ', value );
+
+                        return dataframe_sample_b.relay ( );
+                    },
+                    function ( error )
+                    {
+
+                    }
+
+                ).then (
+
+                    function ( value )
+                    {
+                        console.log ( 'ON_SAMPLE_B - ', value );
+                    },
+                    function ( error )
+                    {
+
+                    }
+
+                );
 
             }, 0 );
         }
@@ -146,10 +178,26 @@
             vm.db.close();
         }
 
+        function on_sample_a ( data, envelope )
+        {
+            console.log ( 'on_sample_a - ', data );
+        }
+
+        function on_sample_b ( data, envelope )
+        {
+            console.log ( 'on_sample_b - ', data );
+        }
+
+        // ////////////////////////////////////////////////////////////////////
+        //
+        // subscriptions
+
+        var sample_a_subscription = dataframe_sample_a.subscribe ( on_sample_a );
+
+        var sample_b_subscription = dataframe_sample_b.subscribe ( on_sample_b );
+
         // ////////////////////////////////////////////////////////////////////
         //
         // slots
-
-
 
     }

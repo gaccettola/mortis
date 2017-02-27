@@ -1,0 +1,10 @@
+
+<div ng-controller="app_info as vm" layout="column" flex
+     ng-init="vm.activate()" ng-cloak class="info-head" >
+
+    <div ng-repeat="item in vm.listof_info" layout="row" class="info-row" >
+        <div layout="column" flex="20" >{{ ::item.name }}</div>
+        <div layout="column" flex="80" >{{ ::item.info }}</div>
+    </div>
+
+</div>

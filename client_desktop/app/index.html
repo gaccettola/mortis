@@ -18,6 +18,8 @@
             window['debug-menu']    = require('./node_modules/debug-menu/index.js');
             window.sqlite3          = require('sqlite3').verbose();
             window.fsjetpack        = require('fs-jetpack');
+            window.Promise          = require('bluebird');
+            window.postal           = require('postal');
         </script>
 
         <script src="./vendor/moment-duration-format.js"></script>
@@ -35,7 +37,11 @@
         <script src="./app.js"></script>
         <script src="./app.uiRouter.js"></script>
 
-        <script src="./window_main/window_main.js"></script>
+        <script src="./services/dataframe.js"></script>
+        <script src="./dataframe/sample_a.js"></script>
+        <script src="./dataframe/sample_b.js"></script>
+
+        <script src="./app_info/app_info.js"></script>
 
         <script src="./vendor/context_menu.js"></script>
         <script src="./vendor/external_links.js"></script>

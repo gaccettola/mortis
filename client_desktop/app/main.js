@@ -28,8 +28,8 @@ function create_main_window ()
         y           : main_window_state.y,
         width       : main_window_state.width,
         height      : main_window_state.height,
-        minWidth    : 400,
-        minHeight   : 600
+        minWidth    : 480,
+        minHeight   : 640
 
     } );
 
@@ -62,7 +62,7 @@ function create_main_window ()
     {
         main_window.show ( );
 
-        console.log ( 'window_main is now visible!' );
+        console.log ( 'app_info is now visible!' );
 
     } );
 

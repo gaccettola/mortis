@@ -133,13 +133,17 @@ function bundle_application ( )
 {
     return Promise.all (
     [
-        bundle_part ( 'main.js' ),
-        bundle_part ( 'mainApp.js' ),
+        bundle_part ( './main.js' ),
+        bundle_part ( './mainApp.js' ),
 
-        bundle_part ( './window_main/window_main.js' ),
+        bundle_part ( './services/dataframe.js' ),
+        bundle_part ( './dataframe/sample_a.js' ),
+        bundle_part ( './dataframe/sample_b.js' ),
 
-        bundle_part ( 'app.js' ),
-        bundle_part ( 'app.uiRouter.js' ),
+        bundle_part ( './app_info/app_info.js' ),
+
+        bundle_part ( './app.js' ),
+        bundle_part ( './app.uiRouter.js' ),
     ] );
 }
 
@@ -203,6 +207,8 @@ function copy_task ( )
     copy_app_to_build ( 'fs-jetpack' );
 
     copy_app_to_build ( 'keyboardjs' );
+
+    copy_app_to_build ( 'postal' );
 
     gulp.src( paths.vendor_css, { cwd: 'app' } )
         .pipe( gulp.dest ('./build/vendor'   ) );

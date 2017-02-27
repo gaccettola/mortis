@@ -87,8 +87,8 @@ module.exports = function ( )
         {
             var express = vm.restapi_agent.express_get ();
 
-            express.post ( '/v1/' + vm._service_name + '/post', on_restapi_post );
-            express.get  ( '/v1/' + vm._service_name,           on_restapi_get  );
+            express.post ( '/v1/' + vm._service_name, on_restapi_post );
+            express.get  ( '/v1/' + vm._service_name, on_restapi_get  );
 
             resolve ( true );
 
