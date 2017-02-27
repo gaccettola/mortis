@@ -17,6 +17,7 @@
     "cors": "^2.8.1",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
+    "ioredis": "^2.5.0",
     "lodash": "^4.17.4",
     "metroplex": "^1.0.0",
     "morgan": "^1.8.1",

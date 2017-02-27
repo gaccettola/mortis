@@ -73,28 +73,6 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
 
         function ( value )
         {
-            return vm.message_agent.ctor ( vm.central_relay, vm.storage_agent );
-        },
-        function ( error )
-        {
-            throw on_error_during_liftoff ( error );
-        }
-
-    ).then (
-
-        function ( value )
-        {
-            return vm.message_proxy.ctor ( vm.central_relay, vm.storage_agent, vm.message_agent );
-        },
-        function ( error )
-        {
-            throw on_error_during_liftoff ( error );
-        }
-
-    ).then (
-
-        function ( value )
-        {
             return vm.restapi_agent.ctor ( vm.central_relay, vm.storage_agent );
         },
         function ( error )
@@ -107,6 +85,28 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
         function ( value )
         {
             return vm.restapi_proxy.ctor ( vm.central_relay, vm.storage_agent, vm.restapi_agent );
+        },
+        function ( error )
+        {
+            throw on_error_during_liftoff ( error );
+        }
+
+    ).then (
+
+        function ( value )
+        {
+            return vm.message_agent.ctor ( vm.central_relay, vm.storage_agent, vm.restapi_agent );
+        },
+        function ( error )
+        {
+            throw on_error_during_liftoff ( error );
+        }
+
+    ).then (
+
+        function ( value )
+        {
+            return vm.message_proxy.ctor ( vm.central_relay, vm.storage_agent, vm.message_agent );
         },
         function ( error )
         {

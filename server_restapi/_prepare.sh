@@ -5,7 +5,7 @@
 #
 # prepare module
 
-# ./_prepare_debug.sh
+./_prepare_debug.sh
 
-./_prepare_release.sh
+# ./_prepare_release.sh
 
