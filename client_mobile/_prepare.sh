@@ -18,6 +18,8 @@ MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 echo preparing client_mobile,
 
+cd source
+
 npm install
 
 bower install

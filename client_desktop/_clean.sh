@@ -7,12 +7,12 @@
 
 echo cleaning client_desktop,
 
-rm -rf ./node_modules/
-rm -rf ./app/node_modules/
-rm -rf ./app/bower_components
-rm -rf ./build/node_modules/
-rm -rf ./build/bower_components
-rm -rf ./build/
-rm -rf ./releases/
-rm -rf ./tmp/
+rm -rf ./source/node_modules/
+rm -rf ./source/app/node_modules/
+rm -rf ./source/app/bower_components
+rm -rf ./source/build/node_modules/
+rm -rf ./source/build/bower_components
+rm -rf ./source/build/
+rm -rf ./source/releases/
+rm -rf ./source/tmp/
 
