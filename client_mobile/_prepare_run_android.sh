@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-
 # #############################################################################
 #
-# setup the enviroment ( workaround for webstorm not sourcing .bashrc )
+# setup the enviroment
 
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 export PATH="$PATH:$JAVA_HOME/bin"
@@ -30,17 +29,10 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # #############################################################################
 #
-# prepare module
 
-echo preparing client_mobile,
+./_prepare.sh
 
-cd source
-
-npm install
-
-bower install
-
-gulp
+cd ./debug/
 
 # ionic serve
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 # #############################################################################
 #
 # setup the enviroment
@@ -13,23 +14,24 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 # #############################################################################
 #
+# prepare module
 
-./_prepare.sh
+echo preparing client_mobile,
 
-cd ./debug
+rm -rf ./debug
 
-# ionic serve
+mkdir -p debug
 
-ionic serve --lab
+cd source
 
-# cordova platform rm ios
-# cordova platform add ios
-# ionic build ios
-# ionic emulate ios
+cp -a . ../debug
 
-# cordova platform rm android
-# cordova platform add android
-# ionic build android
-# ionic emulate android --client_mobile
+cd ../debug
 
-# ionic run android
+npm install
+
+bower install
+
+gulp
+
+cd ..

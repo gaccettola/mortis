@@ -18,11 +18,5 @@ MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 echo cleaning client_mobile,
 
-cd source
-
-cordova platform rm browser
-cordova platform rm android
-cordova platform rm ios
-
-rm -rf ./source/node_modules/
-rm -rf ./source/www/lib
+rm -rf ./debug
+rm -rf ./release
