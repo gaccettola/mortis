@@ -1,0 +1,25 @@
+{
+  "name": "client_mobile",
+  "version": "1.0.0",
+  "description": "client_mobile",
+  "cordovaPlugins": [],
+  "cordovaPlatforms": [
+    "ios"
+  ],
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0"
+  },
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "gulp-inject": "^4.2.0",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-util": "^3.0.8",
+    "npm": "^4.3.0",
+    "shelljs": "^0.7.6",
+    "stream-series": "^0.1.1"
+  }
+}
