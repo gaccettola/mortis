@@ -7,6 +7,10 @@
 
 echo cleaning client_desktop,
 
+rm -rf ./debug
+rm -rf ./release
+
+
 rm -rf ./source/node_modules/
 rm -rf ./source/app/node_modules/
 rm -rf ./source/app/bower_components

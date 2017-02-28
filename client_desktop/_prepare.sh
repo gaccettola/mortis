@@ -5,12 +5,12 @@
 #
 # setup the enviroment
 
-NPM_PACKAGES="${HOME}/.npm-packages"
-prefix=${HOME}/.npm-packages
-NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
-PATH="$NPM_PACKAGES/bin:$PATH"
+export NPM_PACKAGES="${HOME}/.npm-packages"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules:$NODE_PATH"
+export PATH="$PATH:$NPM_PACKAGES/bin"
+
 unset MANPATH
-MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 # #############################################################################
 #
@@ -18,16 +18,15 @@ MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 echo preparing client_desktop,
 
+rm -rf ./debug
+
+mkdir -p debug
+
 cd source
 
-# rm -rf ./source/node_modules/
-# rm -rf ./source/app/node_modules/
-# rm -rf ./source/app/bower_components
-# rm -rf ./source/build/node_modules/
-# rm -rf ./source/build/bower_components
-# rm -rf ./source/build/
-# rm -rf ./source/releases/
-# rm -rf ./source/tmp/
+cp -a . ../debug
+
+cd ../debug
 
 cd app
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 
 # #############################################################################
@@ -14,25 +14,24 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 # #############################################################################
 #
-#
+# prepare module
 
-rm -rf ./node_modules/
-rm -rf ./app/node_modules/
-rm -rf ./app/bower_components
-rm -rf ./build/node_modules/
-rm -rf ./build/bower_components
-rm -rf ./build/
-rm -rf ./releases/
-rm -rf ./tmp/
+echo preparing client_mobile,
 
-cd app
+rm -rf ./debug
 
-npm install --no-optional
+mkdir -p debug
 
-./node_modules/.bin/electron-rebuild -f
+cd source
 
-cd ..
+cp -a . ../debug
+
+cd ../debug
 
 npm install
 
-node ./gulp/build
+bower install
+
+node ./gulp/start
+
+cd ..
