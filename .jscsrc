@@ -1,0 +1,16 @@
+{
+  "maxErrors" :1024,
+
+  "requireNewlineBeforeBlockStatements"         : true,
+  "requireSpacesInsideObjectBrackets"           : "all",
+  "requireSpacesInsideParentheses"              : "all",
+  "requireSpacesInsideParenthesizedExpression"  : true,
+  "requireSpacesInNamedFunctionExpression"      :
+  {
+    "beforeOpeningRoundBrace": true,
+    "beforeOpeningCurlyBrace": true
+  },
+  "requireAlignedMultilineParams"               : true,
+  "requireAlignedObjectValues"                  : "all"
+
+}
