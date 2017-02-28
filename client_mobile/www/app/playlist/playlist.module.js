@@ -1,7 +1,10 @@
-(function () {
-  'use strict';
 
-  angular
-    .module('app.playlist', []);
+( function ( )
+{
+    'use strict';
 
-}());
+    // noinspection JSUnresolvedVariable
+    angular
+        .module ( 'app.playlist', [] );
+
+} ( ) );

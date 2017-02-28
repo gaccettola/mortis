@@ -1,10 +1,12 @@
-(function () {
-  'use strict';
 
+( function ()
+{
+    'use strict';
 
-  angular
-    .module('app.core', [
-      'ionic'
-    ]);
+    //noinspection JSUnresolvedVariable
+    angular
+        .module ( 'app.core', [
+            'ionic'
+        ] );
 
-}());
+}() );

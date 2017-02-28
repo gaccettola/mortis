@@ -1,29 +1,37 @@
 // Include in index.html so that app level exceptions are handled.
 // Exclude from testRunner.html which should run exactly what it wants to run
-(function() {
+( function ( )
+ {
     'use strict';
 
-    angular
-        .module('blocks.exception')
-        .provider('exceptionHandler', exceptionHandlerProvider)
-        .config(config);
+     //noinspection JSUnresolvedVariable,JSUnresolvedFunction
+     angular
+        .module ( 'blocks.exception' )
+        .provider ( 'exceptionHandler', exceptionHandlerProvider )
+        .config ( config );
 
     /**
      * Must configure the exception handling
      * @return {[type]}
      */
-    function exceptionHandlerProvider() {
+    function exceptionHandlerProvider()
+    {
         /* jshint validthis:true */
-        this.config = {
+        this.config =
+            {
             appErrorPrefix: undefined
         };
 
-        this.configure = function (appErrorPrefix) {
+        //noinspection JSUnusedGlobalSymbols
+        this.configure = function ( appErrorPrefix )
+        {
             this.config.appErrorPrefix = appErrorPrefix;
         };
 
-        this.$get = function() {
-            return {config: this.config};
+        //noinspection JSUnusedGlobalSymbols
+        this.$get = function()
+        {
+            return { config: this.config };
         };
     }
 
@@ -36,8 +44,10 @@
      * @return {[type]}
      * @ngInject
      */
-    function config($provide) {
-        $provide.decorator('$exceptionHandler', extendExceptionHandler);
+    function config ( $provide )
+    {
+        //noinspection JSUnresolvedFunction
+        $provide.decorator( '$exceptionHandler', extendExceptionHandler );
     }
 
     extendExceptionHandler.$inject = ['$delegate', 'exceptionHandler', 'logger'];
@@ -49,12 +59,19 @@
      * @param  {Object} logger
      * @return {Function} the decorated $exceptionHandler service
      */
-    function extendExceptionHandler($delegate, exceptionHandler, logger) {
-        return function(exception, cause) {
+    function extendExceptionHandler( $delegate, exceptionHandler, logger )
+    {
+        return function ( exception, cause )
+        {
             var appErrorPrefix = exceptionHandler.config.appErrorPrefix || '';
-            var errorData = {exception: exception, cause: cause};
+
+            var errorData = { exception: exception, cause: cause };
+
             exception.message = appErrorPrefix + exception.message;
-            $delegate(exception, cause);
+
+            //noinspection JSValidateTypes
+            $delegate ( exception, cause );
+
             /**
              * Could add the error to a service's collection,
              * add errors to $rootScope, log errors to remote web server,
@@ -64,7 +81,8 @@
              * @example
              *     throw { message: 'error message we added' };
              */
-            logger.error(exception.message, errorData);
+            logger.error ( exception.message, errorData );
         };
     }
-})();
+
+} )();

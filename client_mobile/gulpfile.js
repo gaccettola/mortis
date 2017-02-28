@@ -60,7 +60,7 @@ gulp.task ( 'watch', function ( )
 gulp.task ( 'install', ['git-check'], function ( )
 {
     //noinspection JSUnresolvedletiable
-    return bower.commands.install ( ).on( 'log', function ( data )
+    return bower.commands.install ( ).on ( 'log', function ( data )
     {
         gutil.log ( 'bower', gutil.colors.cyan ( data.id ), data.message );
 

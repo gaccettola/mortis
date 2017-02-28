@@ -1,5 +1,13 @@
-(function() {
+
+( function()
+{
     'use strict';
 
-    angular.module('blocks.logger', []);
-})();
+    //noinspection JSUnresolvedVariable
+    angular
+        .module ( 'blocks.logger',
+        [
+
+        ] );
+
+} )( );

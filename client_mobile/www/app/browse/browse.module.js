@@ -1,7 +1,9 @@
-(function () {
-  'use strict';
+( function ()
+{
+    'use strict';
 
-  angular
-    .module('app.browse', []);
+    //noinspection JSUnresolvedVariable,JSUnresolvedFunction
+    angular
+        .module ( 'app.browse', [] );
 
-}());
+} ( ) );

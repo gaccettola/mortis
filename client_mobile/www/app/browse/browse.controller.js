@@ -1,13 +1,18 @@
-(function () {
-  'use strict';
 
-  angular
-    .module('app.browse')
-    .controller('BrowseController', BrowseController);
+( function ()
+{
+    'use strict';
 
-  /* @ngInject */
-  function BrowseController() {
-  }
-  BrowseController.$inject = [];
+    //noinspection JSUnresolvedVariable,JSUnresolvedFunction
+    angular
+        .module ( 'app.browse' )
+        .controller ( 'BrowseController', BrowseController );
 
-}());
+    /* @ngInject */
+    function BrowseController()
+    {
+    }
+
+    BrowseController.$inject = [];
+
+} ( ) );

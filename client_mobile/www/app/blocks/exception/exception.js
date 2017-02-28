@@ -1,23 +1,32 @@
-(function() {
+
+( function ( )
+{
     'use strict';
 
+    //noinspection JSUnresolvedVariable,JSUnresolvedFunction
     angular
-        .module('blocks.exception')
-        .factory('exception', exception);
+        .module ( 'blocks.exception' )
+        .factory ( 'exception', exception );
 
     exception.$inject = ['logger'];
 
     /* @ngInject */
-    function exception(logger) {
-        var service = {
-            catcher: catcher
+    function exception ( logger )
+    {
+        var service =
+        {
+            catcher : catcher
         };
-        return service;
 
-        function catcher(message) {
-            return function(reason) {
-                logger.error(message, reason);
+        function catcher ( message )
+        {
+            return function ( reason )
+            {
+                logger.error ( message, reason );
             };
         }
+
+        return service;
     }
-})();
+
+} )( );
