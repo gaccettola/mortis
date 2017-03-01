@@ -32,7 +32,7 @@
             {
                 var encoded_frame = Object.keys ( frame ).map ( function ( key )
                 {
-                    return encodeURIComponent(key) + '=' + encodeURIComponent(frame[key]);
+                    return encodeURIComponent ( key ) + '=' + encodeURIComponent ( frame [ key ] );
 
                 } ).join ( '&' );
 
@@ -51,7 +51,7 @@
                 },
                 function ( error, data, status, header )
                 {
-                    var retval =
+                    var retval  =
                     {
                         error   : error,
                         data    : data,

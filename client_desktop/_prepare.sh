@@ -18,6 +18,8 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 echo preparing client_desktop,
 
+# ./_clean.sh
+
 rm -rf ./debug
 
 mkdir -p debug
@@ -42,4 +44,4 @@ npm install
 #
 # build
 
-node ./gulp/build
+gulp build

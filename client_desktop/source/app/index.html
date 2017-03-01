@@ -10,16 +10,19 @@
         <link rel="stylesheet" href="styles/app.css">
 
         <script>
-            window.$                = window.jQuery = window.jquery = require('./vendor/jquery.min.js');
-            window.moment           = require('./node_modules/moment/moment.js');
-            window._                = require('./vendor/lodash.min.js');
-            window.httpinvoke       = require('./vendor/httpinvoke-browser.js');
-            window.sprintf          = require('./vendor/sprintf.js');
-            window['debug-menu']    = require('./node_modules/debug-menu/index.js');
-            window.sqlite3          = require('sqlite3').verbose();
-            window.fsjetpack        = require('fs-jetpack');
-            window.Promise          = require('bluebird');
-            window.postal           = require('postal');
+            window.$                = require ( './vendor/jquery.min.js');
+            window.jQuery           = window.$;
+            window.jquery           = window.$;
+            window.moment           = require ( './node_modules/moment/moment.js');
+            window._                = require ( './vendor/lodash.min.js');
+            window.httpinvoke       = require ( './vendor/httpinvoke-browser.js');
+            window.sprintf          = require ( './vendor/sprintf.js');
+            window['debug-menu']    = require ( './node_modules/debug-menu/index.js');
+            window.sqlite3          = require ( 'sqlite3').verbose();
+            window.fsjetpack        = require ( 'fs-jetpack');
+            window.Promise          = require ( 'bluebird');
+            window.postal           = require ( 'postal');
+            window.mortis_primus    = require ( './common/mortis_primus.js');
         </script>
 
         <script src="./vendor/moment-duration-format.js"></script>
@@ -38,6 +41,8 @@
         <script src="app.uiRouter.js"></script>
 
         <script src="services/dataframe.js"></script>
+        <script src="services/client_primus.js"></script>
+
         <script src="dataframe/sample_a.js"></script>
         <script src="dataframe/sample_b.js"></script>
 

@@ -7,9 +7,9 @@
         .module ( 'app' )
         .controller ( controllerId, app_info );
 
-    app_info.$inject = [ '$timeout', 'dataframe', 'dataframe_sample_a', 'dataframe_sample_b' ];
+    app_info.$inject = [ '$timeout', 'client_primus', 'dataframe', 'dataframe_sample_a', 'dataframe_sample_b' ];
     
-    function app_info ( $timeout, dataframe, dataframe_sample_a, dataframe_sample_b )
+    function app_info ( $timeout, client_primus, dataframe, dataframe_sample_a, dataframe_sample_b )
     {
         var vm = this; // jshint ignore:line
 
@@ -17,7 +17,7 @@
         //
         // variable, node
 
-        const {app} = require('electron').remote;
+        const { app } = require ( 'electron' ).remote;
 
         // ////////////////////////////////////////////////////////////////////
         //
@@ -88,6 +88,12 @@
                 );
 
             }, 0 );
+
+            $timeout ( function ()
+            {
+                client_primus.connect ( );
+
+            }, 500 );
         }
 
         function listof_info_add ( key, value )
@@ -106,18 +112,18 @@
 
         function apppath_info_read ( )
         {
-            listof_info_add ( 'Home',       app.getPath('home')         );
+            listof_info_add ( 'Home',       app.getPath ( 'home' )      );
 
-            listof_info_add ( 'Data',       app.getPath('appData')      );
+            listof_info_add ( 'Data',       app.getPath ( 'appData' )   );
 
-            listof_info_add ( 'User',       app.getPath('userData')     );
+            listof_info_add ( 'User',       app.getPath ( 'userData' )  );
 
-            listof_info_add ( 'Temp',       app.getPath('temp')         );
+            listof_info_add ( 'Temp',       app.getPath ( 'temp' )      );
         }
 
         function apppath_data_write ( )
         {
-            var user_data_directory = app.getPath('userData');
+            var user_data_directory = app.getPath ( 'userData' );
 
             fsjetpack
                 .dir  ( user_data_directory )

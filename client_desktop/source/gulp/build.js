@@ -1,22 +1,22 @@
 'use strict';
 
-var pathUtil        = require('path');
-var Promise         = require('bluebird');
-var gulp            = require('gulp');
-var rollup          = require('rollup');
-var less            = require('gulp-less');
-var jetpack         = require('fs-jetpack');
-var templateCache   = require('gulp-angular-templatecache');
-var utils           = require('./utils');
-var rename          = require("gulp-rename");
+var pathUtil        = require ( 'path'                       );
+var Promise         = require ( 'bluebird'                   );
+var gulp            = require ( 'gulp'                       );
+var rollup          = require ( 'rollup'                     );
+var less            = require ( 'gulp-less'                  );
+var jetpack         = require ( 'fs-jetpack'                 );
+var templateCache   = require ( 'gulp-angular-templatecache' );
+var utils           = require ( './utils'                    );
+var rename          = require ( "gulp-rename"                );
 
 var projectDir      = jetpack;
-var srcDir          = projectDir.cwd('./app');
-var destDir         = projectDir.cwd('./build');
+var srcDir          = projectDir.cwd ( './app'   );
+var destDir         = projectDir.cwd ( './build' );
 
 var paths =
 {
-    vendor_css :
+    vendor_css     :
     [
         './node_modules/angular-material/angular-material.css'
 
@@ -29,13 +29,13 @@ var paths =
         './node_modules/sprintf/lib/sprintf.js'
 
     ],
-    vendors_js :
+    vendors_js     :
     [
         './node_modules/moment-duration-format/lib/moment-duration-format.js',
         './node_modules/rsvp/dist/rsvp.js'
 
     ],
-    vendor_ng :
+    vendor_ng      :
     [
         './node_modules/angular/angular.js',
         './node_modules/angular-aria/angular-aria.js',
@@ -46,13 +46,14 @@ var paths =
         './node_modules/angular-animate/angular-animate.js'
 
     ],
-    copy_app_dir :
+    copy_app_dir   :
     [
         './vendor/**',
+        './common/**',
         './index.html'
 
     ],
-    app_templates :
+    app_templates  :
     [
         'app/**/*.html',
         '!app/index.html'
@@ -68,22 +69,22 @@ function clean ( callback )
 
 function build_template_cache ( )
 {
-    var htmlTemplates = gulp.src( paths.app_templates );
+    var htmlTemplates = gulp.src ( paths.app_templates );
 
-    return gulp.src( paths.app_templates )
-        .pipe( templateCache( 'templatecache.js', { module:'templatecache', standalone:true } ) )
-        .pipe( gulp.dest( destDir.path() ) );
+    return gulp.src ( paths.app_templates )
+        .pipe ( templateCache ( 'templatecache.js', { module : 'templatecache', standalone : true } ) )
+        .pipe ( gulp.dest ( destDir.path() ) );
 }
 
 function bundle ( src, dest )
 {
     return new Promise ( function ( resolve, reject )
     {
-        rollup.rollup ( {  entry: src  } ).then (
+        rollup.rollup ( { entry: src } ).then (
 
             function ( bundle )
             {
-                var jsFile = pathUtil.basename(dest);
+                var jsFile = pathUtil.basename ( dest );
 
                 var result = bundle.generate (
                     {
@@ -98,15 +99,15 @@ function bundle ( src, dest )
 
                 return Promise.all (
                     [
-                        destDir.writeAsync( dest, isolatedCode + '\n//# sourceMappingURL=' + jsFile + '.map'),
-                        destDir.writeAsync( dest + '.map', result.map.toString() )
+                        destDir.writeAsync ( dest, isolatedCode + '\n//# sourceMappingURL=' + jsFile + '.map' ),
+                        destDir.writeAsync ( dest + '.map', result.map.toString() )
                     ]
                 );
             }
 
         ).then (
 
-            function ()
+            function ( )
             {
                 resolve ( );
             }
@@ -124,9 +125,19 @@ function bundle ( src, dest )
 
 }
 
-function bundle_part (src )
+function bundle_part ( src )
 {
     return bundle ( srcDir.path( src ), destDir.path( src ) );
+}
+
+function import_common_task ( )
+{
+    return jetpack.copy ( '../../common/source', 'app/common',
+    {
+        overwrite : true
+
+    } );
+
 }
 
 function bundle_application ( )
@@ -136,7 +147,9 @@ function bundle_application ( )
         bundle_part ( './main.js' ),
         bundle_part ( './mainApp.js' ),
 
+        bundle_part ( './services/client_primus.js' ),
         bundle_part ( './services/dataframe.js' ),
+
         bundle_part ( './dataframe/sample_a.js' ),
         bundle_part ( './dataframe/sample_b.js' ),
 
@@ -144,6 +157,7 @@ function bundle_application ( )
 
         bundle_part ( './app.js' ),
         bundle_part ( './app.uiRouter.js' ),
+
     ] );
 }
 
@@ -154,12 +168,12 @@ function bundle_task ( )
 
 function lessTask ( )
 {
-    return gulp.src('app/stylesheets/main.less')
-        .pipe( less() )
-        .pipe( gulp.dest( destDir.path('stylesheets') ) );
+    return gulp.src ( 'app/stylesheets/main.less' )
+        .pipe( less ( ) )
+        .pipe( gulp.dest ( destDir.path ( 'stylesheets' ) ) );
 }
 
-function copy_app_to_build (moduleName )
+function copy_app_to_build ( moduleName )
 {
     jetpack.copy ( 'app/node_modules/'   + moduleName,
                    'build/node_modules/' + moduleName );
@@ -167,8 +181,8 @@ function copy_app_to_build (moduleName )
 
 function copy_task ( )
 {
-    jetpack.copy ( 'app/'   + 'styles',
-                   'build/' + 'styles' );
+    jetpack.copy ( 'app/styles',
+                   'build/styles' );
 
     copy_app_to_build ( 'moment' );
 
@@ -210,17 +224,17 @@ function copy_task ( )
 
     copy_app_to_build ( 'postal' );
 
-    gulp.src( paths.vendor_css, { cwd: 'app' } )
-        .pipe( gulp.dest ('./build/vendor'   ) );
+    gulp.src ( paths.vendor_css, { cwd: 'app' } )
+        .pipe ( gulp.dest ( './build/vendor'   ) );
 
-    gulp.src( paths.vendors_jquery, { cwd: 'app' } )
-        .pipe( gulp.dest ('./build/vendor'       ) );
+    gulp.src ( paths.vendors_jquery, { cwd: 'app' } )
+        .pipe ( gulp.dest ( './build/vendor'       ) );
 
-    gulp.src( paths.vendors_js, { cwd: 'app' } )
-        .pipe( gulp.dest ('./build/vendor' ) );
+    gulp.src ( paths.vendors_js, { cwd: 'app' } )
+        .pipe ( gulp.dest ( './build/vendor' ) );
 
     gulp.src( paths.vendor_ng, { cwd: 'app' } )
-        .pipe( gulp.dest ('./build/vendor' ) );
+        .pipe( gulp.dest ( './build/vendor' ) );
 
     return projectDir.copy ( 'app', destDir.path(),
     {
@@ -241,9 +255,9 @@ function prune_task ( )
 
 function finalize ( )
 {
-    var manifest = srcDir.read ( 'package.json', 'json');
+    var manifest = srcDir.read ( 'package.json', 'json' );
 
-    switch ( utils.getEnvName() )
+    switch ( utils.getEnvName ( ) )
     {
         case 'development':
 
@@ -253,7 +267,7 @@ function finalize ( )
 
     }
 
-    manifest.env = projectDir.read ( 'config/env_' + utils.getEnvName() + '.json', 'json' );
+    manifest.env = projectDir.read ( 'config/env_' + utils.getEnvName ( ) + '.json', 'json' );
 
     destDir.write ( 'package.json', manifest );
 }
@@ -267,7 +281,9 @@ gulp.task ( 'clean', clean );
 
 gulp.task ( 'build_template_cache', ['clean'],      build_template_cache );
 
-gulp.task ( 'bundle', ['build_template_cache'],     bundle_task );
+gulp.task ( 'common', ['build_template_cache'],     import_common_task );
+
+gulp.task ( 'bundle', ['common'],                   bundle_task );
 
 gulp.task ( 'copy_task', ['bundle'],                copy_task );
 
