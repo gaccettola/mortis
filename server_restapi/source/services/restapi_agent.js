@@ -13,6 +13,7 @@ var dotenv      = require ( 'dotenv'      ).config(),
     morgan      = require ( 'morgan'      ),
     cors        = require ( 'cors'        ),
     compression = require ( 'compression' ),
+    http        = require ( 'http'        ),
     bodyParser  = require ( 'body-parser' );
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -42,6 +43,9 @@ module.exports = function ( )
         express_get     : express_get,
         http_server_get : http_server_get
     };
+    
+    vm.app;
+    vm.server;
 
     function ctor ( central_relay, storage_agent )
     {
@@ -60,11 +64,11 @@ module.exports = function ( )
             //
             // instance setup
 
-            vm.express = express ();
+            vm.app = express ();
 
-            vm.express.use ( morgan ( 'dev' ) );
+            vm.app.use ( morgan ( 'dev' ) );
 
-            vm.express.use ( on_preflight );
+            vm.app.use ( on_preflight );
 
             vm.corsOptions =
             {
@@ -73,14 +77,14 @@ module.exports = function ( )
                 exposedHeaders  : [ 'Content-Encoding', 'Content-Length', 'Content-Range' ]
             };
 
-            vm.express.use ( '*', cors ( vm.corsOptions ) );
+            vm.app.use ( '*', cors ( vm.corsOptions ) );
 
-            vm.express.use ( compression (
+            vm.app.use ( compression (
 
                 {
                     filter : function ( req, res )
                     {
-                        return ( /json|text|javascript|css/ ).test( res.getHeader('Content-Type') );
+                        return ( /json|text|javascript|css/ ).test( res.getHeader( 'Content-Type' ) );
                     },
 
                     level  : 9
@@ -88,9 +92,9 @@ module.exports = function ( )
 
             ) );
 
-            vm.express.use ( bodyParser.json() );
+            vm.app.use ( bodyParser.json ( ) );
 
-            vm.express.use ( bodyParser.urlencoded ( { extended: true, parameterLimit: 1048576 } ) );
+            vm.app.use ( bodyParser.urlencoded ( { extended: true, parameterLimit: 1048576 } ) );
 
             // ////////////////////////////////////////////////////////////////
             //
@@ -127,19 +131,23 @@ module.exports = function ( )
 
     function express_get ()
     {
-        return vm.express;
+        return vm.app;
     }
 
     function http_server_get ()
     {
-        return vm.http_server;
+        return vm.server;
     }
 
     function on_central_relay_restapi_listen ( data, envelope )
     {
-        vm.http_server = vm.express.listen ( process.env.SERVER_RESTAPI_PORT, function ( )
+        vm.server  = http.createServer ( vm.app );
+
+        console.log ( chalk.green ( 'starting system listener on -', process.env.SERVER_RESTAPI_PORT ) );
+
+        vm.server.listen ( process.env.SERVER_RESTAPI_PORT, function ( )
         {
-            console.log ( chalk.green ( 'system online and listening' ) );
+            console.log ( chalk.green ( 'system online and listening : ', vm.server.listening ) );
 
             vm.central_relay.publish ( constant_server_restapi.restapi_listening, {} );
 
