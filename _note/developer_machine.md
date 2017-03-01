@@ -15,7 +15,7 @@ sudo apt-get install oracle-java8-installer
 sudo apt install oracle-java8-set-default
 ```
 
-### android studio ( run api 19 is ~90% of the users )
+### android studio ( api 19 is ~90% of the users )
 ```
 cd /opt/android-studio/bin
 sh studio.sh 

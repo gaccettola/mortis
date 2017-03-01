@@ -17,6 +17,7 @@ java -version
 
 ```
 
+
 ### apache ant
 ```
 cd ~/_Main/_Setup
@@ -70,6 +71,30 @@ gem cleanup
 ```
 
 
+### android studio
+```
+cd ~/Downloads
+sudo unzip android-studio-ide-145.3537739-linux.zip -d /opt
+
+cd /opt/android-studio/bin
+sh studio.sh 
+```
+
+
+### webstorm
+```
+cd ~/Downloads
+
+tar -xvzf WebStorm-2016.3.3.tar.gz
+
+sudo mv WebStorm /opt/WebStorm
+
+cd /opt/WebStorm/bin
+
+sh webstorm.sh 
+```
+
+
 ### node.js
 ```
 cd ~/_Main/_Setup
@@ -93,6 +118,7 @@ rm node-v6.10.0-linux-x64.tar.gz
 node --version
 npm --version
 ```
+
 
 ### grunt grunt-cli gulp mocha cordova ionic
 ```

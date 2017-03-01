@@ -1,8 +1,23 @@
 ### common tools, desktop setup
-- nodejs          : 6.10.0 is the current LTS
-- cordova         : glabally installed
-- gulp            : glabally installed
-- mocha           : glabally installed
+
+- java              : oracle-java8
+- android studio    : 2.2.3 ( 145.3537739 )
+- apache-ant        : 1.10.1
+- apache maven      : 3.3.9
+- rvm               : 1.29.1
+- appium            : 1.4.16
+- nodejs            : 6.10.0 is the current LTS
+- cordova           : glabally installed
+- gulp              : glabally installed
+- mocha             : glabally installed
+- grunt             : glabally installed
+- grunt-cli         : glabally installed
+- ionic             : glabally installed
+- appium            : glabally installed
+- wd                : glabally installed
+- appium-doctor     : glabally installed
+- electron          : glabally installed
+- electron-rebuild  : glabally installed
 
 
 ### kubectl ( used by both minikube and gcloud )
@@ -37,4 +52,6 @@ sudo mv minikube /usr/local/bin/
 - one of the only parts of this soltion that is not open source and free
   - atom is better in some ways, worse in others
 
-### https://github.com/velikanov/opensource-candies
+
+### other tools available to open source projects
+https://github.com/velikanov/opensource-candies
