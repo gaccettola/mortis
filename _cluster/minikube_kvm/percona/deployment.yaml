@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: mortis-mysql:008
+        image: mortis-mysql:001
         ports:
         - containerPort: 3306
           hostPort: 3306
