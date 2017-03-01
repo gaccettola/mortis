@@ -22,7 +22,7 @@
 - electron-rebuild  : glabally installed
 - kubectl           : 1.5.2     
 - minikube          : 0.16.0        
-- gcloud            : sdk 145.0.0
+- gcloud            : 145.0.0
 
 ### other tools available to open source projects
 https://github.com/velikanov/opensource-candies
