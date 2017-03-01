@@ -7,10 +7,10 @@
 
 echo cleaning server_restapi,
 
-rm -rf ./source/node_modules/
+rm -rf ./source/node_modules
 
-rm -rf ./debug/
-rm -rf ./release/
+rm -rf ./debug
+rm -rf ./release
 
 mkdir -p ./debug/
 mkdir -p ./release/

@@ -11,12 +11,12 @@ rm -rf ./debug
 rm -rf ./release
 
 
-rm -rf ./source/node_modules/
-rm -rf ./source/app/node_modules/
+rm -rf ./source/node_modules
+rm -rf ./source/app/node_modules
 rm -rf ./source/app/bower_components
-rm -rf ./source/build/node_modules/
+rm -rf ./source/build/node_modules
 rm -rf ./source/build/bower_components
-rm -rf ./source/build/
-rm -rf ./source/releases/
-rm -rf ./source/tmp/
+rm -rf ./source/build
+rm -rf ./source/releases
+rm -rf ./source/tmp
 
