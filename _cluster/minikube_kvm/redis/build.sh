@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # minikube config set vm-driver kvm
-# minikube start
+minikube start
 
-# minikube docker-env
-# eval $(minikube docker-env)
+minikube docker-env
+eval $(minikube docker-env)
 
-# minikube dashboard
+minikube dashboard
 
 docker build -t mortis-redis:001 .
 
@@ -17,13 +17,13 @@ docker build -t mortis-redis:001 .
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 
-# kubectl port-forward mortis-redis-XXXXXXXXXX-XXXXX 6379
-# kubectl port-forward mortis-redis-XXXXXXXXXX-XXXXX 6379
-# kubectl port-forward mortis-redis-XXXXXXXXXX-XXXXX 6379
+kubectl get pods
+
+kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 6379
+kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 6379
+kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 6379
 
 
-# kubectl exec -it mortis-redis-XXXXXXXXXX-XXXXX bash
-# kubectl exec -it mortis-redis-XXXXXXXXXX-XXXXX bash
-# kubectl exec -it mortis-redis-XXXXXXXXXX-XXXXX bash
-
-
+kubectl exec -it xxxxxxxxxxxxxxxxxxxxxxxxxxxxx bash
+kubectl exec -it xxxxxxxxxxxxxxxxxxxxxxxxxxxxx bash
+kubectl exec -it xxxxxxxxxxxxxxxxxxxxxxxxxxxxx bash
