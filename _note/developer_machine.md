@@ -215,7 +215,7 @@ curl -L https://github.com/docker/machine/releases/download/v0.10.0/docker-machi
 ### minikube kvm driver
 ```
 sudo apt-get update
-sudo apt install libvirt-bin qemu-kvm
+sudo apt-get install qemu-kvm libvirt-bin virt-manager
 
 sudo curl -L https://github.com/dhiltgen/docker-machine-kvm/releases/download/v0.7.0/docker-machine-driver-kvm -o /usr/local/bin/docker-machine-driver-kvm
 
