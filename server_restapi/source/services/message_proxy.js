@@ -16,7 +16,7 @@ module.exports = function ( )
 {
     var vm = this || {};
 
-    vm._service_name = 'message_relay';
+    vm._service_name = 'message_proxy';
 
     vm.api =
     {
