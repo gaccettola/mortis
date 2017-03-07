@@ -22,30 +22,60 @@
 
 </div>
 
-<div [style.min-height]="minHeight"
+<div [style.min-height]="nav_center_left_size"
      [fxLayout]="row" fxFlex
      class="center_area" >
 
     <div [style.width]="nav_center_left_width"
          [style.min-width]="nav_center_left_width"
-         [fxLayout]="column" class="center_left" *ngIf="show_nav_center_left"
-         (click)="on_select_nav_center_left()" >
+         [fxLayout]="column"
+         class="center_left" *ngIf="show_nav_center_left" >
 
-    </div>
+        <div [style.width]="nav_center_left_width"
+             [style.min-width]="nav_center_left_width" >
 
-    <div [fxLayout]="column" fxFlex class="center_main" >
+            <div *ngFor="let menu_item of listof_menu_item;"
+                 class="center_left_menu_item_host"
+                 [fxLayout]="row"
+                 (click)="on_select_nav_center_left ( menu_item )" >
 
-        <div [fxLayout]="row" fxFlex class="card" >
-            <div [fxLayout]="column" fxFlex >
-                <div class="check" >check check </div>
+                <div [fxLayout]="column" fxFlex class="center_left_menu_item">
+
+                    <md-icon class="center_left_menu_icon">{{ menu_item.icon }}</md-icon>
+                    {{ menu_item.name }}
+                </div>
+
             </div>
+
+            <div [fxLayout]="row" fxFlex
+                 [style.height]="nav_center_left_flex"
+                 [style.min-height]="left_height_flex" >
+            </div>
+
+            <div [fxLayout]="row"
+                 class="center_left_menu_item_host_last"
+                 (click)="on_select_nav_logout ( menu_item )" >
+
+                <div [fxLayout]="column" fxFlex class="center_left_menu_item_last">
+                    <md-icon class="center_left_menu_icon">{{ logout_menu_item.icon }}</md-icon>
+                    {{ logout_menu_item.name }}
+                </div>
+
+            </div>
+
         </div>
 
     </div>
 
+    <div [fxLayout]="column" fxFlex class="center_main" >
+        <div [fxLayout]="row" fxFlex class="card" >
+            <div [fxLayout]="column" fxFlex >
+            </div>
+        </div>
+    </div>
+
     <div [fxLayout]="column" class="center_right" *ngIf="show_nav_center_side"
          (click)="on_select_nav_center_side()" >
-
     </div>
 
 </div>
@@ -53,7 +83,6 @@
 <div [fxLayout]="row" class="page_footer" >
 
     <div fxFlex></div>
-
     <div class="page_footer_text">copy right</div>
 
 </div>

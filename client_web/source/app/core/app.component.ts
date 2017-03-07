@@ -28,14 +28,30 @@ function getWindowSize ( )
 export class AppComponent implements OnInit
 {
     name:                   string;
-    minHeight:              string;
-    private initWinHeight:  number = 0;
+    nav_center_left_size:   string;
+    nav_center_left_flex:   string;
+    private initWinHeight:  number  = 0;
 
     show_nav_center_left:   boolean = true;
-    show_nav_center_side:  boolean = true;
+    show_nav_center_side:   boolean = false;
+ // show_nav_center_side:   boolean = true;
 
-    nav_center_left_width:  string = `48px`;
-    nav_center_side_width:  string = `48px`;
+
+    nav_center_left_mini:   string  = `48px`;
+    nav_center_left_open:   string  = `280px`;
+
+
+    nav_center_left_width:  string  = this.nav_center_left_mini;
+    nav_center_side_width:  string  = this.nav_center_left_mini;
+
+    listof_menu_item:       any[]   = [];
+
+    logout_menu_item:       any     =
+    {
+        id   : -1,
+        icon : `power_settings_new`,
+        name : `logout`
+    };
 
     constructor ( )
     {
@@ -57,51 +73,99 @@ export class AppComponent implements OnInit
 
         this.initWinHeight = window.innerHeight;
 
+        this.init_listof_menu_item ( );
+
         this.resizeFn ( null );
     }
 
     on_select_page_header_menu_button ( ) : void
     {
         this.show_nav_center_left = true;
-        this.show_nav_center_side = true;
+        this.show_nav_center_side = false;
+     // this.show_nav_center_side = true;
 
         this.toggle_nav_center_left_width ( );
     }
 
-    on_select_nav_center_left ( ) : void
+    on_select_nav_center_left ( menu_item: any ) : void
     {
-        this.show_nav_center_left = false;
-        this.nav_center_left_width = `48px`;
+        // this.show_nav_center_left  = false;
+        // this.nav_center_left_width = this.nav_center_left_mini;
+
+        console.log ( menu_item.name );
     }
 
     on_select_nav_center_side ( ) : void
     {
         this.show_nav_center_side  = false;
-        this.nav_center_left_width = `48px`;
+        this.nav_center_side_width = this.nav_center_left_mini;
     }
 
     toggle_nav_center_left_width ( ) : void
     {
-        if ( `320px` === this.nav_center_left_width )
+        if ( this.nav_center_left_open === this.nav_center_left_width )
         {
-            this.nav_center_left_width = `48px`;
+            this.nav_center_left_width = this.nav_center_left_mini;
 
         } else
         {
-            this.nav_center_left_width = `320px`;
+            this.nav_center_left_width = this.nav_center_left_open;
         }
+    }
+
+    init_listof_menu_item ( ) : void
+    {
+        this.listof_menu_item.push (
+
+            {
+                id   : 1,
+                icon : `dashboard`,
+                name : `Home`
+            },
+            {
+                id   : 2,
+                icon : `mail`,
+                name : `Messages`
+            },
+            {
+                id   : 3,
+                icon : `flag`,
+                name : `Audit`
+            },
+            {
+                id   : 4,
+                icon : `settings`,
+                name : `Settings`
+            },
+
+        );
+    }
+
+    on_select_nav_logout ( ) : void
+    {
+
     }
 
     private resizeFn ( e: any )
     {
-        let winHeight: number = e ? e.target.innerHeight : this.initWinHeight;
+        let left_height_size: number = e ? e.target.innerHeight : this.initWinHeight;
 
-        winHeight -= 48;
-        winHeight -= 24;
+        left_height_size -= 48;
+        left_height_size -= 24;
 
-        if ( 1 > winHeight ) winHeight = 240;
+        if ( 1 > left_height_size ) left_height_size = 240;
 
-        this.minHeight = `${winHeight}px`;
+        this.nav_center_left_size = `${left_height_size}px`;
+
+        let left_height_flex = left_height_size;
+
+        left_height_flex -= 48;
+        left_height_flex -= 48;
+        left_height_flex -= 48;
+        left_height_flex -= 48;
+        left_height_flex -= 48;
+
+        this.nav_center_left_flex = `${left_height_flex}px`;
     }
 
 }
