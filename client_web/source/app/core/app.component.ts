@@ -17,7 +17,8 @@ function getWindowSize ( )
     return retval;
 }
 
-@Component ( {
+@Component (
+{
     moduleId        : module.id,
     selector        : 'app-root',
     templateUrl     : 'app.component.html',
@@ -31,7 +32,10 @@ export class AppComponent implements OnInit
     private initWinHeight:  number = 0;
 
     show_nav_center_left:   boolean = true;
-    show_nav_center_right:  boolean = true;
+    show_nav_center_side:  boolean = true;
+
+    nav_center_left_width:  string = `48px`;
+    nav_center_side_width:  string = `48px`;
 
     constructor ( )
     {
@@ -58,18 +62,34 @@ export class AppComponent implements OnInit
 
     on_select_page_header_menu_button ( ) : void
     {
-        this.show_nav_center_left  = true;
-        this.show_nav_center_right = true;
+        this.show_nav_center_left = true;
+        this.show_nav_center_side = true;
+
+        this.toggle_nav_center_left_width ( );
     }
 
     on_select_nav_center_left ( ) : void
     {
         this.show_nav_center_left = false;
+        this.nav_center_left_width = `48px`;
     }
 
-    on_select_nav_center_right ( ) : void
+    on_select_nav_center_side ( ) : void
     {
-        this.show_nav_center_right = false;
+        this.show_nav_center_side  = false;
+        this.nav_center_left_width = `48px`;
+    }
+
+    toggle_nav_center_left_width ( ) : void
+    {
+        if ( `320px` === this.nav_center_left_width )
+        {
+            this.nav_center_left_width = `48px`;
+
+        } else
+        {
+            this.nav_center_left_width = `320px`;
+        }
     }
 
     private resizeFn ( e: any )

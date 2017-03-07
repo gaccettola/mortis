@@ -26,7 +26,9 @@
      [fxLayout]="row" fxFlex
      class="center_area" >
 
-    <div [fxLayout]="column" class="center_left" *ngIf="show_nav_center_left"
+    <div [style.width]="nav_center_left_width"
+         [style.min-width]="nav_center_left_width"
+         [fxLayout]="column" class="center_left" *ngIf="show_nav_center_left"
          (click)="on_select_nav_center_left()" >
 
     </div>
@@ -41,8 +43,8 @@
 
     </div>
 
-    <div [fxLayout]="column" class="center_right" *ngIf="show_nav_center_right"
-         (click)="on_select_nav_center_right()" >
+    <div [fxLayout]="column" class="center_right" *ngIf="show_nav_center_side"
+         (click)="on_select_nav_center_side()" >
 
     </div>
 
