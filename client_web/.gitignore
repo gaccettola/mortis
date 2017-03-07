@@ -1,0 +1,13 @@
+.idea
+node_modules
+jspm_packages
+npm-debug.log
+debug.log
+source/**/*.js
+!source/systemjs.config.extras.js
+!source/systemjs.config.js
+*.js.map
+e2e/**/*.js
+e2e/**/*.js.map
+_test-output
+_temp

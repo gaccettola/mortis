@@ -32,7 +32,7 @@
         } );
     }
 
-    appRun.$inject = ["$ionicPlatform"];
+    appRun.$inject = [ $ionicPlatform ];
 
     /* @ngInject */
     function appConfig ( $urlRouterProvider )
@@ -40,6 +40,6 @@
         $urlRouterProvider.otherwise ( '/app/playlists' )
     }
 
-    appConfig.$inject = [ "$urlRouterProvider" ];
+    appConfig.$inject = [ $urlRouterProvider ];
 
 } ( ) );

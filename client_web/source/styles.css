@@ -1,0 +1,10 @@
+@import "../node_modules/ng2-flex-layout/dist/ng2-flex-layout.css";
+
+html, body {
+    height: 100%;
+    margin:0; padding:0;
+    overflow-y: hidden;
+
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
