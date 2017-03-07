@@ -30,7 +30,6 @@ npm install --save hammerjs
 #### install hammerjs
 ```
 npm install --save @angular/flex-layout
-npm install --save ng2-flex-layout
 ```
 
 #### import hammerjs in app.module.ts
