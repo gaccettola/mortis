@@ -26,11 +26,12 @@ function getWindowSize ( )
 } )
 export class AppComponent implements OnInit
 {
-    navOpen:                boolean;
+    name:                   string;
     minHeight:              string;
     private initWinHeight:  number = 0;
 
-    name:                   string;
+    show_nav_center_left:   boolean = true;
+    show_nav_center_right:  boolean = true;
 
     constructor ( )
     {
@@ -53,12 +54,22 @@ export class AppComponent implements OnInit
         this.initWinHeight = window.innerHeight;
 
         this.resizeFn ( null );
-
     }
 
-    navToggleHandler ( e: boolean )
+    on_select_page_header_menu_button ( ) : void
     {
-        this.navOpen = e;
+        this.show_nav_center_left  = true;
+        this.show_nav_center_right = true;
+    }
+
+    on_select_nav_center_left ( ) : void
+    {
+        this.show_nav_center_left = false;
+    }
+
+    on_select_nav_center_right ( ) : void
+    {
+        this.show_nav_center_right = false;
     }
 
     private resizeFn ( e: any )

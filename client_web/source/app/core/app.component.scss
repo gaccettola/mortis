@@ -7,12 +7,27 @@
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-.page_header_nav_text {
+.page_header_nav_icon {
+  margin-top: 11px;
+  margin-left: 2px;
+
+  color: rebeccapurple;
+}
+
+.page_header_menu_button {
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.page_header_nav_title {
   font-size: 15px;
   margin-top: 13px;
   margin-left: 18px;
   color: rebeccapurple;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .center_area {
@@ -50,12 +65,6 @@
   font-size: 13px;
   margin-top: 4px;
   margin-right: 8px;
-  color: rebeccapurple;
-  text-transform: uppercase;
-}
-
-.titleButtonText {
-  font-size: 15px;
   color: rebeccapurple;
   text-transform: uppercase;
 }
