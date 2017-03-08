@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit
 
     ngOnInit ( ) : void
     {
-        this.subscription = this.layoutService.observe_content_height().subscribe (
+        this.subscription = this.layoutService.observe_content_height ( ).subscribe (
 
             value => { this.resizeFn ( ); }
 
