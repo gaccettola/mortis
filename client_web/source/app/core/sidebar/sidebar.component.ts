@@ -80,11 +80,17 @@ export class SidebarComponent implements OnInit, OnChanges
     {
         let adjusted_height = this.layoutService.get_current_height ( );
 
-        adjusted_height -= 48;  // minus the dashboard
-        adjusted_height -= 48;  // minus the messages
-        adjusted_height -= 48;  // minus the flag
-        adjusted_height -= 48;  // minus the settings
-        adjusted_height -= 48;  // minus the logout / power
+        let adjust_for_menu = this.routeService.get_menu_item_count ( );
+
+        adjust_for_menu *= 48;
+
+        // adjusted_height -= 48;  // minus the dashboard
+        // adjusted_height -= 48;  // minus the messages
+        // adjusted_height -= 48;  // minus the flag
+        // adjusted_height -= 48;  // minus the settings
+        // adjusted_height -= 48;  // minus the logout / power
+
+        adjusted_height -= adjust_for_menu;
 
         this.sidebar_height_flex = `${adjusted_height}px`;
     }

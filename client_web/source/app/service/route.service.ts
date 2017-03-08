@@ -57,6 +57,15 @@ export class RouteService
         };
     }
 
+    get_menu_item_count ( ) : number
+    {
+        let retval = 1; // there is always a logoff
+
+        retval += this.get_listof_menu_item ( ).length;
+
+        return retval;
+    }
+
     transition_to ( route_url : any ) : void
     {
         if ( ! route_url )

@@ -54,7 +54,7 @@ export class LayoutService
         adjusted_height -= 48;  // minus the header
         adjusted_height -= 24;  // minus the footer
 
-        if ( 1 > adjusted_height ) adjusted_height = 240;
+        if ( 0 > adjusted_height ) adjusted_height = 240;
 
         this.current_height = adjusted_height;
 
