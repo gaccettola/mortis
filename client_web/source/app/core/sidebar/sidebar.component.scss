@@ -9,6 +9,8 @@
   height: 48px;
   width: 100%;
   border-bottom: 1px solid rgba(102, 51, 153, 0.1);
+
+  overflow: hidden;
 }
 
 .center_left_menu_item_host_last {
@@ -16,6 +18,8 @@
   width: 100%;
   border-top: 1px solid rgba(102, 51, 153, 0.1);
   background-color: rgba(102, 51, 153, 0.1);
+
+  overflow: hidden;
 }
 
 .center_left_menu_icon {

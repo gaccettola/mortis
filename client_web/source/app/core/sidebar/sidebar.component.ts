@@ -1,42 +1,25 @@
 
-import { Component, ViewEncapsulation, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
+import { SimpleChanges }    from '@angular/core';
+import { Subscription }     from 'rxjs/Subscription';
 
-import { Observable }       from "rxjs/Observable";
-import { BehaviorSubject }  from "rxjs/Rx";
-
-import { SidebarService } from './sidebar.service';
-
-const windowSize$ = new BehaviorSubject( getWindowSize() );
-
-function getWindowSize ( )
-{
-    let retval =
-    {
-        height : window.innerHeight,
-        width  : window.innerWidth
-    };
-
-    return retval;
-}
+import { LayoutService  }   from '../../service/layout.service';
+import { SidebarService }   from './sidebar.service';
 
 @Component (
 {
     moduleId        : module.id,
     selector        : 'app-sidebar',
     templateUrl     : 'sidebar.component.html',
-    styleUrls       : ['sidebar.component.scss'],
-    encapsulation   : ViewEncapsulation.None,
+    styleUrls       : ['sidebar.component.scss']
 } )
 export class SidebarComponent implements OnInit, OnChanges
 {
      @Input() isMenuOpen:   boolean;
      @Output() onMenuItem   = new EventEmitter ( );
 
-    nav_center_left_size:   string;
-    nav_center_left_flex:   string;
-    initWinHeight:          number  = 0;
+    sidebar_height_flex:    string;
 
     nav_center_left_mini:   string  = `48px`;
     nav_center_left_open:   string  = `280px`;
@@ -47,7 +30,10 @@ export class SidebarComponent implements OnInit, OnChanges
 
     logout_menu_item:       any     = {};
 
-    constructor ( private sidebarService: SidebarService )
+    subscription:           Subscription;
+
+    constructor ( private sidebarService : SidebarService,
+                  private layoutService  : LayoutService  )
     {
     }
 
@@ -65,19 +51,13 @@ export class SidebarComponent implements OnInit, OnChanges
 
     ngOnInit ( )
     {
-        Observable
-            .fromEvent ( window, 'resize' )
-            .debounceTime ( 200 )
-            .subscribe( ( event ) =>
-            {
-                this.resizeFn ( event );
-            } );
-
-        this.initWinHeight = window.innerHeight;
-
         this.init_listof_menu_item ( );
 
-        this.resizeFn ( null );
+        this.subscription = this.layoutService.get_content().subscribe (
+
+            value => { this.resizeFn ( ); }
+
+        );
     }
 
     init_listof_menu_item ( ) : void
@@ -92,26 +72,17 @@ export class SidebarComponent implements OnInit, OnChanges
         this.onMenuItem.emit ( menu_item );
     }
 
-    private resizeFn ( e: any )
+    private resizeFn ( )
     {
-        let left_height_size: number = e ? e.target.innerHeight : this.initWinHeight;
+        let adjusted_height = this.layoutService.get_current_height ( );
 
-        left_height_size -= 48; // minus the top nav
-        left_height_size -= 24; // minus the footer
+        adjusted_height -= 48;  // minus the dashboard
+        adjusted_height -= 48;  // minus the messages
+        adjusted_height -= 48;  // minus the flag
+        adjusted_height -= 48;  // minus the settings
+        adjusted_height -= 48;  // minus the logout / power
 
-        if ( 1 > left_height_size ) left_height_size = 240;
-
-        this.nav_center_left_size = `${left_height_size}px`;
-
-        let left_height_flex = left_height_size;
-
-        left_height_flex -= 48; // minus the dashboard
-        left_height_flex -= 48; // minus the messages
-        left_height_flex -= 48; // minus the flag
-        left_height_flex -= 48; // minus the settings
-        left_height_flex -= 48; // minus the logout / power
-
-        this.nav_center_left_flex = `${left_height_flex}px`;
+        this.sidebar_height_flex = `${adjusted_height}px`;
     }
 
 }
