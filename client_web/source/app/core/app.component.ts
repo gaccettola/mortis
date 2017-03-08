@@ -10,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 } )
 export class AppComponent implements OnInit
 {
-    isMenuOpen:  boolean = false;
+    isMenuOpen:         boolean = false;
+
+    isMenuAutoClose:    boolean = true;     // TODO: move to SettingService
+    menuAutoCloseMs:    number  = 100;      // TODO: move to SettingService
 
     constructor ( )
     {
@@ -27,7 +30,10 @@ export class AppComponent implements OnInit
 
     on_event_select_sidebar_menu_item ( menu_item: any ) : void
     {
-        console.log ( menu_item.name );
+        if ( true === this.isMenuOpen && this.isMenuAutoClose )
+        {
+            setTimeout( () => { this.isMenuOpen = false; }, this.menuAutoCloseMs );
+        }
     }
 
 }
