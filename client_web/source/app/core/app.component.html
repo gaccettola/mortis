@@ -1,26 +1,5 @@
 
-
-<div [fxLayout]="row" class="page_header_nav" >
-
-    <div class="page_header_menu_button"
-         (click)="on_select_page_header_menu_button()" >
-
-        <md-icon class="page_header_nav_icon">menu</md-icon>
-
-    </div>
-
-    <div fxFlex></div>
-
-    <div class="page_header_nav_title" >{{name}}</div>
-
-    <div fxFlex></div>
-
-    <div class="page_header_menu_button">
-        <!--<md-icon class="page_header_nav_icon">power_settings_new</md-icon>-->
-        <!--<md-icon class="page_header_nav_icon">power_settings_new</md-icon>-->
-    </div>
-
-</div>
+<app-header (navToggled)="on_event_toggle_nav($event)"></app-header>
 
 <div [style.min-height]="nav_center_left_size"
      [fxLayout]="row" fxFlex
@@ -86,9 +65,4 @@
 
 </div>
 
-<div [fxLayout]="row" class="page_footer" >
-
-    <div fxFlex></div>
-    <div class="page_footer_text">copy right</div>
-
-</div>
+<app-footer></app-footer>

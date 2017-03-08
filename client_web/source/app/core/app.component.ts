@@ -78,11 +78,10 @@ export class AppComponent implements OnInit
         this.resizeFn ( null );
     }
 
-    on_select_page_header_menu_button ( ) : void
+    on_event_toggle_nav ( nav_event: any ) : void
     {
         this.show_nav_center_left = true;
         this.show_nav_center_side = false;
-     // this.show_nav_center_side = true;
 
         this.toggle_nav_center_left_width ( );
     }

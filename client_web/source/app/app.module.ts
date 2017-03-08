@@ -7,11 +7,27 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import 'hammerjs';
 
-import { AppComponent }   from './core/app.component';
+import { AppComponent }     from './core/app.component';
+import { HeaderComponent }  from './core/header/header.component';
+import { FooterComponent }  from './core/footer/footer.component';
 
 @NgModule( {
-    imports:      [ BrowserModule, FormsModule, MaterialModule, FlexLayoutModule ],
-    declarations: [ AppComponent ],
-    bootstrap:    [ AppComponent ]
+    imports      :
+    [
+        BrowserModule,
+        FormsModule,
+        MaterialModule,
+        FlexLayoutModule
+    ],
+    declarations :
+    [
+        AppComponent,
+        HeaderComponent,
+        FooterComponent,
+    ],
+    bootstrap    :
+    [
+        AppComponent
+    ]
 } )
 export class AppModule { }
