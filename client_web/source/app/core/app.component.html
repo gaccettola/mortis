@@ -1,31 +1,25 @@
 
-<app-header (navToggled)="on_event_toggle_sidebar_menu($event)"></app-header>
+<div class="layout-overflow" >
 
-<div [style.min-height]="nav_center_left_size"
-     [fxLayout]="row" fxFlex
-     class="center_area" >
+    <div class="layout-canvas">
 
-    <app-sidebar [(isMenuOpen)]="isMenuOpen"
-                 (onMenuItem)="on_event_select_sidebar_menu_item($event)">
-    </app-sidebar>
+        <app-header (navToggled)="on_event_toggle_sidebar_menu($event)"></app-header>
 
-    <div [fxLayout]="column" fxFlex class="center_main" >
+        <div [fxLayout]="row" fxFlex class="app-thing" >
 
-        <!--route content goes here-->
+            <app-sidebar [(isMenuOpen)]="isMenuOpen"
+                         (onMenuItem)="on_event_select_sidebar_menu_item($event)">
+            </app-sidebar>
 
-        <div [fxLayout]="row" fxFlex class="card" >
-            <div [fxLayout]="column" fxFlex >
-
-                <!--card as sample content -->
-
+            <div class="layout-view">
+                <router-outlet></router-outlet>
             </div>
-        </div>
-    </div>
 
-    <!--<div [fxLayout]="column" class="center_right" *ngIf="show_nav_center_side"-->
-         <!--(click)="on_select_nav_center_side()" >-->
-    <!--</div>-->
+        </div>
+
+        <app-footer></app-footer>
+
+    </div>
 
 </div>
 
-<app-footer></app-footer>

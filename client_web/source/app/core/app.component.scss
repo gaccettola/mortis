@@ -1,32 +1,13 @@
 
-.center_area {
-  min-height: 256px;
+.app-thing {
+  display:block;
 }
 
-.center_main {
-  background-color: #fcfcfc;
-  overflow-y: hidden;
+.layout-overflow {
+
 }
 
-.center_right {
-  width: 48px;
-  background-color: grey;
-}
 
-.card {
-  background: #fff;
-  border-radius: 2px;
-  display: inline-block;
-  margin: 8px;
-  position: relative;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
+.layout-canvas {
 
-.check {
-  color: rebeccapurple;
-
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 15px;
-
-  text-transform: uppercase;
 }
