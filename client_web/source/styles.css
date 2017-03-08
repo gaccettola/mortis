@@ -8,3 +8,17 @@ html, body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.layout-overflow {
+    overflow: hidden;
+}
+
+.layout-canvas {
+    backface-visibility: hidden;
+    position: relative;
+    left: 0;
+    width: 100%;
+}
+
+.layout-view {
+    width: 100%;
+}
