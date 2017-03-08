@@ -32,6 +32,16 @@ export class LayoutService
         this.resizeFn ( null );
     }
 
+    get_height_header ( ) : number
+    {
+        return 48;
+    }
+
+    get_height_footer ( ) : number
+    {
+        return 24;
+    }
+
     get_content_height ( ) : string
     {
         return this.content_height;
@@ -51,8 +61,8 @@ export class LayoutService
     {
         let adjusted_height: number = e ? e.target.innerHeight : this.current_height;
 
-        adjusted_height -= 48;  // minus the header
-        adjusted_height -= 24;  // minus the footer
+        adjusted_height -= this.get_height_header ( );
+        adjusted_height -= this.get_height_footer ( );
 
         if ( 0 > adjusted_height ) adjusted_height = 240;
 
