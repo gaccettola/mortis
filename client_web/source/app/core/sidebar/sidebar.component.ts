@@ -3,11 +3,11 @@ import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angu
 
 import { Router, ActivatedRoute }   from '@angular/router';
 
-import { SimpleChanges }            from '@angular/core';
-import { Subscription }             from 'rxjs/Subscription';
+import { SimpleChanges }    from '@angular/core';
+import { Subscription }     from 'rxjs/Subscription';
 
-import { LayoutService  }           from '../../service/layout.service';
-import { SidebarService }           from './sidebar.service';
+import { LayoutService  }   from '../../service/layout.service';
+import { RouteService  }    from '../../service/route.service';
 
 @Component (
 {
@@ -34,8 +34,7 @@ export class SidebarComponent implements OnInit, OnChanges
 
     subscription:           Subscription;
 
-    constructor ( private router         : Router,
-                  private sidebarService : SidebarService,
+    constructor ( private routeService   : RouteService,
                   private layoutService  : LayoutService )
     {
     }
@@ -65,16 +64,16 @@ export class SidebarComponent implements OnInit, OnChanges
 
     init_listof_menu_item ( ) : void
     {
-        this.listof_menu_item = this.sidebarService.get_listof_menu_item ( );
+        this.listof_menu_item = this.routeService.get_listof_menu_item ( );
 
-        this.logout_menu_item = this.sidebarService.get_menu_item_logoff ( );
+        this.logout_menu_item = this.routeService.get_menu_item_logoff ( );
     }
 
     on_select_sidebar_menu_item ( menu_item: any ) : void
     {
         this.onMenuItem.emit ( menu_item );
 
-        this.sidebarService.transition_to ( menu_item );
+        this.routeService.transition_to ( menu_item );
     }
 
     private resizeFn ( )
