@@ -12,13 +12,11 @@ export class HeaderComponent implements OnInit
 {
     @Output() navToggled = new EventEmitter ( );
 
-    name    : string = '';
-
+    name    : string  = '';
     navOpen : boolean = false;
 
     constructor ( )
     {
-
     }
 
     ngOnInit ( )

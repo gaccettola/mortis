@@ -1,50 +1,13 @@
 
-<app-header (navToggled)="on_event_toggle_nav($event)"></app-header>
+<app-header (navToggled)="on_event_toggle_sidebar_menu($event)"></app-header>
 
 <div [style.min-height]="nav_center_left_size"
      [fxLayout]="row" fxFlex
      class="center_area" >
 
-    <div [style.width]="nav_center_left_width"
-         [style.min-width]="nav_center_left_width"
-         [fxLayout]="column"
-         class="center_left" *ngIf="show_nav_center_left" >
-
-        <div [style.width]="nav_center_left_width"
-             [style.min-width]="nav_center_left_width" >
-
-            <div *ngFor="let menu_item of listof_menu_item;"
-                 class="center_left_menu_item_host"
-                 [fxLayout]="row"
-                 (click)="on_select_nav_center_left ( menu_item )" >
-
-                <div [fxLayout]="column" fxFlex class="center_left_menu_item">
-
-                    <md-icon class="center_left_menu_icon">{{ menu_item.icon }}</md-icon>
-                    {{ menu_item.name }}
-                </div>
-
-            </div>
-
-            <div [fxLayout]="row" fxFlex
-                 [style.height]="nav_center_left_flex"
-                 [style.min-height]="left_height_flex" >
-            </div>
-
-            <div [fxLayout]="row"
-                 class="center_left_menu_item_host_last"
-                 (click)="on_select_nav_logout ( logout_menu_item )" >
-
-                <div [fxLayout]="column" fxFlex class="center_left_menu_item_last">
-                    <md-icon class="center_left_menu_icon">{{ logout_menu_item.icon }}</md-icon>
-                    {{ logout_menu_item.name }}
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+    <app-sidebar [isMenuOpen]="isMenuOpen"
+                 (onMenuItem)="on_event_select_sidebar_menu_item($event)">
+    </app-sidebar>
 
     <div [fxLayout]="column" fxFlex class="center_main" >
 
@@ -59,9 +22,9 @@
         </div>
     </div>
 
-    <div [fxLayout]="column" class="center_right" *ngIf="show_nav_center_side"
-         (click)="on_select_nav_center_side()" >
-    </div>
+    <!--<div [fxLayout]="column" class="center_right" *ngIf="show_nav_center_side"-->
+         <!--(click)="on_select_nav_center_side()" >-->
+    <!--</div>-->
 
 </div>
 
