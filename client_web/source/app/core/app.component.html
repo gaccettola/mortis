@@ -54,7 +54,7 @@
 
             <div [fxLayout]="row"
                  class="center_left_menu_item_host_last"
-                 (click)="on_select_nav_logout ( menu_item )" >
+                 (click)="on_select_nav_logout ( logout_menu_item )" >
 
                 <div [fxLayout]="column" fxFlex class="center_left_menu_item_last">
                     <md-icon class="center_left_menu_icon">{{ logout_menu_item.icon }}</md-icon>
@@ -68,8 +68,14 @@
     </div>
 
     <div [fxLayout]="column" fxFlex class="center_main" >
+
+        <!--route content goes here-->
+
         <div [fxLayout]="row" fxFlex class="card" >
             <div [fxLayout]="column" fxFlex >
+
+                <!--card as sample content -->
+
             </div>
         </div>
     </div>

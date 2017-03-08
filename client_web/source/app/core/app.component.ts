@@ -141,17 +141,17 @@ export class AppComponent implements OnInit
         );
     }
 
-    on_select_nav_logout ( ) : void
+    on_select_nav_logout ( menu_item: any ) : void
     {
-
+        console.log ( menu_item.name );
     }
 
     private resizeFn ( e: any )
     {
         let left_height_size: number = e ? e.target.innerHeight : this.initWinHeight;
 
-        left_height_size -= 48;
-        left_height_size -= 24;
+        left_height_size -= 48; // minus the top nav
+        left_height_size -= 24; // minus the footer
 
         if ( 1 > left_height_size ) left_height_size = 240;
 
@@ -159,11 +159,11 @@ export class AppComponent implements OnInit
 
         let left_height_flex = left_height_size;
 
-        left_height_flex -= 48;
-        left_height_flex -= 48;
-        left_height_flex -= 48;
-        left_height_flex -= 48;
-        left_height_flex -= 48;
+        left_height_flex -= 48; // minus the dashboard
+        left_height_flex -= 48; // minus the messages
+        left_height_flex -= 48; // minus the flag
+        left_height_flex -= 48; // minus the settings
+        left_height_flex -= 48; // minus the logout / power
 
         this.nav_center_left_flex = `${left_height_flex}px`;
     }
