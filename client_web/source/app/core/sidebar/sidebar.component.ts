@@ -1,11 +1,13 @@
 
 import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { SimpleChanges }    from '@angular/core';
-import { Subscription }     from 'rxjs/Subscription';
+import { Router, ActivatedRoute }   from '@angular/router';
 
-import { LayoutService  }   from '../../service/layout.service';
-import { SidebarService }   from './sidebar.service';
+import { SimpleChanges }            from '@angular/core';
+import { Subscription }             from 'rxjs/Subscription';
+
+import { LayoutService  }           from '../../service/layout.service';
+import { SidebarService }           from './sidebar.service';
 
 @Component (
 {
@@ -32,8 +34,9 @@ export class SidebarComponent implements OnInit, OnChanges
 
     subscription:           Subscription;
 
-    constructor ( private sidebarService : SidebarService,
-                  private layoutService  : LayoutService  )
+    constructor ( private router         : Router,
+                  private sidebarService : SidebarService,
+                  private layoutService  : LayoutService )
     {
     }
 
@@ -70,6 +73,8 @@ export class SidebarComponent implements OnInit, OnChanges
     on_select_sidebar_menu_item ( menu_item: any ) : void
     {
         this.onMenuItem.emit ( menu_item );
+
+        this.sidebarService.transition_to ( menu_item );
     }
 
     private resizeFn ( )

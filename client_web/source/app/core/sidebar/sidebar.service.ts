@@ -1,5 +1,6 @@
-import { Injectable }       from '@angular/core';
-import { Observable }       from 'rxjs/Rx';
+import { Injectable }               from '@angular/core';
+import { Router, ActivatedRoute }   from '@angular/router';
+import { Observable }               from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -9,7 +10,8 @@ export class SidebarService
 {
     listof_menu_item:       any[]   = [];
 
-    constructor ( )
+    constructor ( private router  : Router,
+                  private current : ActivatedRoute )
     {
     }
 
@@ -22,21 +24,25 @@ export class SidebarService
             {
                 id   : 1,
                 icon : `dashboard`,
+                href : `/dashboard`,
                 name : `Home`
             },
             {
                 id   : 2,
                 icon : `mail`,
+                href : `/mail`,
                 name : `Messages`
             },
             {
                 id   : 3,
                 icon : `flag`,
+                href : `/flag`,
                 name : `Audit`
             },
             {
                 id   : 4,
                 icon : `settings`,
+                href : `/settings`,
                 name : `Settings`
             },
 
@@ -50,8 +56,48 @@ export class SidebarService
         return {
             id   : -1,
             icon : `power_settings_new`,
+            href : `/logout`,
             name : `logout`
         };
     }
 
+    transition_to ( route_url : any ) : void
+    {
+        if ( ! route_url )
+            return;
+
+
+        if ( ! route_url.href )
+            return;
+
+
+        // if `logout` is the request
+        // then go do the logout thing(s)
+        if ( `/logout` === route_url.href )
+        {
+            console.log ( `do the logout thing` );
+
+            return;
+        }
+
+        // if we get a request to go to the same route
+        // then go fish
+        if ( this.router.url === route_url.href )
+        {
+            console.log ( `skipping the route thing` );
+
+            return;
+        }
+
+        // if we`re on the default route and are
+        // requested to go to the default route.  go fish
+        if ( `/` === this.router.url && `/dashboard` === route_url.href )
+        {
+            console.log ( `skipping the route thing, electric boogaloo` );
+
+            return;
+        }
+
+        this.router.navigateByUrl ( route_url.href, { skipLocationChange: true } );
+    }
 }
