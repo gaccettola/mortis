@@ -20,14 +20,9 @@ export class AppComponent implements OnInit
     {
     }
 
-    toggle_nav_center_left_width ( ) : void
-    {
-        this.isMenuOpen = !this.isMenuOpen;
-    }
-
     on_event_toggle_sidebar_menu  ( nav_event: any ) : void
     {
-        this.toggle_nav_center_left_width ( );
+        this.isMenuOpen = !this.isMenuOpen;
     }
 
     on_event_select_sidebar_menu_item ( menu_item: any ) : void

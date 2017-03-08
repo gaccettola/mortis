@@ -5,7 +5,7 @@
      [fxLayout]="row" fxFlex
      class="center_area" >
 
-    <app-sidebar [isMenuOpen]="isMenuOpen"
+    <app-sidebar [(isMenuOpen)]="isMenuOpen"
                  (onMenuItem)="on_event_select_sidebar_menu_item($event)">
     </app-sidebar>
 
