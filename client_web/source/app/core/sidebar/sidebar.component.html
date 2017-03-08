@@ -2,7 +2,8 @@
 <div [fxLayout]="column" class="center_left" >
 
     <div [style.width]="nav_center_left_width"
-         [style.min-width]="nav_center_left_width" >
+         [style.min-width]="nav_center_left_width"
+         class="sidebar-list" >
 
         <div *ngFor="let menu_item of listof_menu_item;"
              class="center_left_menu_item_host"
@@ -12,7 +13,9 @@
             <div [fxLayout]="column" fxFlex class="center_left_menu_item">
 
                 <md-icon class="center_left_menu_icon">{{ menu_item.icon }}</md-icon>
-                {{ menu_item.name }}
+                <div [ngClass]="{'hide-text': !isMenuOpen}">{{ menu_item.name }}</div>
+
+
             </div>
 
         </div>
@@ -28,7 +31,8 @@
 
             <div [fxLayout]="column" fxFlex class="center_left_menu_item_last">
                 <md-icon class="center_left_menu_icon">{{ logout_menu_item.icon }}</md-icon>
-                {{ logout_menu_item.name }}
+                <div [ngClass]="{'hide-text': !isMenuOpen}">{{ logout_menu_item.name }}</div>
+
             </div>
 
         </div>
