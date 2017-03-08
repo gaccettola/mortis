@@ -55,7 +55,7 @@ export class SidebarComponent implements OnInit, OnChanges
     {
         this.init_listof_menu_item ( );
 
-        this.subscription = this.layoutService.get_content().subscribe (
+        this.subscription = this.layoutService.observe_content_height ( ).subscribe (
 
             value => { this.resizeFn ( ); }
 

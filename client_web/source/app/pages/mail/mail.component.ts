@@ -21,7 +21,7 @@ export class MailComponent implements OnInit
 
     ngOnInit ( ) : void
     {
-        this.subscription = this.layoutService.get_content().subscribe (
+        this.subscription = this.layoutService.observe_content_height().subscribe (
 
             value => { this.resizeFn ( ); }
 

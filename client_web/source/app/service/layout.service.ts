@@ -42,7 +42,7 @@ export class LayoutService
         return this.current_height;
     }
 
-    get_content ( ) : Observable<number>
+    observe_content_height ( ) : Observable<number>
     {
         return this.content.asObservable();
     }

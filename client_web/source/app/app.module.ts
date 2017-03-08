@@ -8,8 +8,11 @@ import { FlexLayoutModule }     from '@angular/flex-layout';
 import 'hammerjs';
 
 import { AppRouting }           from './core/app.routing';
+
+
+import { RouteService }         from './service/route.service';
 import { LayoutService }        from './service/layout.service';
-import { SidebarService }       from './core/sidebar/sidebar.service';
+
 
 import { AppComponent }         from './core/app.component';
 import { HeaderComponent }      from './core/header/header.component';
@@ -35,21 +38,21 @@ import { SettingsComponent }    from './pages/settings/settings.component';
     ,   MailComponent
     ,   FlagComponent
     ,   SettingsComponent
-    ]
-,   imports         :
+    ],
+    imports         :
     [
         BrowserModule
     ,   FormsModule
     ,   MaterialModule
     ,   FlexLayoutModule
     ,   AppRouting
-    ]
-,   providers       :
+    ],
+    providers       :
     [
-        LayoutService
-    ,   SidebarService
-    ]
-,   bootstrap       :
+        RouteService
+    ,   LayoutService
+    ],
+    bootstrap       :
     [
         AppComponent
     ]
