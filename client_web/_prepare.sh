@@ -18,4 +18,6 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 echo preparing client_web,
 
-npm i && npm start
+npm i
+
+# npm start
