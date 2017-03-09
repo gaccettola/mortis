@@ -37,7 +37,7 @@
   ./_prepare.sh
 ```
 
-##### start the desktop client, from ./mortis/client_desktop/debug either 
+##### start the desktop client, from ./mortis/client_desktop/debug 
 ```
   node ./gulp/start
 ```
