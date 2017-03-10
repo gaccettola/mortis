@@ -30,8 +30,4 @@ cd ../debug
 
 npm install
 
-bower install
-
-gulp
-
 cd ..
