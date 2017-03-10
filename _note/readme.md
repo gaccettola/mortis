@@ -26,3 +26,7 @@
 
 ### other tools available to open source projects
 https://github.com/velikanov/opensource-candies
+
+### jetbrains / webstorm setup for typings && typescript
+https://memz.co/typescript-nodejs-development/
+https://memz.co/typescript-nodejs-intellij-idea-webstorm/

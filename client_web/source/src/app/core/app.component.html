@@ -1,0 +1,24 @@
+
+<div class="layout-overflow" >
+
+  <div class="layout-canvas">
+
+    <app-header (navToggled)="on_event_toggle_sidebar_menu($event)"></app-header>
+
+    <div [fxLayout]="row" fxFlex class="app-thing" >
+
+      <app-sidebar [(isMenuOpen)]="isMenuOpen"
+                   (onMenuItem)="on_event_select_sidebar_menu_item($event)">
+      </app-sidebar>
+
+      <div class="layout-view">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+
+    <app-footer></app-footer>
+
+  </div>
+
+</div>
