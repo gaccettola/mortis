@@ -149,28 +149,28 @@ cd appium
 
 ```
 
-### list the android sdk available, pull API 19 ( ~90% of the android market )
+### list the android sdk available, pull API 21 ( ~ 65% of the android market ) ( recommended )
 ```
 android list sdk --all
 
-# 39- SDK Platform Android 4.4.2, API 19, revision 4
-# 97- ARM EABI v7a System Image, Android API 19, revision 5
-# 98- Intel x86 Atom System Image, Android API 19, revision 5
-# 99- Google APIs ARM EABI v7a System Image, Android API 19, revision 27
-# 100- Google APIs Intel x86 Atom System Image, Android API 19, revision 27
-# 155- Sources for Android SDK, API 19, revision 2
+#  37- SDK Platform Android 5.0.1, API 21, revision 2
+#  92- ARM EABI v7a System Image, Android API 21, revision 4
+#  93- Intel x86 Atom_64 System Image, Android API 21, revision 4
+#  94- Intel x86 Atom System Image, Android API 21, revision 4
+#  95- Google APIs ARM EABI v7a System Image, Android API 21, revision 19
+#  96- Google APIs Intel x86 Atom_64 System Image, Android API 21, revision 19
+#  97- Google APIs Intel x86 Atom System Image, Android API 21, revision 19
+# 129- Google APIs, Android API 21, revision 1
+# 154- Sources for Android SDK, API 21, revision 1
 
-
-android update sdk -u -a -t 39
-android update sdk -u -a -t 97
-android update sdk -u -a -t 98
-android update sdk -u -a -t 99
-android update sdk -u -a -t 100
-android update sdk -u -a -t 155
+android update sdk -u -a -t 37,92,93,94,95,96,97,129,154
 
 ```
 
+
+
 ### verify install and create avd
+
 ```
 appium-doctor --android
 
