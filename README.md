@@ -16,6 +16,6 @@ Aimed at building a complete solution with :
  - scripts for releasing to gcloud
 
 Complete. Everything a small development studio could need to start a project <br>
-targetting Web, iOS, Android, Windows, OSX, and Linux.   
+targeting Web, iOS, Android, Windows, OSX, and Linux.   
 
 Build with heavy code re-use, Sass, shared modules, OAuth2 security, iptable driven firewalls,.. <br>all the things. 
