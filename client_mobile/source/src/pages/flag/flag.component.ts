@@ -5,16 +5,17 @@ import { App }          from 'ionic-angular';
 
 @Component (
 {
-    selector    : 'dashboard'
-,   templateUrl : 'dashboard.component.html'
+    selector    : 'flag'
+,   templateUrl : 'flag.component.html'
 } )
-export class DashboardComponent
+export class FlagComponent
 {
-    title           : string    = 'dashboard';
+    title           : string    = 'flag';
 
     listof_thing    : any       =
     [
         { name : 'a' }
+    ,   { name : 'a' }
     ];
 
     constructor ( public app : App )

@@ -6,14 +6,17 @@ import { Splashscreen }                             from 'ionic-native';
 import { Storage }                                  from '@ionic/storage';
 
 import { DashboardComponent }   from '../pages/dashboard/dashboard.component';
+import { FlagComponent }        from '../pages/flag/flag.component';
+import { MailComponent }        from '../pages/mail/mail.component';
+import { SettingsComponent }    from '../pages/settings/settings.component';
 
 export interface PageInterface
 {
-    title         : string;
-    icon          : string;
-    logsOut?      : boolean;
-    index?        : number;
-    tabComponent? : any;
+    title       : string;
+    icon        : string;
+    logsOut?    : boolean;
+    index?      : number;
+    component?  : any;
 }
 
 @Component (
@@ -37,9 +40,24 @@ export class AppComponent implements OnInit
     appPages : PageInterface [] =
     [
         {
-            title        : 'Dashboard',
-            icon         : 'md-home',
-            tabComponent : DashboardComponent
+            title       : 'Dashboard',
+            icon        : 'md-home',
+            component   : DashboardComponent
+        },
+        {
+            title       : 'Flag',
+            icon        : 'md-home',
+            component   : FlagComponent
+        },
+        {
+            title       : 'Mail',
+            icon        : 'md-home',
+            component   : MailComponent
+        },
+        {
+            title       : 'Settings',
+            icon        : 'md-home',
+            component   : SettingsComponent
         }
     ];
 
@@ -102,15 +120,15 @@ export class AppComponent implements OnInit
     //
     //
 
-    openPage ( page : any )
+    openPage ( page : PageInterface )
     {
         console.log ( `::openPage`, page );
 
-        // setTimeout ( () =>
-        // {
-        //     console.log ( 'dood' );
-        //
-        // }, 1000 );
+        this.nav.setRoot ( page.component ).catch( () =>
+        {
+            console.log ( "Didn't set nav root" );
+
+        } );
 
     }
 
@@ -122,7 +140,26 @@ export class AppComponent implements OnInit
     {
         console.log ( `::isActive`, page );
 
-        return 'primary';
+        let childNav = this.nav.getActiveChildNav ( );
+
+        // Tabs are a special case because they have their own navigation
+
+        if ( childNav )
+        {
+            if ( childNav.getSelected() && childNav.getSelected().root === page.tabComponent )
+            {
+                return 'primary';
+            }
+
+            return;
+        }
+
+        if ( this.nav.getActive() && this.nav.getActive().component === page.component )
+        {
+            return 'primary';
+        }
+
+        return;
     }
 
 }

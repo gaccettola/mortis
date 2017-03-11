@@ -7,6 +7,9 @@ import { IonicStorageModule }       from '@ionic/storage';
 import { AppComponent }             from './app.component';
 
 import { DashboardComponent }       from '../pages/dashboard/dashboard.component';
+import { FlagComponent }            from '../pages/flag/flag.component';
+import { MailComponent }            from '../pages/mail/mail.component';
+import { SettingsComponent }        from '../pages/settings/settings.component';
 
 @NgModule (
 {
@@ -14,6 +17,9 @@ import { DashboardComponent }       from '../pages/dashboard/dashboard.component
     [
         AppComponent
     ,   DashboardComponent
+    ,   FlagComponent
+    ,   MailComponent
+    ,   SettingsComponent
     ],
     imports         :
     [
@@ -27,6 +33,9 @@ import { DashboardComponent }       from '../pages/dashboard/dashboard.component
     [
         AppComponent
     ,   DashboardComponent
+    ,   FlagComponent
+    ,   MailComponent
+    ,   SettingsComponent
     ],
     bootstrap       :
     [
