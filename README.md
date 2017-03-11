@@ -5,9 +5,9 @@ update server, to docker, kuberneters, and deployment scripts.
 
 Aimed at building a complete solution with :
 
- - angular 2 web application
- - ionic 2 mobile application
- - electron desktop application
+ - angular 2 typescript web application
+ - ionic 2 typescript mobile application
+ - electron angular 2 typescript desktop application
  - nodejs restapi for serving data to the angular, ionic and electron clients
  - squirrel update server for delivering desktop application updates 
  - mysql database server in virtual and dockerized formats for primary storage
