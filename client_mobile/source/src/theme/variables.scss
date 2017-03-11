@@ -77,16 +77,28 @@ $colors: (
 @import "roboto";
 @import "noto-sans";
 
+
+// Theme
+// --------------------------------------------------
+
 .outer-content.content.content-md .scroll-content {
     overflow-y: hidden;
 }
 
 .bar-button-menutoggle-md ion-icon {
-    color: rebeccapurple;
+    color: rebeccapurple !important;
 }
 
 .toolbar-title-md {
-    color: rebeccapurple;
+    color: rebeccapurple !important;
+}
+
+ion-icon.icon.icon-md.ion-md-home.item-icon.icon {
+    color: rgba(102, 51, 153, 0.5) !important;
+}
+
+ion-icon.icon.icon-md.ion-md-home.item-icon.icon-md-primary {
+    color: rebeccapurple !important;
 }
 
 .thing-host {
