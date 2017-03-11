@@ -76,3 +76,11 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+.outer-content.content.content-md .scroll-content {
+    overflow-y: hidden;
+}
+
+.thing-2 {
+    height: 256px;
+}

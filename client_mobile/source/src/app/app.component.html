@@ -1,10 +1,11 @@
-<ion-split-pane>
+
+<ion-split-pane [when]="false">
 
     <ion-menu id="primaryMenu" [content]="content">
 
         <ion-header>
             <ion-toolbar>
-                <ion-title>Menu</ion-title>
+                <ion-title>Mortis</ion-title>
             </ion-toolbar>
         </ion-header>
 
@@ -12,21 +13,17 @@
 
             <ion-list>
 
-                <ion-list-header>
-                    Navigate
-                </ion-list-header>
-
-                <button ion-item menuClose (click)="openPage(p)">
+                <button ion-item menuClose *ngFor="let p of appPages"
+                        (click)="openPage(p)">
                     <ion-icon item-left
-                              [name]="ey"
+                              [name]="p.icon"
                               [color]="isActive(p)"></ion-icon>
-                    i`m over here
+                    {{p.title}}
                 </button>
 
             </ion-list>
 
         </ion-content>
-
 
     </ion-menu>
 

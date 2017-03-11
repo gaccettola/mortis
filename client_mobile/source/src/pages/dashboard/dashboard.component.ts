@@ -20,6 +20,23 @@ export class DashboardComponent
     groups          : any       = [];
     confDate        : string;
 
+    thingthing      : any       =
+    [
+        { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ,   { name : 'a' }
+    ];
+
     constructor ( public app : App )
     {
         console.log ( `::ctor` );

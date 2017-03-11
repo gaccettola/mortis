@@ -7,7 +7,6 @@ import { IonicStorageModule }       from '@ionic/storage';
 import { AppComponent }             from './app.component';
 
 import { DashboardComponent }       from '../pages/dashboard/dashboard.component';
-import { FooterComponent }          from '../pages/footer/footer.component';
 
 @NgModule (
 {
@@ -15,7 +14,6 @@ import { FooterComponent }          from '../pages/footer/footer.component';
     [
         AppComponent
     ,   DashboardComponent
-    ,   FooterComponent
     ],
     imports         :
     [
@@ -29,7 +27,6 @@ import { FooterComponent }          from '../pages/footer/footer.component';
     [
         AppComponent
     ,   DashboardComponent
-    ,   FooterComponent
     ],
     bootstrap       :
     [

@@ -5,14 +5,11 @@ import { Events, MenuController, Nav, Platform }    from 'ionic-angular';
 import { Splashscreen }                             from 'ionic-native';
 import { Storage }                                  from '@ionic/storage';
 
-import { FooterComponent }      from '../pages/footer/footer.component';
-
 import { DashboardComponent }   from '../pages/dashboard/dashboard.component';
 
 export interface PageInterface
 {
     title         : string;
-    component     : any;
     icon          : string;
     logsOut?      : boolean;
     index?        : number;
@@ -37,12 +34,11 @@ export class AppComponent implements OnInit
     //
     //
 
-    appPages      : PageInterface[] =
+    appPages : PageInterface [] =
     [
         {
             title        : 'Dashboard',
-            component    : FooterComponent,
-            icon         : 'calendar',
+            icon         : 'md-home',
             tabComponent : DashboardComponent
         }
     ];
@@ -56,7 +52,7 @@ export class AppComponent implements OnInit
     {
         console.log ( `::ctor` );
 
-        this.rootPage = FooterComponent;
+        this.rootPage = DashboardComponent;
 
         this.platformReady ( );
 
@@ -110,28 +106,11 @@ export class AppComponent implements OnInit
     {
         console.log ( `::openPage`, page );
 
-        // the nav component was found using @ViewChild(Nav)
-        // reset the nav to remove previous pages and only have this page
-        // we wouldn't want the back button to show in this scenario
-
-        // if ( page.index )
+        // setTimeout ( () =>
         // {
-        //     this.nav.setRoot ( page.component, { tabIndex : page.index } );
+        //     console.log ( 'dood' );
         //
-        // } else
-        // {
-        //     this.nav.setRoot ( page.component ).catch( () =>
-        //     {
-        //         console.log ( "Didn't set nav root" );
-        //
-        //     } );
-        // }
-
-        setTimeout ( () =>
-        {
-            console.log ( 'dood' );
-
-        }, 1000 );
+        // }, 1000 );
 
     }
 
