@@ -1,20 +1,17 @@
 
 import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Router, ActivatedRoute }   from '@angular/router';
-
 import { SimpleChanges }    from '@angular/core';
 import { Subscription }     from 'rxjs/Subscription';
 
-import { LayoutService  }   from '../service/layout.service';
-import { RouteService  }    from '../service/route.service';
+import { LayoutService  }   from '../../services/layout.service';
+import { RouteService  }    from '../../services/route.service';
 
 @Component (
 {
-    moduleId        : module.id,
-    selector        : 'app-sidebar',
-    templateUrl     : 'sidebar.component.html',
-    styleUrls       : ['sidebar.component.css']
+    selector    : 'app-sidebar',
+    templateUrl : './sidebar.component.html',
+    styleUrls   : ['./sidebar.component.css']
 } )
 export class SidebarComponent implements OnInit, OnChanges
 {

@@ -1,14 +1,13 @@
 
 import { Component, OnInit }    from '@angular/core';
 import { Subscription }         from 'rxjs/Subscription';
-import { LayoutService  }       from '../../service/layout.service';
+import { LayoutService  }       from '../../services/layout.service';
 
 @Component (
 {
-    moduleId        : module.id
-,   selector        : 'settings'
-,   templateUrl     : 'settings.component.html'
-,   styleUrls       : ['settings.component.css']
+    selector    : 'settings'
+,   templateUrl : './settings.component.html'
+,   styleUrls   : ['./settings.component.css']
 } )
 export class SettingsComponent implements OnInit
 {

@@ -1,16 +1,15 @@
 
 import { Component, OnInit }    from '@angular/core';
 import { Subscription }         from 'rxjs/Subscription';
-import { LayoutService  }       from '../../service/layout.service';
+import { LayoutService  }       from '../../services/layout.service';
 
 @Component (
 {
-    moduleId        : module.id
-,   selector        : 'flag'
-,   templateUrl     : 'flag.component.html'
-,   styleUrls       : ['flag.component.css']
+    selector    : 'dashboard'
+,   templateUrl : './dashboard.component.html'
+,   styleUrls   : ['./dashboard.component.css']
 } )
-export class FlagComponent implements OnInit
+export class DashboardComponent implements OnInit
 {
     current_height:         string;
     subscription:           Subscription;
