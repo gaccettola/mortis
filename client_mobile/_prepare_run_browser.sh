@@ -17,20 +17,12 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 ./_prepare.sh
 
-cd ./debug
+cd source
 
-# ionic serve
+ionic state reset
+
+cordova platform rm browser
+cordova platform add browser
+ionic build browser
 
 ionic serve --lab
-
-# cordova platform rm ios
-# cordova platform add ios
-# ionic build ios
-# ionic emulate ios
-
-# cordova platform rm android
-# cordova platform add android
-# ionic build android
-# ionic emulate android --client_mobile
-
-# ionic run android

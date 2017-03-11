@@ -32,20 +32,10 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 ./_prepare.sh
 
-cd ./debug/
-
-# ionic serve
-
-# ionic serve --lab
-
-# cordova platform rm ios
-# cordova platform add ios
-# ionic build ios
-# ionic emulate ios
+cd source
 
 cordova platform rm android
 cordova platform add android
 ionic build android
-ionic emulate android --client_mobile
 
-# ionic run android
+ionic emulate android --client_mobile

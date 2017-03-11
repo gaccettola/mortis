@@ -18,15 +18,7 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 echo preparing client_mobile,
 
-rm -rf ./debug
-
-mkdir -p debug
-
 cd source
-
-cp -a . ../debug
-
-cd ../debug
 
 npm install
 

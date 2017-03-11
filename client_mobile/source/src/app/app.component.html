@@ -1,0 +1,38 @@
+<ion-split-pane>
+
+    <ion-menu id="primaryMenu" [content]="content">
+
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Menu</ion-title>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content class="outer-content">
+
+            <ion-list>
+
+                <ion-list-header>
+                    Navigate
+                </ion-list-header>
+
+                <button ion-item menuClose (click)="openPage(p)">
+                    <ion-icon item-left
+                              [name]="ey"
+                              [color]="isActive(p)"></ion-icon>
+                    i`m over here
+                </button>
+
+            </ion-list>
+
+        </ion-content>
+
+
+    </ion-menu>
+
+    <ion-nav [root]="rootPage" #content
+             swipeBackEnabled="false"
+             main >
+    </ion-nav>
+
+</ion-split-pane>
