@@ -1,39 +1,51 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "project": {
-    "name": "ng-cli-test"
-  },
-  "apps": [
+    "$schema"   : "./node_modules/@angular/cli/lib/config/schema.json",
+    "project"   :
     {
-      "root": "src",
-      "outDir": "dist",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
-      "index": "index.html",
-      "main": "app/main.ts",
-      "polyfills": "polyfills.ts",
-      "tsconfig": "tsconfig.app.json",
-      "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
-      "scripts": [],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
-      }
+        "name"  : "client-for-web"
+    },
+    "apps"      :
+    [
+        {
+            "root"      : "src",
+            "outDir"    : "dist",
+            "assets"    :
+            [
+                "assets",
+                "favicon.ico"
+            ],
+            "index"     : "index.html",
+            "main"      : "app/main.ts",
+            "polyfills" : "polyfills.ts",
+            "tsconfig"  : "tsconfig.app.json",
+            "prefix"    : "app",
+            "styles"    :
+            [
+                "styles/styles.scss"
+            ],
+            "scripts"   :
+            [
+            ],
+            "environmentSource" : "environments/environment.ts",
+            "environments"  :
+            {
+                "dev"   : "environments/environment.ts",
+                "prod"  : "environments/environment.prod.ts"
+            }
+        }
+    ],
+    "lint"      : [
+        {
+            "project"   : "src/tsconfig.app.json"
+        }
+    ],
+    "defaults"  : {
+        "styleExt"          : "scss",
+        "prefixInterfaces"  : false,
+        "inline"            :
+        {
+            "style"     : false,
+            "template"  : false
+        }
     }
-  ],
-  "lint": [
-    {
-      "project": "src/tsconfig.app.json"
-    }
-  ],
-  "defaults": {
-    "styleExt": "css",
-    "component": {}
-  }
 }
