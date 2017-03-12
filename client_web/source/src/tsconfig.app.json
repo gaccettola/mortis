@@ -1,5 +1,6 @@
 {
-    "compilerOptions"   : {
+    "compilerOptions"   :
+    {
         "sourceMap"             : true,
         "declaration"           : false,
         "moduleResolution"      : "node",
