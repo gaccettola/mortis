@@ -33,8 +33,6 @@ export class SocketService
 
     engine_init () : void
     {
-        console.log ( '::engine_init' );
-
         this.primus_client = new window.Primus ( this.server_socket_url, this.primus_socket_options );
 
         this.primus_client.on ( 'data',                 this.on_primus_client_data                  );
@@ -58,8 +56,6 @@ export class SocketService
         this.primus_client.on ( 'destroy',              this.on_primus_client_destroy               );
 
         this.primus_client.open ( );
-
-        console.log ( '::engine_init -', this.primus_client );
 
     }
 
