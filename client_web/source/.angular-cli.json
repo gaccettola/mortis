@@ -12,6 +12,7 @@
             "assets"    :
             [
                 "assets",
+                "common",
                 "favicon.ico"
             ],
             "index"     : "index.html",

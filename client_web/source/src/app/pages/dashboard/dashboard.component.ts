@@ -1,7 +1,9 @@
 
 import { Component, OnInit }    from '@angular/core';
 import { Subscription }         from 'rxjs/Subscription';
+
 import { LayoutService  }       from '../../services/layout.service';
+import { SocketService }        from '../../services/socket.service';
 
 @Component (
 {
@@ -14,7 +16,8 @@ export class DashboardComponent implements OnInit
     current_height:         string;
     subscription:           Subscription;
 
-    constructor ( private layoutService  : LayoutService )
+    constructor ( private layoutService : LayoutService,
+                  private socketService : SocketService )
     {
     }
 
@@ -25,6 +28,9 @@ export class DashboardComponent implements OnInit
             value => { this.resizeFn ( ); }
 
         );
+
+        this.socketService.engine_init();
+
     }
 
     private resizeFn ( )
