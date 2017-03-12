@@ -8,7 +8,6 @@ npm install --save @angular/http
 npm install --save @angular/platform-browser
 npm install --save @angular/platform-browser-dynamic
 npm install --save @angular/router
-npm install --save angular-in-memory-web-api
 npm install --save systemjs
 npm install --save core-js
 npm install --save rxjs
