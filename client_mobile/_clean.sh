@@ -22,4 +22,6 @@ rm -rf ./plugins/ionic*/
 rm -rf ./node_modules
 rm -rf ./www/assets
 rm -rf ./www/build
+rm -rf ./www/common
+
 rm -rf ./www/*.*

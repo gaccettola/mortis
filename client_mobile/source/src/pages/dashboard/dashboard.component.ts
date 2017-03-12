@@ -1,7 +1,8 @@
 
-import { Component }    from '@angular/core';
+import { Component }        from '@angular/core';
+import { App }              from 'ionic-angular';
 
-import { App }          from 'ionic-angular';
+import { SocketService }    from '../../services/socket.service';
 
 @Component (
 {
@@ -17,7 +18,8 @@ export class DashboardComponent
         { name : 'a' }
     ];
 
-    constructor ( public app : App )
+    constructor ( public app            : App,
+                  private socketService : SocketService )
     {
         console.log ( `::ctor` );
     }
@@ -25,6 +27,8 @@ export class DashboardComponent
     ionViewDidLoad ( )
     {
         console.log ( `::ionViewDidLoad` );
+
+        this.socketService.engine_init ( );
     }
 
 }
