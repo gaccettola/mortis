@@ -18,30 +18,10 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 echo preparing client_desktop,
 
-# ./_clean.sh
-
-rm -rf ./debug
-
-mkdir -p debug
-
 cd source
 
-cp -a . ../debug
+mkdir -p dist
 
-cd ../debug
+npm i
 
-cd app
-
-npm install --no-optional
-
-./node_modules/.bin/electron-rebuild -f
-
-cd ..
-
-npm install
-
-# #############################################################################
-#
-# build
-
-gulp build
+npm start

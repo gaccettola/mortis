@@ -1,0 +1,66 @@
+
+.center_left {
+  background-color: #f5f5f5;
+  border-right: 1px solid rgba(102, 51, 153, 0.1);
+
+
+}
+
+.sidebar-list {
+  transition: all 0.2s ease;
+}
+
+.hide-text {
+
+  transition: all 0.1s ease;
+  opacity: 0;
+
+}
+
+.center_left_menu_item_host {
+  height: 48px;
+  width: 100%;
+  border-bottom: 1px solid rgba(102, 51, 153, 0.1);
+
+  overflow: hidden;
+}
+
+.center_left_menu_item_host_last {
+  height: 48px;
+  width: 100%;
+  border-top: 1px solid rgba(102, 51, 153, 0.1);
+  background-color: rgba(102, 51, 153, 0.1);
+
+  overflow: hidden;
+}
+
+.center_left_menu_icon {
+  height: 48px !important;
+  width: 48px !important;
+  margin-top: -4px;
+  margin-left: -18px;
+}
+
+.center_left_menu_item {
+  font-size: 15px;
+  margin-top: 15px;
+  margin-left: 18px;
+  color: rgba(102, 51, 153, 0.75);
+  text-transform: uppercase;
+  text-align: center;
+
+  user-select: none;
+  cursor: default;
+}
+
+.center_left_menu_item_last {
+  font-size: 15px;
+  margin-top: 15px;
+  margin-left: 18px;
+  color: grey;
+  text-transform: uppercase;
+  text-align: center;
+
+  user-select: none;
+  cursor: default;
+}
