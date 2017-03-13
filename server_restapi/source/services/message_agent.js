@@ -213,7 +213,6 @@ module.exports = function ( )
         } );
 
         console.log ( chalk.green ( 'message agent started' ) );
-
     }
 
     function list_spark_count ( )
