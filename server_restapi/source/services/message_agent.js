@@ -229,8 +229,6 @@ module.exports = function ( )
         } );
 
         console.log ( 'active spark count -', active_connection_count );
-
-
     }
 
     return vm.api;
