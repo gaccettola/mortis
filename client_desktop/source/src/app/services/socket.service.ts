@@ -28,7 +28,7 @@ export class SocketService
 
     primus_client_event_count   : number = 0;
 
-    constructor ( private ngZone: NgZone )
+    constructor ( private _ngZone : NgZone )
     {
     }
 
@@ -51,7 +51,7 @@ export class SocketService
 
         this.primus_client = new window.Primus ( this.server_socket_url, this.primus_socket_options );
 
-        this.primus_client.on ( 'data',                 ( data : any ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'data',                 ( data : any ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Received a new message from the server', data );
 
@@ -61,7 +61,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'open',                 ( ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'open',                 ( ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Connection is alive and kicking' );
 
@@ -71,7 +71,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'error',                ( err : any ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'error',                ( err : any ) => this._ngZone.run ( ( ) =>
         {
             console.error ( 'Something horrible has happened', err.stack );
 
@@ -81,7 +81,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'reconnect',            ( opts :any ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'reconnect',            ( opts :any ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Reconnection attempt started' );
 
@@ -91,7 +91,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'reconnect scheduled',  ( opts :any ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'reconnect scheduled',  ( opts :any ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Reconnecting in %d ms', opts.scheduled );
 
@@ -103,7 +103,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'reconnected',          ( opts : any ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'reconnected',          ( opts : any ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'It took %d ms to reconnect', opts.duration );
 
@@ -113,7 +113,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'reconnect timeout',    ( err : any, opts : any ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'reconnect timeout',    ( err : any, opts : any ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Timeout expired: %s', err.message );
 
@@ -123,7 +123,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'reconnect failed',     ( err : any, opts : any ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'reconnect failed',     ( err : any, opts : any ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'The reconnection failed: %s', err.message );
 
@@ -133,7 +133,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'end',                  ( ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'end',                  ( ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Connection closed' );
 
@@ -143,7 +143,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'destroy',              ( ) => this.ngZone.run ( ( ) =>
+        this.primus_client.on ( 'destroy',              ( ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Feel the power of my lasers!' );
 

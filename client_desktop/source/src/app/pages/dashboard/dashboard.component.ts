@@ -16,26 +16,26 @@ export class DashboardComponent implements OnInit
     current_height:         string;
     subscription:           Subscription;
 
-    constructor ( private layoutService : LayoutService,
-                  private socketService : SocketService )
+    constructor ( private _layoutService : LayoutService,
+                  private _socketService : SocketService )
     {
     }
 
     ngOnInit ( ) : void
     {
-        this.subscription = this.layoutService.observe_content_height ( ).subscribe (
+        this.subscription = this._layoutService.observe_content_height ( ).subscribe (
 
             value => { this.resizeFn ( ); }
 
         );
 
-        this.socketService.engine_init();
+        this._socketService.engine_init();
 
     }
 
     private resizeFn ( )
     {
-        this.current_height = this.layoutService.get_content_height ( );
+        this.current_height = this._layoutService.get_content_height ( );
     }
 
 }

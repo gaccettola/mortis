@@ -31,8 +31,8 @@ export class SidebarComponent implements OnInit, OnChanges
 
     subscription:           Subscription;
 
-    constructor ( private routeService   : RouteService,
-                  private layoutService  : LayoutService )
+    constructor ( private _routeService  : RouteService,
+                  private _layoutService : LayoutService )
     {
     }
 
@@ -52,7 +52,7 @@ export class SidebarComponent implements OnInit, OnChanges
     {
         this.init_listof_menu_item ( );
 
-        this.subscription = this.layoutService.observe_content_height ( ).subscribe (
+        this.subscription = this._layoutService.observe_content_height ( ).subscribe (
 
             value => { this.resizeFn ( ); }
 
@@ -61,23 +61,23 @@ export class SidebarComponent implements OnInit, OnChanges
 
     init_listof_menu_item ( ) : void
     {
-        this.listof_menu_item = this.routeService.get_listof_menu_item ( );
+        this.listof_menu_item = this._routeService.get_listof_menu_item ( );
 
-        this.logout_menu_item = this.routeService.get_menu_item_logoff ( );
+        this.logout_menu_item = this._routeService.get_menu_item_logoff ( );
     }
 
     on_select_sidebar_menu_item ( menu_item: any ) : void
     {
         this.onMenuItem.emit ( menu_item );
 
-        this.routeService.transition_to ( menu_item );
+        this._routeService.transition_to ( menu_item );
     }
 
     private resizeFn ( )
     {
-        let adjusted_height = this.layoutService.get_current_height ( );
+        let adjusted_height = this._layoutService.get_current_height ( );
 
-        let adjust_for_menu = this.routeService.get_menu_item_count ( );
+        let adjust_for_menu = this._routeService.get_menu_item_count ( );
 
         adjust_for_menu *= 48;
 

@@ -14,13 +14,13 @@ export class SettingsComponent implements OnInit
     current_height:         string;
     subscription:           Subscription;
 
-    constructor ( private layoutService  : LayoutService )
+    constructor ( private _layoutService : LayoutService )
     {
     }
 
     ngOnInit ( ) : void
     {
-        this.subscription = this.layoutService.observe_content_height ( ).subscribe (
+        this.subscription = this._layoutService.observe_content_height ( ).subscribe (
 
             value => { this.resizeFn ( ); }
 
@@ -29,7 +29,7 @@ export class SettingsComponent implements OnInit
 
     private resizeFn ( )
     {
-        this.current_height = this.layoutService.get_content_height ( );
+        this.current_height = this._layoutService.get_content_height ( );
     }
 
 }

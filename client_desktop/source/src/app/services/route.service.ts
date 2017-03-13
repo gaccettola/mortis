@@ -7,7 +7,7 @@ export class RouteService
 {
     listof_menu_item:       any[]   = [];
 
-    constructor ( private router : Router )
+    constructor ( private _router : Router )
     {
     }
 
@@ -87,7 +87,7 @@ export class RouteService
 
         // if we get a request to go to the same route
         // then go fish
-        if ( this.router.url === route_url.href )
+        if ( this._router.url === route_url.href )
         {
             console.log ( `skipping the route thing` );
 
@@ -96,14 +96,14 @@ export class RouteService
 
         // if we`re on the default route and are
         // requested to go to the default route.  go fish
-        if ( `/` === this.router.url && `/dashboard` === route_url.href )
+        if ( `/` === this._router.url && `/dashboard` === route_url.href )
         {
             console.log ( `skipping the route thing, electric boogaloo` );
 
             return;
         }
 
-        this.router.navigateByUrl ( route_url.href, { skipLocationChange: true } );
+        this._router.navigateByUrl ( route_url.href, { skipLocationChange: true } );
     }
 
 }

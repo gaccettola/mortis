@@ -18,8 +18,8 @@ export class DashboardComponent
         { name : 'a' }
     ];
 
-    constructor ( public app            : App,
-                  private socketService : SocketService )
+    constructor ( public app             : App,
+                  private _socketService : SocketService )
     {
         console.log ( `::ctor` );
     }
@@ -34,7 +34,7 @@ export class DashboardComponent
     {
         console.log ( `::ionViewDidLoad` );
 
-        this.socketService.engine_init ( );
+        this._socketService.engine_init ( );
     }
 
     //
@@ -104,7 +104,7 @@ export class DashboardComponent
     {
         console.log ( `::ionViewDidLoad` );
 
-        this.socketService.engine_init ( );
+        this._socketService.engine_init ( );
     }
 
 }
