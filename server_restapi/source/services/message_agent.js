@@ -197,6 +197,8 @@ module.exports = function ( )
 
             } );
 
+            list_spark_count ( );
+
         } );
 
         vm.primus.on ( 'disconnection', function ( spark )
@@ -205,9 +207,29 @@ module.exports = function ( )
 
             console.log ( 'noop.. all gone -', spark.id );
 
+
+            list_spark_count ( );
+
         } );
 
         console.log ( chalk.green ( 'message agent started' ) );
+
+    }
+
+    function list_spark_count ( )
+    {
+        var active_connection_count = 0;
+
+        vm.primus.forEach ( function ( spark, id, connections )
+        {
+            active_connection_count++;
+
+            console.log ( '    active spark -', spark.id );
+
+        } );
+
+        console.log ( 'active spark count -', active_connection_count );
+
 
     }
 
