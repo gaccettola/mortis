@@ -199,6 +199,14 @@ module.exports = function ( )
 
         } );
 
+        vm.primus.on ( 'disconnection', function ( spark )
+        {
+            // the spark that disconnected
+
+            console.log ( 'noop.. all gone -', spark.id );
+
+        } );
+
         console.log ( chalk.green ( 'message agent started' ) );
 
     }

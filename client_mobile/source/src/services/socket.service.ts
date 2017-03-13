@@ -1,21 +1,21 @@
 
-import { Injectable }           from '@angular/core';
+import { Injectable, NgZone }   from '@angular/core';
 import { Observable }           from 'rxjs/Rx';
 import { BehaviorSubject }      from "rxjs/Rx";
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-
 declare var window: any;
 
 @Injectable()
 export class SocketService
 {
-    server_socket_url :string   = 'ws://localhost:8989';
+    server_socket_url :string   = 'ws://192.168.1.99:8989';
+    // server_socket_url :string   = 'ws://localhost:8989';
 
-    primus_client               :any;
-    primus_socket_options       :any =
+    primus_client               : any;
+    primus_socket_options       : any =
     {
         manual      : true,
         reconnect   :
@@ -26,91 +26,158 @@ export class SocketService
         }
     };
 
-    constructor ( )
-    {
+    primus_client_event_count   : number = 0;
 
+    constructor ( private ngZone: NgZone )
+    {
     }
+
+    // Primus.OPENING = 1;  // We're opening the connection.
+    // Primus.CLOSED  = 2;  // No active connection.
+    // Primus.OPEN    = 3;  // The connection is open.
 
     engine_init ( ) : void
     {
-        console.log ( '::engine_init' );
+        console.log ( `SocketService::engine_init` );
+
+        if ( ! this.can_init ( ) )
+        {
+            console.log ( `SocketService::engine_init - not duplicating already { OPEN | OPENING }` );
+
+            return;
+        }
+
+        console.log ( `creating socket connection` );
 
         this.primus_client = new window.Primus ( this.server_socket_url, this.primus_socket_options );
 
-        this.primus_client.on ( 'data',                 this.on_primus_client_data                  );
+        this.primus_client.on ( 'data',                 ( data : any ) => this.ngZone.run ( ( ) =>
+        {
+            console.log ( 'Received a new message from the server', data );
 
-        this.primus_client.on ( 'open',                 this.on_primus_client_open                  );
+            this.primus_client_event_count++;
 
-        this.primus_client.on ( 'error',                this.on_primus_client_error                 );
+            console.log ( 'primus event', this.primus_client_event_count );
 
-        this.primus_client.on ( 'reconnect',            this.on_primus_client_reconnect             );
+        } ) );
 
-        this.primus_client.on ( 'reconnect scheduled', this.on_primus_client_reconnect_scheduled    );
+        this.primus_client.on ( 'open',                 ( ) => this.ngZone.run ( ( ) =>
+        {
+            console.log ( 'Connection is alive and kicking' );
 
-        this.primus_client.on ( 'reconnected',          this.on_primus_client_reconnected           );
+            this.primus_client_event_count++;
 
-        this.primus_client.on ( 'reconnect timeout',    this.on_primus_client_reconnect_timeout     );
+            console.log ( 'primus event', this.primus_client_event_count );
 
-        this.primus_client.on ( 'reconnect failed',     this.on_primus_client_reconnect_failed      );
+        } ) );
 
-        this.primus_client.on ( 'end',                  this.on_primus_client_end                   );
+        this.primus_client.on ( 'error',                ( err : any ) => this.ngZone.run ( ( ) =>
+        {
+            console.error ( 'Something horrible has happened', err.stack );
 
-        this.primus_client.on ( 'destroy',              this.on_primus_client_destroy               );
+            this.primus_client_event_count++;
+
+            console.log ( 'primus event', this.primus_client_event_count );
+
+        } ) );
+
+        this.primus_client.on ( 'reconnect',            ( opts :any ) => this.ngZone.run ( ( ) =>
+        {
+            console.log ( 'Reconnection attempt started' );
+
+            this.primus_client_event_count++;
+
+            console.log ( 'primus event', this.primus_client_event_count );
+
+        } ) );
+
+        this.primus_client.on ( 'reconnect scheduled',  ( opts :any ) => this.ngZone.run ( ( ) =>
+        {
+            console.log ( 'Reconnecting in %d ms', opts.scheduled );
+
+            console.log ( 'This is attempt %d out of %d', opts.attempt, opts.retries );
+
+            this.primus_client_event_count++;
+
+            console.log ( 'primus event', this.primus_client_event_count );
+
+        } ) );
+
+        this.primus_client.on ( 'reconnected',          ( opts : any ) => this.ngZone.run ( ( ) =>
+        {
+            console.log ( 'It took %d ms to reconnect', opts.duration );
+
+            this.primus_client_event_count++;
+
+            console.log ( 'primus event', this.primus_client_event_count );
+
+        } ) );
+
+        this.primus_client.on ( 'reconnect timeout',    ( err : any, opts : any ) => this.ngZone.run ( ( ) =>
+        {
+            console.log ( 'Timeout expired: %s', err.message );
+
+            this.primus_client_event_count++;
+
+            console.log ( 'primus event', this.primus_client_event_count );
+
+        } ) );
+
+        this.primus_client.on ( 'reconnect failed',     ( err : any, opts : any ) => this.ngZone.run ( ( ) =>
+        {
+            console.log ( 'The reconnection failed: %s', err.message );
+
+            this.primus_client_event_count++;
+
+            console.log ( 'primus event', this.primus_client_event_count );
+
+        } ) );
+
+        this.primus_client.on ( 'end',                  ( ) => this.ngZone.run ( ( ) =>
+        {
+            console.log ( 'Connection closed' );
+
+            this.primus_client_event_count++;
+
+            console.log ( 'primus event', this.primus_client_event_count );
+
+        } ) );
+
+        this.primus_client.on ( 'destroy',              ( ) => this.ngZone.run ( ( ) =>
+        {
+            console.log ( 'Feel the power of my lasers!' );
+
+            this.primus_client_event_count++;
+
+            console.log ( 'primus event', this.primus_client_event_count );
+
+        } ) );
 
         this.primus_client.open ( );
 
     }
 
-    on_primus_client_data ( data : any )
+    can_init () : boolean
     {
-        console.log ( 'Received a new message from the server', data );
-    }
+        let retval = true;
 
-    on_primus_client_open ( )
-    {
-        console.log ( 'Connection is alive and kicking' );
-    }
+        // safe to open if there is no `this.primus_client`
+        if ( ! this.primus_client )
+            return retval;
 
-    on_primus_client_error ( err : any )
-    {
-        console.error ( 'Something horrible has happened', err.stack );
-    }
+        // safe to open if there is no `this.primus_client.readyState`
+        if ( ! this.primus_client.readyState )
+            return retval;
 
-    on_primus_client_reconnect ( opts : any )
-    {
-        console.log ( 'Reconnection attempt started' );
-    }
+        // NOT safe to open if this.primus_client.readyState === Primus.OPENING
+        if ( 1 === this.primus_client.readyState )
+            retval = false;
 
-    on_primus_client_reconnect_scheduled ( opts : any )
-    {
-        console.log ( 'Reconnecting in %d ms', opts.scheduled );
+        // NOT safe to open if this.primus_client.readyState === Primus.OPEN
+        if ( 3 === this.primus_client.readyState )
+            retval = false;
 
-        console.log ( 'This is attempt %d out of %d', opts.attempt, opts.retries );
-    }
-
-    on_primus_client_reconnected ( opts : any )
-    {
-        console.log ( 'It took %d ms to reconnect', opts.duration );
-    }
-
-    on_primus_client_reconnect_timeout ( err : any, opts : any )
-    {
-        console.log ( 'Timeout expired: %s', err.message );
-    }
-
-    on_primus_client_reconnect_failed ( err : any, opts : any  )
-    {
-        console.log ( 'The reconnection failed: %s', err.message );
-    }
-
-    on_primus_client_end ( )
-    {
-        console.log ( 'Connection closed' );
-    }
-
-    on_primus_client_destroy ( )
-    {
-        console.log ( 'Feel the power of my lasers!' );
+        return retval;
     }
 
 }

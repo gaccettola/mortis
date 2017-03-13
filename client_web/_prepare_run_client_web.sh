@@ -21,3 +21,5 @@ echo preparing client_web,
 cd source
 
 npm i
+
+npm start

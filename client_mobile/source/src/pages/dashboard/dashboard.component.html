@@ -16,7 +16,7 @@
 <ion-content>
 
     <ion-list-header class="thing-host">
-        <div class="thing-card" *ngFor="let thing of listof_thing">
+        <div class="thing-card" *ngFor="let thing of listof_thing" (click)="on_select_card()">
             <span>{{title}} - {{listof_thing.length}}</span>
         </div>
     </ion-list-header>

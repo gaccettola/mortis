@@ -16,8 +16,12 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 #
 # prepare module
 
-echo preparing client_web,
+echo preparing client_desktop,
 
 cd source
 
+mkdir -p dist
+
 npm i
+
+npm start
