@@ -1,0 +1,22 @@
+{
+  "name": "mortis_database",
+  "version": "1.0.0",
+  "description": "the database server is designed to prepare and maintain the database",
+  "main": "server_restapi.js",
+  "scripts": {
+    "start": "node server_database.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Accettola Systems",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "chalk": "^1.1.3",
+    "dotenv": "^4.0.0",
+    "lodash": "^4.17.4",
+    "mysql": "^2.13.0",
+    "rsvp": "^3.3.3",
+    "sprintf": "^0.1.5",
+    "statman-stopwatch": "^2.4.0"
+  }
+}
