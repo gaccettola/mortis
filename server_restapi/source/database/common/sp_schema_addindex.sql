@@ -16,11 +16,11 @@ this_proc:BEGIN
     SET @given_index     :=  '';
     SET @given_columns2  :=  '';
 
-    SET @p_db_name = DATABASE();
+    SET @p_db_name       := DATABASE();
 
-    SET @given_columns2 = REPLACE( p_given_columns, ', ', '_' );
+    SET @given_columns2  := REPLACE( p_given_columns, ', ', '_' );
 
-    SET @given_index = UPPER( CONCAT( 'idx_', p_table_name, '_', @given_columns2 ) );
+    SET @given_index     := UPPER( CONCAT( 'idx_', p_table_name, '_', @given_columns2 ) );
 
     SELECT
         COUNT(1) INTO @index_exists
@@ -34,7 +34,7 @@ this_proc:BEGIN
     IF @index_exists = 0 THEN
     BEGIN
 
-        SET @sqlstmt = CONCAT
+        SET @sqlstmt := CONCAT
         (
             'CREATE INDEX ', @given_index, ' ON ', @p_db_name, '.', p_table_name, ' (',p_given_columns,')'
         );
