@@ -2,13 +2,13 @@
 /*jslint node: true */
 'use strict';
 
-var dotenv      = require ( 'dotenv'           ).config(),
-    Promise     = require ( 'bluebird'         ),
-    chalk       = require ( 'chalk'            ),
-    RSVP        = require ( 'rsvp'             ),
-    Stopwatch   = require ('statman-stopwatch' ),
-    sprintf     = require ( 'sprintf'          ),
-    mysql       = require ( 'mysql'            );
+var dotenv      = require ( 'dotenv'            ).config(),
+    Promise     = require ( 'bluebird'          ),
+    chalk       = require ( 'chalk'             ),
+    RSVP        = require ( 'rsvp'              ),
+    Stopwatch   = require ( 'statman-stopwatch' ),
+    sprintf     = require ( 'sprintf'           ),
+    mysql       = require ( 'mysql'             );
 
 // ////////////////////////////////////////////////////////////////////////////
 //
