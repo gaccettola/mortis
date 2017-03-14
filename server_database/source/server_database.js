@@ -7,46 +7,58 @@
 // system requirements,
 
 var dotenv      = require ( 'dotenv'   ).config(),
-    Promise     = require ( 'bluebird' ),
+    chalk       = require ( 'chalk'    ),
     _           = require ( 'lodash'   ),
-    chalk       = require ( 'chalk'    );
-
-var readline    = require ( 'readline' );
-var path        = require ( 'path'     );
-var fs          = require ( 'fs'       );
+    sprintf     = require ( 'sprintf'  ),
+    readline    = require ( 'readline' ),
+    path        = require ( 'path'     ),
+    fs          = require ( 'fs'       );
 
 // ////////////////////////////////////////////////////////////////////////////
 //
 // implementation
 
+    var rollforward_rc = './database/rollforward.rc';
 
-    var vm = this || {};
+    var rollforward_script = path.join ( __dirname, rollforward_rc );
 
-    vm.rollforward = './database/rollforward.rc';
+    var script_content = fs.readFileSync ( rollforward_script, 'utf8' );
 
-    vm.rl = readline.createInterface (
+    if ( fs.existsSync ( rollforward_script ) )
     {
-        input: fs.createReadStream ( vm.rollforward )
+        var rollforward_array   = [];
 
-    } );
+        var rollforward_split   = /\r\n|\n\r|\n|\r/g;
 
-    vm.sql_scripts = [];
+        var rollforward_lines   = script_content.replace ( rollforward_split, '\n' ).split ( '\n' );
 
-    vm.rl.on ( 'line', process_line );
+        _.forEach ( rollforward_lines, function ( line )
+        {
+            var results = process_line ( line );
+
+            if ( results )
+            {
+                _.forEach ( results, function ( script )
+                {
+                    rollforward_array.push ( script );
+
+                } );
+            }
+
+        } );
+
+        _.forEach ( rollforward_array, print_script );
+
+    }
 
     function process_line ( line )
     {
-        if ( ! _.isString   ( line ) )       return;
-
-        if ( _.startsWith ( line, '#' ) )    return;
-
-        if ( _.startsWith ( line, ';' ) )    return;
+        if ( _.startsWith ( line, '#' ) || _.startsWith ( line, ';' ) )
+            return;
 
         if ( ! _.includes   ( line, '::' ) ) return;
 
-        var line_array = line.split ( '::' );
-
-        process_script ( line_array );
+        return process_script ( line.split ( '::' ) );
     }
 
     function process_script ( line_array )
@@ -58,8 +70,7 @@ var fs          = require ( 'fs'       );
         var line_alias = _.trim ( line_array[0] );
         var line_route = _.trim ( line_array[1] );
 
-        process_route ( line_alias, line_route );
-
+        return process_route ( line_alias, line_route );
     }
 
     function process_route ( line_alias, line_route )
@@ -72,32 +83,16 @@ var fs          = require ( 'fs'       );
 
         var script_split    = /\r\n|\n\r|\n|\r/g;
 
-        var script_lines    = script_content
-                                .replace ( script_split, '\n' )
-                                .split ( '\n' );
+        var script_lines    = script_content.replace ( script_split, '\n' ).split ( '\n' );
 
         var script_array    = [];
         var script_buffer   = '';
 
         _.forEach ( script_lines, function ( line )
         {
-            // if the line starts with '-- go' take the buffer
-            //      then move the buffer into the array, reset the buffer
-            // else append the line to the array
-
             var line_lower = _.toLower ( line );
 
-            if ( ! _.isString ( line_lower ) )
-            {
-                // nothing to do here
-            }
-            else if ( _.startsWith ( line_lower, '-- go' ) )
-            {
-                script_array.push ( script_buffer );
-
-                script_buffer = '';
-            }
-            else if ( _.startsWith ( line_lower, '--go' ) )
+            if ( _.startsWith ( line_lower, '-- go' ) || _.startsWith ( line_lower, '--go' )  )
             {
                 script_array.push ( script_buffer );
 
@@ -111,27 +106,45 @@ var fs          = require ( 'fs'       );
 
         } );
 
-        if ( 0 < script_buffer.length )
-        {
-            script_array.push ( script_buffer );
-        }
+        if ( 0 < script_buffer.length ) script_array.push ( script_buffer );
 
-        process_script_array ( line_alias, line_route, script_array );
-
+        return process_script_array ( line_alias, line_route, script_array );
     }
 
     function process_script_array ( line_alias, line_route, script_array )
     {
+        var retval = [];
+
+        var script_index = 0;
+
         _.forEach ( script_array, function ( script )
         {
-            console.log ( chalk.white ( _.repeat ( '-', 88 ) ) );
+            retval.push (
+            {
+                index : script_index,
+                alias : line_alias,
+                route : line_route,
+                script: script,
 
-            console.log ( '-- ', _.padEnd ( line_alias, 40 ), ' :: ', line_route );
+            } );
 
-            console.log ( _.trim ( script ) );
-
-            // console.log ( '' );
+            ++script_index;
 
         } );
 
+        return retval;
+    }
+
+    function print_script ( script )
+    {
+        console.log ( chalk.white ( _.repeat ( '-', 88 ) ) );
+
+        var script_header = sprintf ( "-- %s :: %s",
+            _.padEnd ( script.alias + '[' + script.index + ']', 40 ),
+            script.route
+        );
+
+        console.log ( script_header );
+
+        console.log ( _.trim ( script.script ) );
     }
