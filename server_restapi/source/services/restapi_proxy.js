@@ -20,7 +20,7 @@ module.exports = function ( restapi_agent )
 
     vm._service_name            = 'restapi_proxy';
 
-    vm.listof_controller_path   = [];
+    vm.listof_database_script   = [];
 
     vm.listof_controller        = [];
 
@@ -102,9 +102,9 @@ module.exports = function ( restapi_agent )
     {
         return new Promise ( function ( resolve, reject )
         {
-            vm.listof_controller_path = fs.readdirSync ( './controller/' );
+            vm.listof_database_script = fs.readdirSync ( './controller/' );
 
-            vm.listof_controller_path.reduce ( function ( cur, controller_path )
+            vm.listof_database_script.reduce ( function (cur, controller_path )
 
                 {
                     return cur.then ( function()

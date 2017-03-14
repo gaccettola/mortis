@@ -97,6 +97,21 @@ sh webstorm.sh
 ```
 
 
+### datagrip ( optional )
+```
+cd ~/Downloads
+
+tar -xvzf datagrip-2016.3.4.tar.gz
+
+sudo mv DataGrip-2016.3.4 /opt/DataGrip
+
+cd /opt/DataGrip/bin
+
+sh datagrip.sh
+
+```
+
+
 ### node.js
 ```
 cd ~/_Main/_Setup

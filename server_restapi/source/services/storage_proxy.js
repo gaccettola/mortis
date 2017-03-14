@@ -4,7 +4,10 @@
 
 var dotenv  = require ( 'dotenv'   ).config(),
     Promise = require ( 'bluebird' ),
+    RSVP    = require ( 'rsvp'     ),
     chalk   = require ( 'chalk'    );
+
+var proxy_installer = require ( './storage_proxy_installer' )();
 
 // ////////////////////////////////////////////////////////////////////////////
 //
@@ -31,14 +34,56 @@ module.exports = function ( )
         {
             var retval = false;
 
+            // ////////////////////////////////////////////////////////////////
+            //
+            // framework resources
+
             vm.central_relay = central_relay;
             vm.storage_agent = storage_agent;
 
-            console.log ( chalk.green ( 'on the line :', service_name ( ) ) );
+            // ////////////////////////////////////////////////////////////////
+            //
+            // instance setup
 
-            retval = true;
+            service_init ( ).then (
 
-            resolve ( retval );
+                function ( value )
+                {
+
+                },
+                function ( error )
+                {
+                    throw ( error )
+                }
+
+            ).catch (
+
+                function ( ex )
+                {
+                    console.log ( chalk.green ( '!!! ERROR : Unable to load -', vm._service_name ) );
+                }
+
+            ).finally (
+
+                function ( )
+                {
+
+                    // ////////////////////////////////////////////////////////////////
+                    //
+                    // subscriptions
+
+
+                    // ////////////////////////////////////////////////////////////////
+
+                    console.log ( chalk.green ( 'on the line :', service_name ( ) ) );
+
+                    retval = true;
+
+                    resolve ( retval );
+
+                }
+
+            );
 
         } );
 
@@ -49,5 +94,42 @@ module.exports = function ( )
         return vm._service_name;
     }
 
+    function service_init ( )
+    {
+        return new Promise ( function ( resolve, reject )
+        {
+            vm.listof_database_script = proxy_installer.rc_reader ( );
+
+            vm.listof_database_script.reduce ( function ( cur, database_script )
+
+                {
+                    return cur.then ( function ( )
+                    {
+                        return vm.storage_agent.connection_exec ( database_script.script );
+
+                    } );
+
+                }, RSVP.resolve ( )
+
+            ).then (
+
+                function ( )
+                {
+                    resolve ( '' );
+                }
+
+            ).catch (
+
+                function ( ex )
+                {
+                    resolve ( '' );
+                }
+
+            );
+
+        } );
+
+    }
+    
     return vm.api;
 };

@@ -5,6 +5,7 @@
 var dotenv      = require ( 'dotenv'            ).config(),
     Promise     = require ( 'bluebird'          ),
     chalk       = require ( 'chalk'             ),
+    _           = require ( 'lodash'            ),
     RSVP        = require ( 'rsvp'              ),
     Stopwatch   = require ( 'statman-stopwatch' ),
     sprintf     = require ( 'sprintf'           ),
@@ -165,7 +166,10 @@ module.exports = function ( )
 
                         if ( err_query )
                         {
+                            console.log ( chalk.red ( _.repeat ( '-', 88 ) ) );
                             console.log ( chalk.red ( 'query complete, with error - ', err_query ) );
+                            console.log ( chalk.red ( '', query_script ) );
+                            console.log ( chalk.red ( _.repeat ( '-', 88 ) ) );
 
                             reject ( err_query );
 
