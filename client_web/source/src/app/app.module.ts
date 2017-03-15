@@ -14,6 +14,7 @@ import { AppRouting }           from './core/app.routing';
 import { RouteService }         from './services/route.service';
 import { LayoutService }        from './services/layout.service';
 import { SocketService }        from './services/socket.service';
+import { HttpInvokeService }    from './services/httpinvoke.service';
 
 import { AppComponent }         from './core/app.component';
 
@@ -54,6 +55,7 @@ import { SettingsComponent }    from './pages/settings/settings.component';
         RouteService
     ,   LayoutService
     ,   SocketService
+    ,   HttpInvokeService
     ],
     bootstrap       :
     [

@@ -16,7 +16,6 @@
 #
 # functions
 
-  sp_active_create                      :: ./function/sp_active_create.sql
-  sp_active_list_all                    :: ./function/sp_active_list_all.sql
-  sp_active_list_one                    :: ./function/sp_active_list_one.sql
-  sp_active_update                      :: ./function/sp_active_update.sql
+  sp_active_fetch                       :: ./function/sp_active_fetch.sql
+  sp_active_patch                       :: ./function/sp_active_patch.sql
+  sp_active_write                       :: ./function/sp_active_write.sql

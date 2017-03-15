@@ -2,9 +2,13 @@
 -- test table
 
 CREATE TABLE IF NOT EXISTS active (
-    activeId   INT(10) UNSIGNED NOT NULL AUTO_INCREMENT
-,   userId     INT(11)          NOT NULL DEFAULT '0'
-,   businessId INT(11)          NOT NULL DEFAULT '0'
+    activeId    INT(10) UNSIGNED    NOT NULL AUTO_INCREMENT
+,   userId      INT(11)             NOT NULL DEFAULT '0'
+,   businessId  INT(11)             NOT NULL DEFAULT '0'
+
+,	createdOn   DATETIME 		    DEFAULT CURRENT_TIMESTAMP
+,	updatedOn   DATETIME 			DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
 ,   PRIMARY KEY (activeId)
 );
 

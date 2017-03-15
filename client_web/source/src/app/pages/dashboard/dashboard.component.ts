@@ -4,6 +4,7 @@ import { Subscription }         from 'rxjs/Subscription';
 
 import { LayoutService  }       from '../../services/layout.service';
 import { SocketService }        from '../../services/socket.service';
+import { HttpInvokeService }    from '../../services/httpinvoke.service';
 
 @Component (
 {
@@ -16,8 +17,9 @@ export class DashboardComponent implements OnInit
     current_height:         string;
     subscription:           Subscription;
 
-    constructor ( private _layoutService : LayoutService,
-                  private _socketService : SocketService )
+    constructor ( private _layoutService     : LayoutService,
+                  private _socketService     : SocketService,
+                  private _httpInvokeService : HttpInvokeService )
     {
     }
 
@@ -29,7 +31,9 @@ export class DashboardComponent implements OnInit
 
         );
 
-        this._socketService.engine_init();
+        this._socketService.engine_init ( );
+
+        this._httpInvokeService.invoke_active ( );
 
     }
 

@@ -20,9 +20,6 @@ cd ./client_web/
 cd ./common/
 ./_clean.sh && cd ..
 
-cd ./server_database/
-./_clean.sh && cd ..
-
 cd ./server_restapi/
 ./_clean.sh && cd ..
 

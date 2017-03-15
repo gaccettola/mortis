@@ -3,3 +3,5 @@
 declare var module: {
   id: string;
 };
+
+declare module 'httpinvoke';
