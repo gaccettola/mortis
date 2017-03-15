@@ -96,20 +96,23 @@ module.exports = function ( )
         } );
     }
 
+    function request_status_send ( _status_code, _result )
+    {
+        return res.status ( _status_code ).send (
+        {
+            status_code : _status_code,
+            result      : _result
+
+        } );
+    }
+
     function sp_exec ( req, res, next, script )
     {
-        var thing = new Date ( );
-
         vm.storage_agent.connection_exec ( script ).then (
 
             function ( value )
             {
-                return res.status( 200 ).send (
-                {
-                    status_code : 200,
-                    result      : value
-
-                } );
+                return request_status_send ( 200, value );
             },
             function ( error )
             {
@@ -120,12 +123,7 @@ module.exports = function ( )
 
             function ( error )
             {
-                return res.status( 400 ).send (
-                {
-                    status_code : 400,
-                    result      : error
-
-                } );
+                return request_status_send ( 400, error );
             }
 
         );
@@ -173,6 +171,7 @@ module.exports = function ( )
         if ( req.body.write ) return write ( req, res, next );
 
         var thing = new Date ( );
+
         return res.status( 200 ).send (
         {
             status_code : 200,
