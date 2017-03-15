@@ -1,8 +1,9 @@
 
-import { Component }        from '@angular/core';
-import { App }              from 'ionic-angular';
+import { Component }            from '@angular/core';
+import { App }                  from 'ionic-angular';
 
-import { SocketService }    from '../../services/socket.service';
+import { SocketService }        from '../../services/socket.service';
+import { HttpInvokeService }    from '../../services/httpinvoke.service';
 
 @Component (
 {
@@ -18,8 +19,9 @@ export class DashboardComponent
         { name : 'a' }
     ];
 
-    constructor ( public app             : App,
-                  private _socketService : SocketService )
+    constructor ( public app                 : App,
+                  private _socketService     : SocketService,
+                  private _httpInvokeService : HttpInvokeService )
     {
         console.log ( `::ctor` );
     }
@@ -105,6 +107,8 @@ export class DashboardComponent
         console.log ( `::ionViewDidLoad` );
 
         this._socketService.engine_init ( );
+
+        this._httpInvokeService.invoke_active ( );
     }
 
 }

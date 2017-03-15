@@ -7,6 +7,7 @@ import { IonicStorageModule }       from '@ionic/storage';
 import { AppComponent }             from './app.component';
 
 import { SocketService }            from '../services/socket.service';
+import { HttpInvokeService }        from '../services/httpinvoke.service';
 
 import { DashboardComponent }       from '../pages/dashboard/dashboard.component';
 import { FlagComponent }            from '../pages/flag/flag.component';
@@ -31,6 +32,7 @@ import { SettingsComponent }        from '../pages/settings/settings.component';
     providers       :
     [
         SocketService
+    ,   HttpInvokeService
     ],
     entryComponents :
     [
