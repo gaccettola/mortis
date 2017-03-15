@@ -7,9 +7,6 @@
 
 echo cleaning client_web,
 
-cd source
+rm -rf ./source/node_modules/
+rm -rf ./source/dist/
 
-rm -rf ./node_modules
-rm -rf ./dist
-
-cd ..
