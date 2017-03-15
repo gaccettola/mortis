@@ -10,6 +10,7 @@ var dotenv          = require ( 'dotenv'        ).config(),
     Primus          = require ( 'primus'        ),
     Metroplex       = require ( 'metroplex'     ),
     OmegaSupreme    = require ( 'omega-supreme' ),
+    sprintf         = require ( 'sprintf'       ),
     PrimusEmit      = require ( 'primus-emit'   );
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -88,6 +89,9 @@ module.exports = function ( )
 
                     vm.central_relay.subscribe ( constant_server_restapi.restapi_listening,
                                                  on_central_relay_restapi_listening );
+
+                    vm.central_relay.subscribe ( constant_server_restapi.scheduled_minute,
+                                                 on_central_relay_scheduled_minute  );
 
                     // ////////////////////////////////////////////////////////////////
 
@@ -215,6 +219,19 @@ module.exports = function ( )
         console.log ( chalk.green ( 'message agent started' ) );
     }
 
+    function on_central_relay_scheduled_minute ( data, envelope )
+    {
+        var message_text = sprintf ( 'scheduled minute :%02s', data.info );
+
+        console.log ( message_text );
+
+        message_every (
+        {
+            type : constant_server_restapi.scheduled_minute,
+            text : message_text
+        } );
+    }
+
     function list_spark_count ( )
     {
         var active_connection_count = 0;
@@ -228,6 +245,16 @@ module.exports = function ( )
         } );
 
         console.log ( 'active spark count -', active_connection_count );
+    }
+
+    function message_every  ( info )
+    {
+        vm.primus.forEach ( function ( spark, id, connections )
+        {
+            spark.write ( info );
+
+        } );
+
     }
 
     return vm.api;

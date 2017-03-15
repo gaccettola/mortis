@@ -35,6 +35,8 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
     vm.restapi_agent = require ( './services/restapi_agent.js' )( );    // express instance
     vm.restapi_proxy = require ( './services/restapi_proxy.js' )( );    // express instance router
 
+    vm.cronjob_agent = require ( './services/cronjob_agent.js' )( );    // cronjob instance
+
     function on_error_during_liftoff ( error )
     {
         if ( true === vm.status )
@@ -113,6 +115,18 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
             throw on_error_during_liftoff ( error );
         }
 
+
+    ).then (
+
+        function ( value )
+        {
+            return vm.cronjob_agent.ctor ( vm.central_relay, vm.storage_agent );
+        },
+        function ( error )
+        {
+            throw on_error_during_liftoff ( error );
+        }
+
     ).catch (
 
         function ( ex )
@@ -128,7 +142,10 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
         {
             if ( true === vm.status )
             {
-                vm.central_relay.publish ( constant_server_restapi.restapi_listen, {} );
+                vm.central_relay.publish ( constant_server_restapi.restapi_listen,
+                {
+
+                } );
 
             } else
             {

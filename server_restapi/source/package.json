@@ -23,6 +23,7 @@
     "metroplex": "^1.0.0",
     "morgan": "^1.8.1",
     "mysql": "^2.13.0",
+    "node-schedule": "^1.2.1",
     "omega-supreme": "^2.1.1",
     "postal": "^2.0.5",
     "primus": "^6.1.0",

@@ -149,7 +149,10 @@ module.exports = function ( )
         {
             console.log ( chalk.green ( 'system online and listening : ', vm.server.listening ) );
 
-            vm.central_relay.publish ( constant_server_restapi.restapi_listening, {} );
+            vm.central_relay.publish ( constant_server_restapi.restapi_listening,
+            {
+
+            } );
 
         } );
     }
