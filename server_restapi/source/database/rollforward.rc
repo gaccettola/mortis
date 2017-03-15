@@ -3,19 +3,20 @@
 #
 # common functions
 
-  sp_schema_addcolumn                :: ./common/sp_schema_addcolumn.sql
-  sp_schema_addindex                 :: ./common/sp_schema_addindex.sql
+  sp_schema_addcolumn                   :: ./common/sp_schema_addcolumn.sql
+  sp_schema_addindex                    :: ./common/sp_schema_addindex.sql
 
 # #############################################################################
 #
 # tables
 
-# some_table_inactive                :: ./table/some_table_inactive.sql
-# some_table_active                  :: ./table/some_table_active.sql
+  create_table_active                   :: ./table/create_table_active.sql
 
 # #############################################################################
 #
 # functions
 
-# some_function_inactive             :: ./function/some_function_inactive.sql
-# some_function_active               :: ./function/some_function_active.sql
+  sp_active_create                      :: ./function/sp_active_create.sql
+  sp_active_list_all                    :: ./function/sp_active_list_all.sql
+  sp_active_list_one                    :: ./function/sp_active_list_one.sql
+  sp_active_update                      :: ./function/sp_active_update.sql

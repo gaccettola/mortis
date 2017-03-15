@@ -3,7 +3,7 @@
 
 DROP PROCEDURE IF EXISTS sp_schema_addindex;
 
--- GO;
+-- go
 
 CREATE PROCEDURE sp_schema_addindex
 (
@@ -36,7 +36,7 @@ this_proc:BEGIN
 
         SET @sqlstmt := CONCAT
         (
-            'CREATE INDEX ', @given_index, ' ON ', @p_db_name, '.', p_table_name, ' (',p_given_columns,')'
+            'CREATE INDEX ', @given_index, ' ON ', @p_db_name, '.', p_table_name, ' (', p_given_columns, ')'
         );
 
         PREPARE st FROM @sqlstmt;
@@ -49,7 +49,7 @@ this_proc:BEGIN
     ELSE
     BEGIN
 
-        SELECT CONCAT( 'Index ', @given_index, ' already exists on Table ', @p_db_name,'.', p_table_name ) CreateindexErrorMessage;
+        SELECT CONCAT( 'Index ', @given_index, ' already exists on Table ', @p_db_name, '.', p_table_name ) CreateindexErrorMessage;
 
     END;
     END IF;
