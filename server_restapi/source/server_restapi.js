@@ -22,8 +22,6 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
 
     var vm = this || {};
 
-    vm.status = true;
-
     vm.central_relay = require ( './services/central_relay.js' )( );    // in-memory message bus
 
     vm.storage_agent = require ( './services/storage_agent.js' )( );    // database connection instance
