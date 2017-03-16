@@ -191,7 +191,7 @@ module.exports = function ( )
     }
 
     /**
-     *
+     * Login with userName & password
      * @param req.body.userName
      * @param req.body.password
      */
@@ -210,6 +210,12 @@ module.exports = function ( )
             function ( value )
             {
                 var result_len  = value[0].length;
+
+                if ( 1 > result_len )
+                {
+                    throw ( 'account not found' );
+                }
+
                 var result      = value[0][0];
 
                 var confirmed   = vm.protect_agent.confirm_hash ( req.body.password, result.salt, result.hash );
@@ -221,8 +227,6 @@ module.exports = function ( )
                 };
 
                 var jwt_token   = vm.protect_agent.token_sign ( payload );
-
-                console.log ( jwt_token.length );
 
                 var retval      =
                 {
@@ -246,7 +250,6 @@ module.exports = function ( )
             }
 
         );
-
 
     }
 
