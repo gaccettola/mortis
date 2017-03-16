@@ -6,13 +6,15 @@
   sp_schema_addcolumn                   :: ./common/sp_schema_addcolumn.sql
   sp_schema_addindex                    :: ./common/sp_schema_addindex.sql
 
+
 # #############################################################################
 #
 # tables
 
   create_table_account                  :: ./table/create_table_account.sql
-
   create_table_active                   :: ./table/create_table_active.sql
+  create_table_token                    :: ./table/create_table_token.sql
+
 
 # #############################################################################
 #
@@ -23,6 +25,13 @@
   sp_account_patch                      :: ./function/sp_account_patch.sql
   sp_account_write                      :: ./function/sp_account_write.sql
 
+
   sp_active_fetch                       :: ./function/sp_active_fetch.sql
   sp_active_patch                       :: ./function/sp_active_patch.sql
   sp_active_write                       :: ./function/sp_active_write.sql
+
+
+  sp_token_fetch                        :: ./function/sp_token_fetch.sql
+  sp_token_fetch_name                   :: ./function/sp_token_fetch_name.sql
+  sp_token_patch                        :: ./function/sp_token_patch.sql
+  sp_token_write                        :: ./function/sp_token_write.sql

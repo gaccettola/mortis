@@ -6,13 +6,15 @@
 //
 // system requirements,
 
-var dotenv      = require ( 'dotenv'        ).config(),
-    Promise     = require ( 'bluebird'      ),
-    path        = require ( 'path'          ),
-    fs          = require ( 'fs'            ),
-    NodeRSA     = require ( 'node-rsa'      ),
-    jwt         = require ( 'jsonwebtoken'  ),
-    chalk       = require ( 'chalk'         );
+var dotenv      = require ( 'dotenv'            ).config(),
+    Promise     = require ( 'bluebird'          ),
+    path        = require ( 'path'              ),
+    fs          = require ( 'fs'                ),
+    NodeRSA     = require ( 'node-rsa'          ),
+    jwt         = require ( 'jsonwebtoken'      ),
+    sprintf     = require ( 'sprintf'           ),
+    mysql       = require ( 'mysql'             ),
+    chalk       = require ( 'chalk'             );
 
 // ////////////////////////////////////////////////////////////////////////////
 //
@@ -22,7 +24,7 @@ var constant_server_restapi = require ( '../common/constant_server_restapi' );
 
 // ////////////////////////////////////////////////////////////////////////////
 //
-// storage_agent, database connection pool
+// protect_agent, node-rsa, jsonwebtoken, and crypto
 //
 //
 
@@ -39,10 +41,6 @@ module.exports = function ( )
         compose_salt    : compose_salt,
         encrypt_pass    : encrypt_pass,
         confirm_hash    : confirm_hash,
-
-        key_write       : key_write,
-        key_read        : key_read,
-
         token_sign      : token_sign,
         token_verify    : token_verify
     };
@@ -94,16 +92,66 @@ module.exports = function ( )
     {
         return new Promise ( function ( resolve, reject )
         {
-            var retval = false;
+            var retval      = false;
+            var tokenName   = 'system_jwt';
 
-            if ( ! fs.existsSync ( vm.token_pubkey ) )
-            {
-                key_write ( );
-            }
+            token_fetch_name ( tokenName ).then (
 
-            retval = key_read ( );
+                function ( value )
+                {
+                    var result_len = value[0].length;
 
-            resolve ( retval );
+                    if ( 0 === result_len )
+                    {
+                        token_build ( );
+
+                        return token_write ( tokenName, vm.public_key, vm.private_key );
+
+                    } else
+                    {
+                        return value;
+                    }
+
+                },
+                function ( error )
+                {
+                    throw ( error );
+                }
+
+            ).then (
+
+                function ( value )
+                {
+                    vm.public_key   = null;
+                    vm.private_key  = null;
+                    vm.key          = null;
+
+                    vm.public_key   = value[0][0].publicKey;
+                    vm.private_key  = value[0][0].privateKey;
+                    vm.key          = new NodeRSA ( vm.private_key );
+
+                    retval          = true;
+                },
+                function ( error )
+                {
+                    throw ( error );
+                }
+
+            ).catch (
+
+                function ( ex )
+                {
+                    reject ( retval );
+                }
+
+            ).finally (
+
+                function ( )
+                {
+                    resolve ( retval );
+                }
+
+            );
 
         } );
 
@@ -126,7 +174,9 @@ module.exports = function ( )
 
         var retval = '';
 
-        retval = crypto.pbkdf2Sync( password, salt, 100000, 512, 'sha512' ).toString( 'base64' );
+        retval = crypto
+            .pbkdf2Sync( password, salt, 100000, 512, 'sha512' )
+            .toString( 'base64' );
 
         return retval;
     }
@@ -143,7 +193,7 @@ module.exports = function ( )
         return retval;
     }
 
-    function key_write ( )
+    function token_build ( )
     {
         var retVal = false;
 
@@ -165,32 +215,6 @@ module.exports = function ( )
 
         vm.public_key  = vm.key.exportKey ( 'pkcs8-public-pem'  );
         vm.private_key = vm.key.exportKey ( 'pkcs1-private-pem' );
-
-        fs.writeFileSync( vm.token_pubkey, vm.public_key );
-        fs.writeFileSync( vm.token_prikey, vm.private_key );
-
-        retVal = true;
-
-        return retVal;
-    }
-
-    function key_read ( )
-    {
-        var retVal = false;
-
-        if ( ! fs.existsSync ( vm.token_pubkey ) )
-        {
-            return retVal;
-        }
-
-        if ( ! fs.existsSync ( vm.token_prikey ) )
-        {
-            return retVal;
-        }
-
-        vm.public_key  = fs.readFileSync ( vm.token_pubkey, 'utf8' );
-        vm.private_key = fs.readFileSync ( vm.token_prikey, 'utf8' );
-        vm.key         = new NodeRSA ( vm.private_key );
 
         retVal = true;
 
@@ -246,6 +270,79 @@ module.exports = function ( )
     function service_name ( )
     {
         return vm._service_name;
+    }
+
+    function sp_exec ( script )
+    {
+        return new Promise ( function ( resolve, reject )
+        {
+            vm.storage_agent.connection_exec ( script ).then (
+
+                function ( value )
+                {
+                    resolve ( value );
+                },
+                function ( error )
+                {
+                    throw ( error );
+                }
+
+            ).catch (
+
+                function ( error )
+                {
+                    reject ( error );
+                }
+
+            );
+
+        } );
+
+    }
+
+    function token_fetch ( tokenId )
+    {
+        var sp_script = sprintf ( 'CALL %s( %s );',
+            'sp_token_fetch',
+            mysql.escape ( tokenId )
+        );
+
+        return sp_exec ( sp_script );
+    }
+
+    function token_fetch_name ( tokenName )
+    {
+        var sp_script = sprintf ( 'CALL %s( %s );',
+            'sp_token_fetch_name',
+            mysql.escape ( tokenName )
+        );
+
+        return sp_exec ( sp_script );
+    }
+
+    function token_patch ( tokenId, tokenName, publicKey, privateKey )
+    {
+        var sp_script = sprintf ( 'CALL %s( %s, %s, %s, %s );',
+            'sp_token_patch',
+            mysql.escape ( tokenId ),
+            mysql.escape ( tokenName ),
+            mysql.escape ( publicKey ),
+            mysql.escape ( privateKey )
+        );
+
+        return sp_exec ( sp_script );
+    }
+
+    function token_write ( tokenName, publicKey, privateKey )
+    {
+        var sp_script = sprintf ( 'CALL %s( %s, %s, %s );',
+            'sp_token_write',
+            mysql.escape ( tokenName ),
+            mysql.escape ( publicKey ),
+            mysql.escape ( privateKey )
+        );
+
+        return sp_exec ( sp_script );
     }
 
     return vm.api;
