@@ -60,7 +60,7 @@ module.exports = function ( )
     {
         var retval = false;
 
-        if ( encrypt_password ( password, salt ) === password_hash )
+        if ( encrypt_pass ( password, salt ) === password_hash )
         {
             retval = true;
         }

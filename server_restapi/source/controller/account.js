@@ -190,6 +190,48 @@ module.exports = function ( )
         return sp_exec ( req, res, next, sp_script );
     }
 
+    /**
+     *
+     * @param req.body.userName
+     * @param req.body.password
+     */
+    function login ( req, res, next )
+    {
+        var account_salt = protect_agent.compose_salt ( );
+        var account_hash = protect_agent.encrypt_pass ( req.body.password, account_salt );
+
+        var sp_script = sprintf ( 'CALL %s( %s );',
+            'sp_account_fetch_user',
+            mysql.escape ( req.body.userName )
+        );
+
+        vm.storage_agent.connection_exec ( sp_script ).then (
+
+            function ( value )
+            {
+                var result = value[0][0];
+
+                var confirmed = protect_agent.confirm_hash ( req.body.password, result.salt, result.hash );
+
+                console.log ( result );
+            },
+            function ( error )
+            {
+                throw ( error );
+            }
+
+        ).catch (
+
+            function ( error )
+            {
+                return request_status_send ( res, 400, error );
+            }
+
+        );
+
+
+    }
+
     function on_restapi_post ( req, res, next )
     {
         if ( req.body.fetch ) return fetch ( req, res, next );
@@ -197,6 +239,8 @@ module.exports = function ( )
         if ( req.body.patch ) return patch ( req, res, next );
 
         if ( req.body.write ) return write ( req, res, next );
+
+        if ( req.body.login ) return login ( req, res, next );
 
         return request_status_send ( res, 400, { error : 'bad request' } );
     }

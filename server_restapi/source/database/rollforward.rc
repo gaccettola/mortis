@@ -19,6 +19,7 @@
 # functions
 
   sp_account_fetch                      :: ./function/sp_account_fetch.sql
+  sp_account_fetch_user                 :: ./function/sp_account_fetch_user.sql
   sp_account_patch                      :: ./function/sp_account_patch.sql
   sp_account_write                      :: ./function/sp_account_write.sql
 

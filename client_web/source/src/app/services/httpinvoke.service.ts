@@ -21,7 +21,7 @@ export class HttpInvokeService
 
         let frame =
         {
-            write       : true,
+            login       : true,
             userName    : 'gabriel at accettolasystems dot com',
             password    : 'gabriel at accettolasystems not com'
         };
