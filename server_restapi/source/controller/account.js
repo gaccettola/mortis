@@ -13,7 +13,6 @@ var dotenv  = require ( 'dotenv'   ).config(),
 // common requirements,
 
 var constant_server_restapi = require ( '../common/constant_server_restapi' );
-var protect_agent           = require ( '../services/protect_agent' )();
 
 module.exports = function ( )
 {
@@ -178,8 +177,8 @@ module.exports = function ( )
      */
     function write ( req, res, next )
     {
-        var account_salt = protect_agent.compose_salt ( );
-        var account_hash = protect_agent.encrypt_pass ( req.body.password, account_salt );
+        var account_salt = vm.protect_agent.compose_salt ( );
+        var account_hash = vm.protect_agent.encrypt_pass ( req.body.password, account_salt );
 
         var sp_script = sprintf ( 'CALL %s( %s, %s, %s );',
             'sp_account_write',
@@ -198,8 +197,8 @@ module.exports = function ( )
      */
     function login ( req, res, next )
     {
-        var account_salt = protect_agent.compose_salt ( );
-        var account_hash = protect_agent.encrypt_pass ( req.body.password, account_salt );
+        var account_salt = vm.protect_agent.compose_salt ( );
+        var account_hash = vm.protect_agent.encrypt_pass ( req.body.password, account_salt );
 
         var sp_script = sprintf ( 'CALL %s( %s );',
             'sp_account_fetch_user',
@@ -210,11 +209,29 @@ module.exports = function ( )
 
             function ( value )
             {
-                var result = value[0][0];
+                var result_len  = value[0].length;
+                var result      = value[0][0];
 
-                var confirmed = protect_agent.confirm_hash ( req.body.password, result.salt, result.hash );
+                var confirmed   = vm.protect_agent.confirm_hash ( req.body.password, result.salt, result.hash );
 
-                console.log ( result );
+                var payload     =
+                {
+                    userName    : req.body.userName,
+                    success     : confirmed
+                };
+
+                var jwt_token   = vm.protect_agent.token_sign ( payload );
+
+                console.log ( jwt_token.length );
+
+                var retval      =
+                {
+                    userName    : req.body.userName,
+                    success     : confirmed,
+                    token       : jwt_token
+                };
+
+                return request_status_send ( res, 200, retval );
             },
             function ( error )
             {

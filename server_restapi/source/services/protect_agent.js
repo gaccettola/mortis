@@ -12,6 +12,7 @@ var dotenv      = require ( 'dotenv'            ).config(),
     fs          = require ( 'fs'                ),
     NodeRSA     = require ( 'node-rsa'          ),
     jwt         = require ( 'jsonwebtoken'      ),
+    crypto      = require ( 'crypto'      ),
     sprintf     = require ( 'sprintf'           ),
     mysql       = require ( 'mysql'             ),
     chalk       = require ( 'chalk'             );
