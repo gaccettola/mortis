@@ -47,7 +47,7 @@ module.exports = function ( )
     vm.app;
     vm.server;
 
-    function ctor ( central_relay, storage_agent )
+    function ctor ( central_relay, storage_agent, protect_agent )
     {
         return new Promise ( function ( resolve, reject )
         {
@@ -59,6 +59,7 @@ module.exports = function ( )
 
             vm.central_relay = central_relay;
             vm.storage_agent = storage_agent;
+            vm.protect_agent = protect_agent;
 
             // ////////////////////////////////////////////////////////////////
             //

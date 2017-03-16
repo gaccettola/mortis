@@ -29,6 +29,8 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
     vm.storage_agent = require ( './services/storage_agent.js' )( );    // database connection instance
     vm.storage_proxy = require ( './services/storage_proxy.js' )( );    // database connection instance router
 
+    vm.protect_agent = require ( './services/protect_agent.js' )( );    // node-rsa, jsonwebtoken, and crypto
+
     vm.message_agent = require ( './services/message_agent.js' )( );    // real-time framework instance
     vm.message_proxy = require ( './services/message_proxy.js' )( );    // real-time framework instance router
 
@@ -75,7 +77,7 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
 
         function ( value )
         {
-            return vm.restapi_agent.ctor ( vm.central_relay, vm.storage_agent );
+            return vm.protect_agent.ctor ( vm.central_relay, vm.storage_agent );
         },
         function ( error )
         {
@@ -86,7 +88,13 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
 
         function ( value )
         {
-            return vm.restapi_proxy.ctor ( vm.central_relay, vm.storage_agent, vm.restapi_agent );
+            return vm.restapi_agent.ctor (
+
+                vm.central_relay,
+                vm.storage_agent,
+                vm.protect_agent
+            );
+
         },
         function ( error )
         {
@@ -97,7 +105,14 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
 
         function ( value )
         {
-            return vm.message_agent.ctor ( vm.central_relay, vm.storage_agent, vm.restapi_agent );
+            return vm.restapi_proxy.ctor (
+
+                vm.central_relay,
+                vm.storage_agent,
+                vm.protect_agent,
+                vm.restapi_agent
+            );
+
         },
         function ( error )
         {
@@ -108,7 +123,30 @@ var constant_server_restapi = require ( './common/constant_server_restapi' );
 
         function ( value )
         {
-            return vm.message_proxy.ctor ( vm.central_relay, vm.storage_agent, vm.message_agent );
+            return vm.message_agent.ctor (
+
+                vm.central_relay,
+                vm.storage_agent,
+                vm.restapi_agent
+            );
+
+        },
+        function ( error )
+        {
+            throw on_error_during_liftoff ( error );
+        }
+
+    ).then (
+
+        function ( value )
+        {
+            return vm.message_proxy.ctor (
+
+                vm.central_relay,
+                vm.storage_agent,
+                vm.message_agent
+            );
+
         },
         function ( error )
         {

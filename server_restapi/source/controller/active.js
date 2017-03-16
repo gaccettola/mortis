@@ -26,7 +26,7 @@ module.exports = function ( )
         ctor         : ctor
     };
 
-    function ctor ( central_relay, storage_agent, restapi_agent )
+    function ctor ( central_relay, storage_agent, protect_agent, restapi_agent )
     {
         return new Promise ( function ( resolve, reject )
         {
@@ -38,6 +38,7 @@ module.exports = function ( )
 
             vm.central_relay = central_relay;
             vm.storage_agent = storage_agent;
+            vm.protect_agent = protect_agent;
             vm.restapi_agent = restapi_agent;
 
             console.log ( chalk.green ( 'on the line :', service_name ( ) ) );

@@ -31,7 +31,7 @@ module.exports = function ( restapi_agent )
         service_name : service_name
     };
 
-    function ctor ( central_relay, storage_agent, restapi_agent )
+    function ctor ( central_relay, storage_agent, protect_agent, restapi_agent )
     {
         return new Promise ( function ( resolve, reject )
         {
@@ -43,6 +43,7 @@ module.exports = function ( restapi_agent )
 
             vm.central_relay = central_relay;
             vm.storage_agent = storage_agent;
+            vm.protect_agent = protect_agent;
             vm.restapi_agent = restapi_agent;
 
             // ////////////////////////////////////////////////////////////////
@@ -104,14 +105,20 @@ module.exports = function ( restapi_agent )
         {
             vm.listof_database_script = fs.readdirSync ( './controller/' );
 
-            vm.listof_database_script.reduce ( function (cur, controller_path )
+            vm.listof_database_script.reduce ( function ( cur, controller_path )
 
                 {
                     return cur.then ( function()
                     {
                         var rest_controller =  require ( '../controller/' + controller_path )( );
 
-                        return rest_controller.ctor ( vm.central_relay, vm.storage_agent, vm.restapi_agent );
+                        return rest_controller.ctor (
+
+                            vm.central_relay,
+                            vm.storage_agent,
+                            vm.protect_agent,
+                            vm.restapi_agent
+                        );
 
                     } );
 
