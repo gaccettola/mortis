@@ -22,7 +22,8 @@
             "prefix"    : "app",
             "styles"    :
             [
-                "styles/styles.scss"
+                "styles/styles.scss",
+                "material2-app-theme.scss"
             ],
             "scripts"   :
             [
