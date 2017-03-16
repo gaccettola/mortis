@@ -4,7 +4,7 @@ import { Subscription }         from 'rxjs/Subscription';
 
 import { LayoutService  }       from '../../services/layout.service';
 import { SocketService }        from '../../services/socket.service';
-import { HttpInvokeService }    from '../../services/httpinvoke.service';
+import { DataframeAccount }     from '../../services/dataframe.account.service';
 
 @Component (
 {
@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit
 
     constructor ( private _layoutService     : LayoutService,
                   private _socketService     : SocketService,
-                  private _httpInvokeService : HttpInvokeService )
+                  private _dataframeAccount  : DataframeAccount )
     {
     }
 
@@ -32,9 +32,6 @@ export class DashboardComponent implements OnInit
         );
 
         this._socketService.engine_init ( );
-
-        this._httpInvokeService.invoke_active ( );
-
     }
 
     private resizeFn ( )
