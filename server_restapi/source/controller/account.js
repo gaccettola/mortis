@@ -19,7 +19,7 @@ module.exports = function ( )
 {
     var vm = this || {};
 
-    vm._service_name = 'active';
+    vm._service_name = 'account';
 
     var api =
     {
@@ -138,13 +138,13 @@ module.exports = function ( )
 
     /**
      *
-     * @param req.body.activeId
+     * @param req.body.accountId
      */
     function fetch ( req, res, next )
     {
-        var sp_script = sprintf ( 'CALL %s( %s );',
-            'sp_active_fetch',
-            mysql.escape ( req.body.activeId )
+        var sp_script = sprintf ( 'CALL %s( %s, %s, %s );',
+            'sp_account_fetch',
+            mysql.escape ( req.body.accountId )
         );
 
         return sp_exec ( req, res, next, sp_script );
@@ -152,17 +152,19 @@ module.exports = function ( )
 
     /**
      *
-     * @param req.body.activeId
-     * @param req.body.userId
-     * @param req.body.businessId
+     * @param req.body.accountId
+     * @param req.body.userName
+     * @param req.body.salt
+     * @param req.body.hash
      */
     function patch ( req, res, next )
     {
-        var sp_script = sprintf ( 'CALL %s( %s, %s, %s );',
-            'sp_active_patch',
-            mysql.escape ( req.body.activeId ),
-            mysql.escape ( req.body.userId ),
-            mysql.escape ( req.body.businessId )
+        var sp_script = sprintf ( 'CALL %s( %s, %s, %s, %s );',
+            'sp_account_patch',
+            mysql.escape ( req.body.accountId ),
+            mysql.escape ( req.body.userName ),
+            mysql.escape ( req.body.salt ),
+            mysql.escape ( req.body.hash )
         );
 
         return sp_exec ( req, res, next, sp_script );
@@ -170,15 +172,19 @@ module.exports = function ( )
 
     /**
      *
-     * @param req.body.userId
-     * @param req.body.businessId
+     * @param req.body.userName
+     * @param req.body.password
      */
     function write ( req, res, next )
     {
-        var sp_script = sprintf ( 'CALL %s( %s, %s );',
-            'sp_active_write',
-            mysql.escape ( req.body.userId ),
-            mysql.escape ( req.body.businessId )
+        var account_salt = protect_agent.compose_salt ( );
+        var account_hash = protect_agent.encrypt_pass ( req.body.password, account_salt );
+
+        var sp_script = sprintf ( 'CALL %s( %s, %s, %s );',
+            'sp_account_write',
+            mysql.escape ( req.body.userName ),
+            mysql.escape ( account_salt ),
+            mysql.escape ( account_hash )
         );
 
         return sp_exec ( req, res, next, sp_script );

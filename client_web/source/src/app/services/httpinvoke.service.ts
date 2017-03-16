@@ -15,16 +15,15 @@ export class HttpInvokeService
     {
         let option =
         {
-            url_part : 'active',
+            url_part : 'account',
             verb     : 'POST'
         };
 
         let frame =
         {
-            fetch       : true,
-            activeId    : -1,
-            userId      : -2,
-            businessId  : -2
+            write       : true,
+            userName    : 'gabriel at accettolasystems dot com',
+            password    : 'gabriel at accettolasystems not com'
         };
 
         let encoded_frame = Object.keys ( frame ).map ( function ( key )
@@ -55,8 +54,7 @@ export class HttpInvokeService
                 header  : header
             };
 
-            console.log ( this.my_name );
-            console.log ( retval );
+            console.log ( JSON.parse ( retval.data ) );
 
         } ) );
 

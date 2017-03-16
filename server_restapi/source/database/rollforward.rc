@@ -10,11 +10,17 @@
 #
 # tables
 
+  create_table_account                  :: ./table/create_table_account.sql
+
   create_table_active                   :: ./table/create_table_active.sql
 
 # #############################################################################
 #
 # functions
+
+  sp_account_fetch                      :: ./function/sp_account_fetch.sql
+  sp_account_patch                      :: ./function/sp_account_patch.sql
+  sp_account_write                      :: ./function/sp_account_write.sql
 
   sp_active_fetch                       :: ./function/sp_active_fetch.sql
   sp_active_patch                       :: ./function/sp_active_patch.sql
