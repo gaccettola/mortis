@@ -14,7 +14,9 @@ import { AppRouting }           from './core/app.routing';
 import { RouteService }         from './services/route.service';
 import { LayoutService }        from './services/layout.service';
 import { SocketService }        from './services/socket.service';
-import { HttpInvokeService }    from './services/httpinvoke.service';
+
+import { DataframeBase }        from './base/dataframe.base';
+import { DataframeAccount }     from './services/dataframe.account.service';
 
 import { AppComponent }         from './core/app.component';
 
@@ -22,6 +24,7 @@ import { HeaderComponent }      from './core/header/header.component';
 import { FooterComponent }      from './core/footer/footer.component';
 import { SidebarComponent }     from './core/sidebar/sidebar.component';
 
+import { LoginComponent }       from './pages/login/login.component';
 import { DashboardComponent }   from './pages/dashboard/dashboard.component';
 import { MailComponent }        from './pages/mail/mail.component';
 import { FlagComponent }        from './pages/flag/flag.component';
@@ -36,6 +39,7 @@ import { SettingsComponent }    from './pages/settings/settings.component';
     ,   FooterComponent
     ,   SidebarComponent
 
+    ,   LoginComponent
     ,   DashboardComponent
     ,   MailComponent
     ,   FlagComponent
@@ -55,7 +59,8 @@ import { SettingsComponent }    from './pages/settings/settings.component';
         RouteService
     ,   LayoutService
     ,   SocketService
-    ,   HttpInvokeService
+    ,   DataframeBase
+    ,   DataframeAccount
     ],
     bootstrap       :
     [

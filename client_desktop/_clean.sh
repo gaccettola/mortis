@@ -7,10 +7,6 @@
 
 echo cleaning client_desktop,
 
-cd source
-
-rm -rf ./node_modules
-rm -rf ./dist
-
-mkdir -p dist
+rm -rf ./source/node_modules/
+rm -rf ./source/dist/
 

@@ -4,6 +4,8 @@ import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angu
 import { SimpleChanges }    from '@angular/core';
 import { Subscription }     from 'rxjs/Subscription';
 
+import { DataframeAccount } from '../../services/dataframe.account.service';
+
 import { LayoutService  }   from '../../services/layout.service';
 import { RouteService  }    from '../../services/route.service';
 
@@ -31,8 +33,9 @@ export class SidebarComponent implements OnInit, OnChanges
 
     subscription:           Subscription;
 
-    constructor ( private _routeService  : RouteService,
-                  private _layoutService : LayoutService )
+    constructor ( private _dataframeAccount : DataframeAccount,
+                  private _routeService     : RouteService,
+                  private _layoutService    : LayoutService )
     {
     }
 
@@ -68,9 +71,17 @@ export class SidebarComponent implements OnInit, OnChanges
 
     on_select_sidebar_menu_item ( menu_item: any ) : void
     {
-        this.onMenuItem.emit ( menu_item );
+        if ( -1 === menu_item.id )
+        {
+            this._dataframeAccount.logout ( );
 
-        this._routeService.transition_to ( menu_item );
+        } else
+        {
+            this.onMenuItem.emit ( menu_item );
+
+            this._routeService.transition_to ( menu_item );
+        }
+
     }
 
     private resizeFn ( )
