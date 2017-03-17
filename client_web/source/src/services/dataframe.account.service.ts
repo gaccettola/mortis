@@ -4,7 +4,7 @@ import { Injectable, NgZone }   from '@angular/core';
 import { Observable }           from 'rxjs/Rx';
 import { BehaviorSubject }      from "rxjs/Rx";
 
-import { DataframeBase }        from '../base/dataframe.base';
+import { DataframeBase }        from './dataframe.base';
 
 @Injectable()
 export class DataframeAccount extends DataframeBase
