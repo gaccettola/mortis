@@ -3,11 +3,13 @@
 
     <div class="layout-canvas">
 
-        <app-header (navToggled)="on_event_toggle_sidebar_menu($event)"></app-header>
+        <app-header *ngIf="this.isAuthenticated" (navToggled)="on_event_toggle_sidebar_menu($event)">
+        </app-header>
 
         <div fxLayout="row" fxFlex class="app-thing" >
 
-            <app-sidebar [(isMenuOpen)]="isMenuOpen"
+            <app-sidebar *ngIf="this.isAuthenticated"
+                         [(isMenuOpen)]="isMenuOpen"
                          (onMenuItem)="on_event_select_sidebar_menu_item($event)">
             </app-sidebar>
 
@@ -17,7 +19,8 @@
 
         </div>
 
-        <app-footer></app-footer>
+        <app-footer *ngIf="this.isAuthenticated">
+        </app-footer>
 
     </div>
 

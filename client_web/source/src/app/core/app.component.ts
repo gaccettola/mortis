@@ -1,5 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
+import { Subscription }      from 'rxjs/Subscription';
+
+import { DataframeAccount }  from '../services/dataframe.account.service';
+
 
 @Component (
 {
@@ -9,19 +13,40 @@ import { Component, OnInit } from '@angular/core';
 } )
 export class AppComponent implements OnInit
 {
-    isMenuOpen:         boolean = false;
+    isAuthenticated     : boolean = true;
+    isMenuOpen          : boolean = false;
 
-    isMenuAutoClose:    boolean = true;     // TODO: move to SettingService
-    menuAutoCloseMs:    number  = 100;      // TODO: move to SettingService
+    isMenuAutoClose     : boolean = true;     // TODO: move to SettingService
+    menuAutoCloseMs     : number  = 100;      // TODO: move to SettingService
 
-    title = 'app works!';
+    account_token_subscription  : Subscription;
 
-    constructor ( )
+    constructor ( private _dataframeAccount : DataframeAccount )
     {
     }
 
     ngOnInit ( ) : void
     {
+        this.account_token_subscription = this._dataframeAccount.observe_account_token ( ).subscribe (
+
+            value =>
+            {
+                if ( null === value )
+                {
+                    console.log ( 'account token updated {0} -', value );
+
+                    this.isAuthenticated = false;
+
+                } else
+                {
+                    console.log ( 'account token updated {1} -', value );
+
+                    this.isAuthenticated = true;
+                }
+
+            }
+
+        );
     }
 
     on_event_toggle_sidebar_menu  ( nav_event: any ) : void

@@ -1,10 +1,18 @@
 
 import { Injectable, NgZone }   from '@angular/core';
+
+import { Observable }           from 'rxjs/Rx';
+import { BehaviorSubject }      from "rxjs/Rx";
+
 import { DataframeBase }        from '../base/dataframe.base';
 
 @Injectable()
 export class DataframeAccount extends DataframeBase
 {
+
+    account_token         :any;
+    account_token_subject = new BehaviorSubject( this.account_token );
+
     constructor ( _ngZone : NgZone )
     {
         super ( _ngZone );
@@ -19,6 +27,11 @@ export class DataframeAccount extends DataframeBase
         };
 
         return retval;
+    }
+
+    observe_account_token ( ) : Observable<any>
+    {
+        return this.account_token_subject.asObservable();
     }
 
     login ( payload ) : Promise<any>
@@ -36,10 +49,27 @@ export class DataframeAccount extends DataframeBase
 
                 ( value ) =>
                 {
+                    console.log ( value );
+
+                    if ( 200 === value.status )
+                    {
+                        this.account_token = JSON.parse ( value.data );
+
+                    } else
+                    {
+                        this.account_token = null;
+                    }
+
+                    this.account_token_subject.next ( this.account_token );
+
                     resolve ( value );
                 },
                 ( error ) =>
                 {
+                    this.account_token = null;
+
+                    this.account_token_subject.next ( this.account_token );
+
                     reject ( error );
                 }
 

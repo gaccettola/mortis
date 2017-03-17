@@ -8,7 +8,7 @@ import { LayoutService  }       from '../../services/layout.service';
 import { SocketService }        from '../../services/socket.service';
 import { DataframeAccount }     from '../../services/dataframe.account.service';
 
-import * as jQuery from 'jquery';
+import * as jQuery              from 'jquery';
 
 @Component (
 {
@@ -19,7 +19,8 @@ import * as jQuery from 'jquery';
 export class SettingsComponent implements OnInit
 {
     current_height  : string;
-    subscription    : Subscription;
+    content_height_subscription : Subscription;
+    account_token_subscription  : Subscription;
 
     username        : string = 'gabriel@accettolasystems.com';
     password        : string = 'accettolasystems not com';
@@ -35,9 +36,26 @@ export class SettingsComponent implements OnInit
 
     ngOnInit ( ) : void
     {
-        this.subscription = this._layoutService.observe_content_height ( ).subscribe (
+        this.content_height_subscription = this._layoutService.observe_content_height ( ).subscribe (
 
             value => { this.resizeFn ( ); }
+
+        );
+
+        this.account_token_subscription = this._dataframeAccount.observe_account_token ( ).subscribe (
+
+            value =>
+            {
+                if ( null === value )
+                {
+                    console.log ( 'account token updated {0} -', value );
+
+                } else
+                {
+                    console.log ( 'account token updated {1} -', value );
+                }
+
+            }
 
         );
 
@@ -67,8 +85,6 @@ export class SettingsComponent implements OnInit
             ( value ) =>
             {
                 let obj = JSON.parse ( value.data );
-
-                console.log ( 'first try -', obj );
 
                 return value;
             },
@@ -100,8 +116,6 @@ export class SettingsComponent implements OnInit
             ( value ) =>
             {
                 let obj = JSON.parse ( value.data );
-
-                console.log ( 'first try -', obj );
 
                 return value;
             },
