@@ -9,6 +9,8 @@ minikube start \
     --kubernetes-version="v1.5.2" \
     --memory=1024 \
     --vm-driver=kvm
+    
+minikube start --vm-driver=virtualbox
   
 kubectl get pods
     
