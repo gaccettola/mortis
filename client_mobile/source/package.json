@@ -36,6 +36,9 @@
     "typescript": "2.0.9"
   },
   "config": {
-    "ionic_copy": "./config/copy.config.js"
+    "ionic_bundler": "webpack",
+    "ionic_source_map": "source-map",
+    "ionic_copy": "./config/copy.config.js",
+    "ionic_sass": "./config/sass.config.js"
   }
 }
