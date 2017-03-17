@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 # minikube config set vm-driver kvm
+minikube config set vm-driver virtualbox
+
 minikube start
 
 minikube docker-env

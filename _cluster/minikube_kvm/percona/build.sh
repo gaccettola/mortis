@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-minikube config set vm-driver kvm
+# minikube config set vm-driver kvm
+minikube config set vm-driver virtualbox
+
 minikube start
 
 minikube docker-env
@@ -10,9 +12,9 @@ minikube dashboard
 
 docker build -t mortis-mysql:001 .
 
-docker images
+# docker images
 
-docker run mortis-redis
+# docker run mortis-redis
 
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
