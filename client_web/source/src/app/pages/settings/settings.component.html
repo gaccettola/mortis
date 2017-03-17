@@ -18,24 +18,29 @@
                 </div>
 
                 <md-input-container fxLayout="row">
-                    <input mdInput placeholder="email" value="">
+                    <input mdInput placeholder="email"
+                           [(ngModel)]="this.username">
                 </md-input-container>
 
                 <md-input-container fxLayout="row">
-                    <input mdInput placeholder="password" value="" type="password">
+                    <input mdInput placeholder="password" type="password"
+                           [(ngModel)]="this.password">
                 </md-input-container>
 
                 <div fxLayout="row">
-                    <button md-raised-button fxFlex class="signin-login" (click)="login()">login</button>
+                    <button md-raised-button fxFlex class="signin-login"
+                            (click)="login()">login</button>
                 </div>
                 <div fxLayout="row">
-                    <a fxFlex class="signin-forgot" (click)="forgot()">remind me</a>
+                    <a fxFlex class="signin-forgot"
+                       (click)="forgot()">remind me</a>
                 </div>
 
             </md-card>
 
             <div fxLayout="row">
-                <a fxFlex class="signin-create" (click)="create()">create account</a>
+                <a fxFlex class="signin-create"
+                   (click)="signup()">create account</a>
             </div>
 
         </div>
