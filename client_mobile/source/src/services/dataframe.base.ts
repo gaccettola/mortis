@@ -27,7 +27,7 @@ export class DataframeBase
 
             } ).join ( '&' );
 
-            let url_base = 'http://localhost:8989/v1/';
+            let url_base = 'http://192.168.1.99:8989/v1/';
 
             let url_complete = url_base + option.url_part;
 
