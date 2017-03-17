@@ -9,9 +9,11 @@ minikube start \
     --kubernetes-version="v1.5.2" \
     --memory=1024 \
     --vm-driver=kvm
-    
-minikube start --vm-driver=virtualbox
-  
+ 
+# minikube start --vm-driver=virtualbox  
+ 
+minikube start --vm-driver=kvm
+
 kubectl get pods
     
 ```
@@ -23,8 +25,8 @@ kubectl get pods
 
 ##### forward the ports 
 ```
-kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 3306
-kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 6379
+kubectl port-forward mortis-mysql-3654861006-nmdrp 3306
+kubectl port-forward mortis-redis-1554497675-n8zpb 6379
 ```
 
 ##### prepare the restapi, from ./mortis/server_restapi
