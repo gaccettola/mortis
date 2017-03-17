@@ -175,8 +175,13 @@ module.exports = function ( )
 
         var retval = '';
 
+        // 100,000 ~ 2.0s
+        // 50,000  ~ 1.0s
+        // 25,000  ~ 0.5s
+        // 10,000  ~ 0.2s
+
         retval = crypto
-            .pbkdf2Sync( password, salt, 100000, 512, 'sha512' )
+            .pbkdf2Sync( password, salt, 10000, 512, 'sha512' )
             .toString( 'base64' );
 
         return retval;
