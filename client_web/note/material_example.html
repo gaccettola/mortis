@@ -1,0 +1,149 @@
+<div fxLayout="column" fxFlex
+     [style.height]="current_height"
+     [style.min-height]="current_height">
+
+    <div fxLayout="row" fxFlex>more settings
+
+        <md-input-container>
+            <input mdInput placeholder="Favorite food" value="Sushi">
+        </md-input-container>
+
+        <button md-button (click)="login()">login</button>
+        <button md-button (click)="signup()">signup</button>
+
+    </div>
+
+    <div fxLayout="row" fxFlex>
+
+        <span> fred </span>
+        <span fxLayout="row" fxFlex> fred </span>
+        <span fxLayout="column" fxFlex> fred </span>
+
+        <md-card>
+            <button md-button>FLAT</button>
+            <button md-raised-button md-tooltip="This is a tooltip!">RAISED</button>
+            <button md-raised-button color="primary">PRIMARY RAISED</button>
+            <button md-raised-button color="accent">ACCENT RAISED</button>
+        </md-card>
+
+        <md-card>
+            <md-checkbox>Unchecked</md-checkbox>
+            <md-checkbox [checked]="true">Checked</md-checkbox>
+            <md-checkbox [indeterminate]="true">Indeterminate</md-checkbox>
+            <md-checkbox [disabled]="true">Disabled</md-checkbox>
+        </md-card>
+
+        <md-card>
+            <md-radio-button name="symbol">Alpha</md-radio-button>
+            <md-radio-button name="symbol">Beta</md-radio-button>
+            <md-radio-button name="symbol" disabled>Gamma</md-radio-button>
+        </md-card>
+
+        <md-card class="app-input-section">
+
+            <md-input-container>
+                <input mdInput placeholder="Favorite food" value="Sushi">
+            </md-input-container>
+
+        </md-card>
+
+        <md-card>
+            <md-list class="app-list">
+                <md-list-item *ngFor="let food of foods">
+                    <h3 md-line>{{food.name}}</h3>
+                    <p md-line class="demo-secondary-text">{{food.rating}}</p>
+                </md-list-item>
+            </md-list>
+        </md-card>
+
+        <md-card>
+            <md-spinner class="app-spinner"></md-spinner>
+            <md-spinner color="accent" class="app-spinner"></md-spinner>
+        </md-card>
+
+        <md-card>
+            <label>
+                Indeterminate progress-bar
+                <md-progress-bar
+                        class="app-progress"
+                        mode="indeterminate"
+                        aria-label="Indeterminate progress-bar example"></md-progress-bar>
+            </label>
+
+            <label>
+                Determinate progress bar - {{progress}}%
+                <md-progress-bar
+                        class="app-progress"
+                        color="accent"
+                        mode="determinate"
+                        [value]="progress"
+                        aria-label="Determinate progress-bar example"></md-progress-bar>
+            </label>
+        </md-card>
+
+        <md-card>
+            <md-tab-group>
+                <md-tab label="Earth">
+                    <p>EARTH</p>
+                </md-tab>
+                <md-tab label="Fire">
+                    <p>FIRE</p>
+                </md-tab>
+            </md-tab-group>
+        </md-card>
+
+        <md-card>
+            <md-icon>build</md-icon>
+        </md-card>
+
+        <md-card>
+            <button md-button [md-menu-trigger-for]="menu">
+                MENU
+            </button>
+        </md-card>
+
+        <md-menu #menu="mdMenu">
+            <button md-menu-item>Lemon</button>
+            <button md-menu-item>Lime</button>
+            <button md-menu-item>Banana</button>
+        </md-menu>
+
+        <md-card>
+            <p>Last dialog result: </p>
+            <button md-raised-button (click)="openDialog()">DIALOG</button>
+            <button md-raised-button (click)="showSnackbar()">SNACKBAR</button>
+        </md-card>
+
+        <span class="app-action">
+<button md-fab><md-icon>check circle</md-icon></button>
+</span>
+
+    </div>
+
+    <div fxLayout="row" fxFlex>
+
+        <md-card>settings
+
+            <md-input-container>
+                <input mdInput placeholder="Favorite food" value="Sushi">
+            </md-input-container>
+
+            <button md-button (click)="login()">login</button>
+            <button md-button (click)="signup()">signup</button>
+
+        </md-card>
+
+        <md-card>more settings
+
+            <md-input-container>
+                <input mdInput placeholder="Favorite food" value="Sushi">
+            </md-input-container>
+
+            <button md-button (click)="login()">login</button>
+            <button md-button (click)="signup()">signup</button>
+
+        </md-card>
+
+    </div>
+
+</div>
