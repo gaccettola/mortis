@@ -24,6 +24,7 @@ import { HeaderComponent }      from './core/header/header.component';
 import { FooterComponent }      from './core/footer/footer.component';
 import { SidebarComponent }     from './core/sidebar/sidebar.component';
 
+import { LoginComponent }       from './pages/login/login.component';
 import { DashboardComponent }   from './pages/dashboard/dashboard.component';
 import { MailComponent }        from './pages/mail/mail.component';
 import { FlagComponent }        from './pages/flag/flag.component';
@@ -38,6 +39,7 @@ import { SettingsComponent }    from './pages/settings/settings.component';
     ,   FooterComponent
     ,   SidebarComponent
 
+    ,   LoginComponent
     ,   DashboardComponent
     ,   MailComponent
     ,   FlagComponent

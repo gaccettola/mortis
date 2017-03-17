@@ -2,6 +2,7 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule }         from '@angular/router';
 
+import { LoginComponent }       from '../pages/login/login.component';
 import { DashboardComponent }   from '../pages/dashboard/dashboard.component';
 import { MailComponent }        from '../pages/mail/mail.component';
 import { FlagComponent }        from '../pages/flag/flag.component';
@@ -11,6 +12,10 @@ const appRoutes: any[] =
 [
     {
         path: '',
+        component: LoginComponent
+    },
+    {
+        path: 'dashboard',
         component: DashboardComponent
     },
     {
@@ -27,7 +32,7 @@ const appRoutes: any[] =
     },
     {
         path: '**',
-        component: DashboardComponent
+        component: LoginComponent
     }
 ];
 

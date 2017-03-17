@@ -10,12 +10,11 @@
              fxLayout="row"
              (click)="on_select_sidebar_menu_item ( menu_item )" >
 
-            <div fxLayout="column" fxFlex class="center_left_menu_item">
-
+            <div fxLayout="column" class="center_left_menu_icon_host" >
                 <md-icon class="center_left_menu_icon">{{ menu_item.icon }}</md-icon>
+            </div>
+            <div fxLayout="column" fxFlex class="center_left_menu_item">
                 <div [ngClass]="{'hide-text': !isMenuOpen}">{{ menu_item.name }}</div>
-
-
             </div>
 
         </div>
@@ -29,10 +28,11 @@
              class="center_left_menu_item_host_last"
              (click)="on_select_sidebar_menu_item ( logout_menu_item )" >
 
-            <div fxLayout="column" fxFlex class="center_left_menu_item_last">
+            <div fxLayout="column" class="center_left_menu_icon_host" >
                 <md-icon class="center_left_menu_icon">{{ logout_menu_item.icon }}</md-icon>
+            </div>
+            <div fxLayout="column" fxFlex class="center_left_menu_item_last">
                 <div [ngClass]="{'hide-text': !isMenuOpen}">{{ logout_menu_item.name }}</div>
-
             </div>
 
         </div>

@@ -34,20 +34,30 @@
   overflow: hidden;
 }
 
+.center_left_menu_icon_host {
+    margin-top: 15px;
+    height: 48px;
+    color: rgba(102, 51, 153, 0.75);
+
+    user-select: none;
+}
+
 .center_left_menu_icon {
   height: 48px !important;
   width: 48px !important;
   margin-top: -4px;
-  margin-left: -18px;
+  margin-left: 0px;
+  text-align: center;
+
+    user-select: none;
 }
 
 .center_left_menu_item {
   font-size: 15px;
   margin-top: 15px;
-  margin-left: 18px;
   color: rgba(102, 51, 153, 0.75);
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
 
   user-select: none;
   cursor: default;
@@ -56,10 +66,10 @@
 .center_left_menu_item_last {
   font-size: 15px;
   margin-top: 15px;
-  margin-left: 18px;
+  /*margin-left: 15px;*/
   color: grey;
   text-transform: uppercase;
-  text-align: center;
+  text-align: left;
 
   user-select: none;
   cursor: default;

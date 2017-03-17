@@ -4,7 +4,6 @@ import { Subscription }      from 'rxjs/Subscription';
 
 import { DataframeAccount }  from '../services/dataframe.account.service';
 
-
 @Component (
 {
     selector    : 'app-root'
@@ -13,11 +12,11 @@ import { DataframeAccount }  from '../services/dataframe.account.service';
 } )
 export class AppComponent implements OnInit
 {
-    isAuthenticated     : boolean = true;
-    isMenuOpen          : boolean = false;
+    isAuthenticated     : boolean; // = false;
+    isMenuOpen          : boolean; // = false;
 
-    isMenuAutoClose     : boolean = true;     // TODO: move to SettingService
-    menuAutoCloseMs     : number  = 100;      // TODO: move to SettingService
+    isMenuAutoClose     : boolean; //  = true;     // TODO: move to SettingService
+    menuAutoCloseMs     : number;  //   = 100;     // TODO: move to SettingService
 
     account_token_subscription  : Subscription;
 
@@ -33,20 +32,21 @@ export class AppComponent implements OnInit
             {
                 if ( null === value )
                 {
-                    console.log ( 'account token updated {0} -', value );
-
                     this.isAuthenticated = false;
 
                 } else
                 {
-                    console.log ( 'account token updated {1} -', value );
-
                     this.isAuthenticated = true;
                 }
 
             }
 
         );
+
+        this.isAuthenticated    = false;
+        this.isMenuOpen         = false;
+        this.isMenuAutoClose    = true;
+        this.menuAutoCloseMs    = 100;
     }
 
     on_event_toggle_sidebar_menu  ( nav_event: any ) : void

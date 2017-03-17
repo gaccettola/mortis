@@ -1,0 +1,54 @@
+
+<div fxLayout="column" fxFlex
+     [style.height]="current_height"
+     [style.min-height]="current_height" >
+
+    <div fxLayout="row" fxFlex="20"></div>
+
+    <div fxLayout="row" fxFlex>
+
+        <div fxLayout="column" fxFlex></div>
+
+        <div fxLayout="column" >
+
+            <md-card  class="signin">
+
+                <div fxLayout="row" fxFlex fxLayoutAlign="center center">
+                    <md-icon class="page_header_nav_icon signin-logo">account_circle</md-icon>
+                </div>
+
+                <md-input-container fxLayout="row">
+                    <input mdInput placeholder="email"
+                           [(ngModel)]="this.username">
+                </md-input-container>
+
+                <md-input-container fxLayout="row">
+                    <input mdInput placeholder="password" type="password"
+                           [(ngModel)]="this.password">
+                </md-input-container>
+
+                <div fxLayout="row">
+                    <button md-raised-button fxFlex class="signin-login"
+                            (click)="login()">login</button>
+                </div>
+                <div fxLayout="row">
+                    <a fxFlex class="signin-forgot"
+                       (click)="forgot()">remind me</a>
+                </div>
+
+            </md-card>
+
+            <div fxLayout="row">
+                <a fxFlex class="signin-create"
+                   (click)="signup()">create account</a>
+            </div>
+
+        </div>
+
+        <div fxLayout="column" fxFlex></div>
+
+    </div>
+
+    <div fxLayout="row" fxFlex></div>
+
+</div>

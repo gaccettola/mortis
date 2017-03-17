@@ -78,6 +78,13 @@ export class DataframeAccount extends DataframeBase
         } );
     }
 
+    logout ( ) : void
+    {
+        this.account_token = null;
+
+        this.account_token_subject.next ( this.account_token );
+    }
+
     write ( payload ) : Promise<any>
     {
         return new Promise ( ( resolve, reject ) =>

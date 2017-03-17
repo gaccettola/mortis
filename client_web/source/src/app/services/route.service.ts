@@ -1,14 +1,32 @@
 
 import { Injectable }   from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+
 import { Router }       from '@angular/router';
+
+import { DataframeAccount } from '../services/dataframe.account.service';
 
 @Injectable()
 export class RouteService
 {
-    listof_menu_item:       any[]   = [];
+    listof_menu_item            : any[]   = [];
+    account_token_subscription  : Subscription;
 
-    constructor ( private _router : Router )
+    constructor ( private _dataframeAccount : DataframeAccount,
+                  private _router           : Router )
     {
+        this.account_token_subscription = this._dataframeAccount.observe_account_token ( ).subscribe (
+
+            value =>
+            {
+                if ( null === value )
+                {
+                    this.transition_to ( { href : `/login` } );
+                }
+
+            }
+
+        );
     }
 
     get_listof_menu_item ( ) : any[]
@@ -52,7 +70,7 @@ export class RouteService
         return {
             id   : -1,
             icon : `power_settings_new`,
-            href : `/logout`,
+            href : `/login`,
             name : `logout`
         };
     }
@@ -77,28 +95,18 @@ export class RouteService
 
 
         // if `logout` is the request
-        // then go do the logout thing(s)
-        if ( `/logout` === route_url.href )
+        // then go to the login page
+        if ( `/login` === route_url.href )
         {
-            console.log ( `do the logout thing` );
+            this._router.navigateByUrl ( route_url.href, { skipLocationChange: true } );
 
             return;
         }
 
         // if we get a request to go to the same route
-        // then go fish
         if ( this._router.url === route_url.href )
         {
-            console.log ( `skipping the route thing` );
-
-            return;
-        }
-
-        // if we`re on the default route and are
-        // requested to go to the default route.  go fish
-        if ( `/` === this._router.url && `/dashboard` === route_url.href )
-        {
-            console.log ( `skipping the route thing, electric boogaloo` );
+            console.log ( `skipping duplicate route` );
 
             return;
         }
