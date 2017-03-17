@@ -22,22 +22,19 @@
 
                     <ion-item class="page-login-content-card-item-host" >
                         <ion-label floating>email</ion-label>
-                        <ion-input type="text"></ion-input>
+                        <ion-input type="text" [(ngModel)]="username"></ion-input>
                     </ion-item>
 
                     <ion-item class="page-login-content-card-item-host" >
                         <ion-label floating>password</ion-label>
-                        <ion-input type="password"></ion-input>
+                        <ion-input type="password" [(ngModel)]="password"></ion-input>
                     </ion-item>
 
                     <div class="page-login-content-card-ctrl-host" >
-                        <button ion-button block>login</button>
+                        <button ion-button block
+                                (click)="login()">login
+                        </button>
                     </div>
-
-
-                    <!--<div class="row page-login-content-card-link-host">-->
-                        <!--<a class="signin-forgot">remind me</a>-->
-                    <!--</div>-->
 
                 </div>
 
@@ -45,10 +42,14 @@
 
             <ion-row class="page-login-other" >
                 <ion-col class="page-login-other-l">
-                    <button ion-button block>i`m new</button>
+                    <button ion-button block
+                            (click)="signup()">i`m new
+                    </button>
                 </ion-col>
                 <ion-col class="page-login-other-r">
-                    <button ion-button block>remind me</button>
+                    <button ion-button block
+                            (click)="forgot()">remind me
+                    </button>
                 </ion-col>
             </ion-row>
 

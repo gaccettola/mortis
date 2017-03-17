@@ -1,9 +1,10 @@
 
-import { Component, OnInit, ViewChild }             from '@angular/core';
+import { Component, OnInit, ViewChild }     from '@angular/core';
 
-import { Events, MenuController, Nav, Platform }    from 'ionic-angular';
-import { Splashscreen }                             from 'ionic-native';
-import { Storage }                                  from '@ionic/storage';
+import { App, Events, MenuController }      from 'ionic-angular';
+import { Nav, Platform }                    from 'ionic-angular';
+import { Splashscreen }                     from 'ionic-native';
+import { Storage }                          from '@ionic/storage';
 
 import { LoginComponent }       from '../pages/login/login.component';
 import { DashboardComponent }   from '../pages/dashboard/dashboard.component';
@@ -69,10 +70,11 @@ export class AppComponent implements OnInit
 
     rootPage: any;
 
-    constructor ( public events     : Events
-                , public menu       : MenuController
-                , public platform   : Platform
-                , public storage    : Storage )
+    constructor ( private _app      : App
+                , private _events   : Events
+                , private _menu     : MenuController
+                , private _platform : Platform
+                , private _storage  : Storage )
     {
         console.log ( `::ctor` );
 
@@ -102,7 +104,7 @@ export class AppComponent implements OnInit
 
         let loggedIn = true;
 
-        this.menu.enable ( loggedIn, 'loggedInMenu' );
+        this._menu.enable ( loggedIn, 'loggedInMenu' );
     }
 
     // ////////////////////////////////////////////////////////////////////////
@@ -113,7 +115,7 @@ export class AppComponent implements OnInit
     {
         console.log ( `::enableMenu` );
 
-        this.platform.ready().then ( () =>
+        this._platform.ready().then ( () =>
         {
             console.log ( `::enableMenu - platform.ready` );
 

@@ -1,7 +1,7 @@
 
 import { Component, ViewChild }         from '@angular/core';
 
-import { Events, MenuController, Nav, Platform }    from 'ionic-angular';
+import { App, Events, Nav }             from 'ionic-angular';
 import { Subscription }                 from 'rxjs/Subscription';
 
 import { DashboardComponent }           from '../dashboard/dashboard.component';
@@ -31,7 +31,9 @@ export class LoginComponent
     username        : string = 'gabriel@accettolasystems.com';
     password        : string = 'accettolasystems not com';
 
-    constructor ( private _socketService    : SocketService,
+    constructor ( private _app              : App,
+                  private _events           : Events,
+                  private _socketService    : SocketService,
                   private _dataframeAccount : DataframeAccount )
     {
         console.log ( `::ctor` );
@@ -72,8 +74,6 @@ export class LoginComponent
         this._socketService.engine_init ( );
 
         jQuery('.mat-input-wrapper').css('width', '100%');
-
-        this.login ( );
     }
 
     //
@@ -138,12 +138,7 @@ export class LoginComponent
             {
                 let obj = JSON.parse ( value.data );
 
-                this.nav.setRoot ( DashboardComponent ).catch( () =>
-                {
-                    console.log ( "Didn't set nav root" );
-
-                } );
-
+                this._app.getRootNav().setRoot(DashboardComponent);
             },
             ( error ) =>
             {

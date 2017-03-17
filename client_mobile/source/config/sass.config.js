@@ -72,7 +72,11 @@ module.exports = {
    */
   variableSassFiles: [
     '{{SRC}}/theme/variables.scss',
-    '{{SRC}}/theme/login.component.scss'
+    '{{SRC}}/theme/dashboard.component.scss',
+    '{{SRC}}/theme/flag.component.scss',
+    '{{SRC}}/theme/login.component.scss',
+    '{{SRC}}/theme/mail.component.scss',
+    '{{SRC}}/theme/settings.component.scss',
   ],
 
   /**

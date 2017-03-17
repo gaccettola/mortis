@@ -101,43 +101,45 @@ $dark:       #222;
         flex: 0.2;
     }
 
-}
-
-.page-login-other {
-    padding: 0px 20px 0px 20px !important;
-}
-
-.page-login-other-l {
-    button {
-
-        font-weight: 500;
-        background-color: mix(white, $primary, 20%);
-
-        height:38px;
-        max-height:38px;
+    .page-login-other {
+        padding: 0px 20px 0px 20px !important;
     }
-}
 
-.page-login-other-r {
-    button {
+    .page-login-other-l {
+        button {
 
-        font-weight: 500;
-        background-color: mix(white, $primary, 20%);
+            font-weight: 500;
+            background-color: mix(white, $primary, 20%);
 
-        height:38px;
-        max-height:38px;
+            height:38px;
+            max-height:38px;
+        }
     }
+
+    .page-login-other-r {
+        button {
+
+            font-weight: 500;
+            background-color: mix(white, $primary, 20%);
+
+            height:38px;
+            max-height:38px;
+        }
+    }
+
+    .page_header_nav_icon {
+
+    }
+    .signin-logo {
+
+        text-align: center;
+        height: 84px;
+        width: 84px;
+        font-size: 84px;
+        color: #bdbdbd !important;
+        color: #bdbdbd !important;
+    }
+
 }
 
-.page_header_nav_icon {
 
-}
-.signin-logo {
-
-    text-align: center;
-    height: 84px;
-    width: 84px;
-    font-size: 84px;
-    color: #bdbdbd !important;
-    color: #bdbdbd !important;
-}
