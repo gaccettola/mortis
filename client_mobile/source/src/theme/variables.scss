@@ -4,6 +4,13 @@ $font-path: "../assets/fonts";
 
 @import "ionic.globals";
 
+html, body {
+    height: 100%;
+    margin:0; padding:0;
+    overflow-y: hidden;
+
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 // Shared Variables
 // --------------------------------------------------

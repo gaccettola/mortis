@@ -1,0 +1,100 @@
+
+$primary:    #663399;
+$secondary:  #32db64;
+$danger:     #f53d3d;
+$light:      #f4f4f4;
+$dark:       #222;
+
+.page-login {
+
+    scroll-content {
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    ion-grid {
+
+        padding: 0;
+        height: 100%;
+    }
+
+    .page-login-header {
+
+        padding: 16px;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #333;
+
+        flex: 0.2;
+    }
+
+    .page-login-content {
+
+        flex: 0.8;
+
+        .page-login-content-card {
+
+            margin: 12px 12px 12px 12px;
+            width: calc(100% - 24px);
+            border-radius: 2px;
+            font-size: 1.4rem;
+            background-color: #f7f7f7;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+
+            .page-login-content-card-header {
+
+                background-color: mix(white, $primary, 95%);
+                //background-color: transparentize($primary, 0.95);
+                //border-bottom: 1px solid lighten($primary, 20);
+            }
+
+            .page-login-content-card-icon-host {
+                padding-top: 24px;
+                text-align: center;
+            }
+
+            .page-login-content-card-item-host {
+                background-color: #f7f7f7;
+
+                padding-right: 16px;
+            }
+
+            .page-login-content-card-content {
+
+                min-height: 314px;
+            }
+
+            .page-login-content-card-footer {
+
+                background-color: mix(white, $primary, 95%);
+                //background-color: transparentize($primary, 0.95);
+                //border-bottom: 1px solid lighten($primary, 20);
+            }
+        }
+    }
+
+    .page-login-footer {
+
+        padding: 16px;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #333;
+
+        flex: 0.2;
+    }
+
+}
+
+.page_header_nav_icon {
+
+}
+.signin-logo {
+
+    text-align: center;
+    height: 84px;
+    width: 84px;
+    font-size: 84px;
+    color: #bdbdbd !important;
+    color: #bdbdbd !important;
+}

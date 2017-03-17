@@ -1,29 +1,38 @@
 
-import { Component }            from '@angular/core';
-import { Subscription }         from 'rxjs/Subscription';
+import { Component, ViewChild }         from '@angular/core';
 
-import { SocketService }        from '../../services/socket.service';
-import { DataframeAccount }     from '../../services/dataframe.account.service';
+import { Events, MenuController, Nav, Platform }    from 'ionic-angular';
+import { Subscription }                 from 'rxjs/Subscription';
+
+import { DashboardComponent }           from '../dashboard/dashboard.component';
+
+import { SocketService }                from '../../services/socket.service';
+import { DataframeAccount }             from '../../services/dataframe.account.service';
+
+import * as jQuery                      from 'jquery';
 
 @Component (
 {
-    selector    : 'dashboard'
-,   templateUrl : 'dashboard.component.html'
+    selector    : 'login'
+,   templateUrl : 'login.component.html'
 } )
-export class DashboardComponent
+export class LoginComponent
 {
-    title           : string    = 'dashboard';
+    @ViewChild ( Nav ) nav: Nav;
 
-    listof_thing    : any       =
-    [
-        { name : 'a' }
-    ];
+    title           : string    = 'Login';
+
+    current_height      : string;
+    height_subscription : Subscription;
 
     current_token       : any;
     token_subscription  : Subscription;
 
-    constructor ( private _socketService     : SocketService,
-                  private _dataframeAccount  : DataframeAccount )
+    username        : string = 'gabriel@accettolasystems.com';
+    password        : string = 'accettolasystems not com';
+
+    constructor ( private _socketService    : SocketService,
+                  private _dataframeAccount : DataframeAccount )
     {
         console.log ( `::ctor` );
     }
@@ -61,6 +70,10 @@ export class DashboardComponent
         );
 
         this._socketService.engine_init ( );
+
+        jQuery('.mat-input-wrapper').css('width', '100%');
+
+        this.login ( );
     }
 
     //
@@ -111,11 +124,66 @@ export class DashboardComponent
         return true;
     }
 
-    on_select_card ( )
+    login ( ) : void
     {
-        console.log ( `::ionViewDidLoad` );
+        let payload =
+        {
+            userName    : this.username,
+            password    : this.password
+        };
 
-        this._socketService.engine_init ( );
+        this._dataframeAccount.login ( payload ).then (
+
+            ( value ) =>
+            {
+                let obj = JSON.parse ( value.data );
+
+                this.nav.setRoot ( DashboardComponent ).catch( () =>
+                {
+                    console.log ( "Didn't set nav root" );
+
+                } );
+
+            },
+            ( error ) =>
+            {
+                let obj = JSON.parse ( error.data );
+
+                console.log ( obj );
+            }
+
+        );
+    }
+
+    forgot ( ) : void
+    {
+        console.log ( `one moment` );
+    }
+
+    signup ( ) : void
+    {
+        let payload =
+        {
+            userName    : this.username,
+            password    : this.password
+        };
+
+        this._dataframeAccount.write ( payload ).then (
+
+            ( value ) =>
+            {
+                let obj = JSON.parse ( value.data );
+
+                return value;
+            },
+            ( error ) =>
+            {
+                let obj = JSON.parse ( error.data );
+
+                console.log ( obj );
+            }
+
+        );
     }
 
 }

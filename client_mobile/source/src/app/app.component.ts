@@ -5,6 +5,7 @@ import { Events, MenuController, Nav, Platform }    from 'ionic-angular';
 import { Splashscreen }                             from 'ionic-native';
 import { Storage }                                  from '@ionic/storage';
 
+import { LoginComponent }       from '../pages/login/login.component';
 import { DashboardComponent }   from '../pages/dashboard/dashboard.component';
 import { FlagComponent }        from '../pages/flag/flag.component';
 import { MailComponent }        from '../pages/mail/mail.component';
@@ -58,6 +59,11 @@ export class AppComponent implements OnInit
             title       : 'Settings',
             icon        : 'md-home',
             component   : SettingsComponent
+        },
+        {
+            title       : 'Logout',
+            icon        : 'md-power',
+            component   : LoginComponent
         }
     ];
 
@@ -70,7 +76,7 @@ export class AppComponent implements OnInit
     {
         console.log ( `::ctor` );
 
-        this.rootPage = DashboardComponent;
+        this.rootPage = LoginComponent;
 
         this.platformReady ( );
 
@@ -138,7 +144,7 @@ export class AppComponent implements OnInit
 
     isActive ( page : any )
     {
-        console.log ( `::isActive`, page );
+        // console.log ( `::isActive`, page );
 
         let childNav = this.nav.getActiveChildNav ( );
 
