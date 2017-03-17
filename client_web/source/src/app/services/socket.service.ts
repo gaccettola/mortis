@@ -81,7 +81,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'reconnect',            ( opts :any ) => this._ngZone.run ( ( ) =>
+        this.primus_client.on ( 'reconnect',            ( opts : any ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Reconnection attempt started' );
 
@@ -91,7 +91,7 @@ export class SocketService
 
         } ) );
 
-        this.primus_client.on ( 'reconnect scheduled',  ( opts :any ) => this._ngZone.run ( ( ) =>
+        this.primus_client.on ( 'reconnect scheduled',  ( opts : any ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Reconnecting in %d ms', opts.scheduled );
 
