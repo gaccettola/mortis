@@ -2,7 +2,7 @@
     "$schema"   : "./node_modules/@angular/cli/lib/config/schema.json",
     "project"   :
     {
-        "name"  : "client-for-web"
+        "name"  : "client-for-desktop"
     },
     "apps"      :
     [

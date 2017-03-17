@@ -7,7 +7,7 @@ import { LayoutService  }       from '../../services/layout.service';
 {
     selector    : 'settings'
 ,   templateUrl : './settings.component.html'
-,   styleUrls   : ['./settings.component.css']
+,   styleUrls   : ['./settings.component.scss']
 } )
 export class SettingsComponent implements OnInit
 {

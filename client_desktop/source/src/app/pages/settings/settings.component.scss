@@ -1,0 +1,55 @@
+md-card.signin.mat-card {
+
+    height: 314px;
+    width: 384px;
+
+    background-color: #f7f7f7;
+
+    .signin-logo {
+        height: 84px;
+        width: 84px;
+        font-size: 84px;
+        color: #bdbdbd !important;
+        color: #bdbdbd !important;
+    }
+
+    .signin-login {
+
+        margin-top: 12px !important;
+
+        font-weight: 600;
+        color: white !important;
+        background-color: rgba(103, 58, 183, 0.75) !important;
+        border-radius: 3px;
+        border: 1px solid rgba(103, 58, 183, 0.85) !important;
+    }
+
+    .signin-forgot {
+        height: 32px;
+        text-align: end;
+        margin-top: 8px;
+
+        color: rgba(103, 58, 183, 1.00) !important;
+    }
+
+    .signin-forgot:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.signin-create {
+
+    margin-top: 24px !important;
+
+    height: 32px;
+    text-align: center;
+    margin-top: 8px;
+
+    color: rgba(103, 58, 183, 1.00) !important;
+}
+
+.signin-create:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
