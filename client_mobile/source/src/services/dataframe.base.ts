@@ -49,7 +49,7 @@ export class DataframeBase
                     header  : header
                 };
 
-                if ( 200 === retval.status )
+                if ( retval && 200 === retval.status )
                 {
                     resolve ( retval );
 

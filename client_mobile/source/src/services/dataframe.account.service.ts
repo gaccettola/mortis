@@ -4,7 +4,9 @@ import { Injectable, NgZone }   from '@angular/core';
 import { Observable }           from 'rxjs/Rx';
 import { BehaviorSubject }      from "rxjs/Rx";
 
-import { DataframeBase }        from './dataframe.base';
+import { DataframeBase, IHttpInvokeResult }        from './dataframe.base';
+
+import { NotifyService }        from './notify.service';
 
 @Injectable()
 export class DataframeAccount extends DataframeBase
@@ -34,7 +36,7 @@ export class DataframeAccount extends DataframeBase
         return this.account_token_subject.asObservable();
     }
 
-    login ( payload ) : Promise<any>
+    login ( payload ) : Promise<IHttpInvokeResult>
     {
         return new Promise ( ( resolve, reject ) =>
         {
