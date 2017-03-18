@@ -9,6 +9,8 @@ import { LayoutService  }               from '../../services/layout.service';
 import { SocketService }                from '../../services/socket.service';
 import { DataframeAccount }             from '../../services/dataframe.account.service';
 
+import { NotifyService }                from '../../services/notify.service';
+
 import * as jQuery                      from 'jquery';
 
 @Component (
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit
                   private _layoutService    : LayoutService,
                   private _socketService    : SocketService,
                   private _dataframeAccount : DataframeAccount,
+                  private _notifyService    : NotifyService,
                   private _snackBar         : MdSnackBar )
     {
     }
@@ -118,6 +121,23 @@ export class LoginComponent implements OnInit
     {
         let message = `forget something?`;
         this._snackBar.open ( message, ``, { duration: 5000 } );
+
+        let current_permission = this._notifyService.permission();
+
+        console.log ( current_permission );
+
+        this._notifyService.request_permission ( ).then (
+
+            ( value ) =>
+            {
+                this._notifyService.send_notification ( 'title', 'body', './assets/icon/favicon.ico' );
+            },
+            ( error ) =>
+            {
+                console.log ( '', error );
+            }
+
+        );
     }
 
     signup ( ) : void
