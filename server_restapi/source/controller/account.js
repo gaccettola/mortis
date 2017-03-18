@@ -4,6 +4,7 @@
 
 var dotenv  = require ( 'dotenv'   ).config(),
     Promise = require ( 'bluebird' ),
+    _       = require ( 'lodash'   ),
     sprintf = require ( 'sprintf'  ),
     mysql   = require ( 'mysql'    ),
     chalk   = require ( 'chalk'    );
@@ -218,7 +219,15 @@ module.exports = function ( )
 
             function ( value )
             {
-                return request_status_send ( res, 200, value[0][0] );
+                var retval = _.omit ( value[0][0],
+                [
+                    'accountId',
+                    'salt',
+                    'hash'
+
+                ] );
+
+                return request_status_send ( res, 200, retval );
             },
             function ( error )
             {
