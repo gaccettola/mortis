@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription }      from 'rxjs/Subscription';
 
 import { DataframeAccount }  from '../services/dataframe.account.service';
+import { NotifyService }     from '../services/notify.service';
 
 @Component (
 {
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit
 
     account_token_subscription  : Subscription;
 
-    constructor ( private _dataframeAccount : DataframeAccount )
+    constructor ( private _dataframeAccount : DataframeAccount,
+                  private _notifyService    : NotifyService )
     {
     }
 

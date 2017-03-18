@@ -6,6 +6,8 @@ import { BehaviorSubject }      from "rxjs/Rx";
 
 import { DataframeBase, IHttpInvokeResult }        from './dataframe.base';
 
+import { NotifyService }        from './notify.service';
+
 @Injectable()
 export class DataframeAccount extends DataframeBase
 {
