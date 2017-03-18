@@ -179,12 +179,52 @@ module.exports = function ( )
     {
         var account_salt = vm.protect_agent.compose_salt ( );
         var account_hash = vm.protect_agent.encrypt_pass ( req.body.password, account_salt );
+        var sp_script;
 
-        var sp_script = sprintf ( 'CALL %s( %s, %s, %s );',
-            'sp_account_write',
-            mysql.escape ( req.body.userName ),
-            mysql.escape ( account_salt ),
-            mysql.escape ( account_hash )
+        sp_script = sprintf ( 'CALL %s( %s );',
+            'sp_account_fetch_user',
+            mysql.escape ( req.body.userName )
+        );
+
+        vm.storage_agent.connection_exec ( sp_script ).then (
+
+            function ( value )
+            {
+                var result_len  = value[0].length;
+
+                if ( 0 < result_len )
+                {
+                    return value;
+
+                } else
+                {
+                    sp_script = sprintf ( 'CALL %s( %s, %s, %s );',
+                        'sp_account_write',
+                        mysql.escape ( req.body.userName ),
+                        mysql.escape ( account_salt ),
+                        mysql.escape ( account_hash )
+                    );
+
+                    return vm.storage_agent.connection_exec ( sp_script );
+                }
+
+            },
+            function ( error )
+            {
+                throw ( error );
+            }
+
+        ).then (
+
+            function ( value )
+            {
+                return request_status_send ( res, 200, value[0][0] );
+            },
+            function ( error )
+            {
+                return request_status_send ( res, 400, error );
+            }
+
         );
 
         return sp_exec ( req, res, next, sp_script );
@@ -219,6 +259,11 @@ module.exports = function ( )
                 var result      = value[0][0];
 
                 var confirmed   = vm.protect_agent.confirm_hash ( req.body.password, result.salt, result.hash );
+
+                if ( true !== confirmed )
+                {
+                    throw ( 'try again' );
+                }
 
                 var payload     =
                 {

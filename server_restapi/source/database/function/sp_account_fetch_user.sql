@@ -22,6 +22,8 @@ this_proc:BEGIN
         account a
     WHERE
         a.userName = p_userName
+    ORDER BY
+        a.accountId
     ;
 
 END

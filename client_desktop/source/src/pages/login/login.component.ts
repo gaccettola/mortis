@@ -2,6 +2,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription }                 from 'rxjs/Subscription';
 
+import { MdSnackBar }                   from '@angular/material';
+
 import { RouteService  }                from '../../services/route.service';
 import { LayoutService  }               from '../../services/layout.service';
 import { SocketService }                from '../../services/socket.service';
@@ -24,12 +26,13 @@ export class LoginComponent implements OnInit
     token_subscription  : Subscription;
 
     username        : string = 'gabriel@accettolasystems.com';
-    password        : string = 'accettolasystems not com';
+    password        : string = '123456';
 
     constructor ( private _routeService     : RouteService,
                   private _layoutService    : LayoutService,
                   private _socketService    : SocketService,
-                  private _dataframeAccount : DataframeAccount )
+                  private _dataframeAccount : DataframeAccount,
+                  private _snackBar         : MdSnackBar )
     {
     }
 
@@ -81,15 +84,29 @@ export class LoginComponent implements OnInit
 
             ( value ) =>
             {
-                let obj = JSON.parse ( value.data );
+                let message = `login successful`;
+                let label   = ``;
+                this._snackBar.open ( message, label, { duration: 1500 } );
 
                 this._routeService.transition_to ( { href : `/dashboard` } );
             },
             ( error ) =>
             {
-                let obj = JSON.parse ( error.data );
+                let message = `login not available`;
+                let label   = ``;
 
-                console.log ( obj );
+                if ( error && error.data )
+                {
+                    let obj = JSON.parse ( error.data );
+
+                    label = obj.result;
+
+                } else if ( error && error.error && error.error.toString )
+                {
+                    label = error.error.toString ( );
+                }
+
+                this._snackBar.open ( message, label, { duration: 5000 } );
             }
 
         );
@@ -97,7 +114,8 @@ export class LoginComponent implements OnInit
 
     forgot ( ) : void
     {
-        console.log ( `one moment` );
+        let message = `forget something?`;
+        this._snackBar.open ( message, ``, { duration: 5000 } );
     }
 
     signup ( ) : void
@@ -112,15 +130,30 @@ export class LoginComponent implements OnInit
 
             ( value ) =>
             {
-                let obj = JSON.parse ( value.data );
+                let message = `signup successful`;
+                let label   = `try logging in now`;
+                this._snackBar.open ( message, label, { duration: 5000 } );
 
                 return value;
             },
             ( error ) =>
             {
-                let obj = JSON.parse ( error.data );
+                let message = `signup not available`;
 
-                console.log ( obj );
+                let label   = ``;
+
+                if ( error && error.data )
+                {
+                    let obj = JSON.parse ( error.data );
+
+                    label = obj.result;
+
+                } else if ( error && error.error && error.error.toString )
+                {
+                    label = error.error.toString ( );
+                }
+
+                this._snackBar.open ( message, label, { duration: 5000 } );
             }
 
         );

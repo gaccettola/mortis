@@ -20,6 +20,8 @@ echo preparing client_web,
 
 cd source
 
+mkdir -p dist
+
 npm i
 
 npm start

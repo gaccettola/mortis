@@ -10,7 +10,7 @@ import { DataframeAccount }             from '../../services/dataframe.account.s
 {
     selector    : 'flag'
 ,   templateUrl : './flag.component.html'
-,   styleUrls   : ['./flag.component.css']
+,   styleUrls   : ['./flag.component.scss']
 } )
 export class FlagComponent implements OnInit
 {

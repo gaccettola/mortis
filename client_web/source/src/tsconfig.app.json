@@ -11,7 +11,7 @@
             "es2016",
             "dom"
         ],
-        "outDir"    : "../out-tsc/app",
+        "outDir"    : "../dist/out-tsc",
         "target"    : "es5",
         "module"    : "es2015",
         "baseUrl"   : "",

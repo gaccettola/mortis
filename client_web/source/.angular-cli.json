@@ -22,7 +22,7 @@
             "prefix"    : "app",
             "styles"    :
             [
-                "styles/styles.scss"
+                "theme/variables.scss"
             ],
             "scripts"   :
             [
