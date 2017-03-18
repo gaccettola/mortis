@@ -236,7 +236,6 @@ module.exports = function ( )
 
         );
 
-        return sp_exec ( req, res, next, sp_script );
     }
 
     /**
