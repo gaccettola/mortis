@@ -8,6 +8,7 @@ import { SocketService }            from '../services/socket.service';
 
 import { DataframeBase }            from '../services/dataframe.base';
 import { DataframeAccount }         from '../services/dataframe.account.service';
+import { NotifyService }            from '../services/notify.service';
 
 import { AppComponent }             from './app.component';
 
@@ -38,6 +39,7 @@ import { SettingsComponent }        from '../pages/settings/settings.component';
         SocketService
     ,   DataframeBase
     ,   DataframeAccount
+    ,   NotifyService
     ],
     entryComponents :
     [

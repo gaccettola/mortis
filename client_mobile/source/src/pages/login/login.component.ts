@@ -9,6 +9,8 @@ import { DashboardComponent }           from '../dashboard/dashboard.component';
 import { SocketService }                from '../../services/socket.service';
 import { DataframeAccount }             from '../../services/dataframe.account.service';
 
+import { NotifyService }                from '../../services/notify.service';
+
 import * as jQuery                      from 'jquery';
 
 @Component (
@@ -34,7 +36,8 @@ export class LoginComponent
     constructor ( private _app              : App,
                   private _events           : Events,
                   private _socketService    : SocketService,
-                  private _dataframeAccount : DataframeAccount )
+                  private _dataframeAccount : DataframeAccount,
+                  private _notifyService    : NotifyService )
     {
         console.log ( `::ctor` );
     }
@@ -152,7 +155,18 @@ export class LoginComponent
 
     forgot ( ) : void
     {
-        console.log ( `one moment` );
+        this._notifyService.request_permission ( ).then (
+
+            ( value ) =>
+            {
+                this._notifyService.send_notification ( 'title', 'body', './assets/icon/favicon.ico' );
+            },
+            ( error ) =>
+            {
+                console.log ( '', error );
+            }
+
+        );
     }
 
     signup ( ) : void
