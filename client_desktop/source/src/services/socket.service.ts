@@ -3,10 +3,17 @@ import { Injectable, NgZone }   from '@angular/core';
 import { Observable }           from 'rxjs/Rx';
 import { BehaviorSubject }      from "rxjs/Rx";
 
+import { NotifyService }        from './notify.service';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 declare var window: any;
+
+export interface ISocketMessage {
+    type : string;
+    text : string;
+}
 
 @Injectable()
 export class SocketService
@@ -28,7 +35,8 @@ export class SocketService
 
     primus_client_event_count   : number = 0;
 
-    constructor ( private _ngZone : NgZone )
+    constructor ( private _ngZone        : NgZone,
+                  private _notifyService : NotifyService )
     {
     }
 
@@ -51,13 +59,21 @@ export class SocketService
 
         this.primus_client = new window.Primus ( this.server_socket_url, this.primus_socket_options );
 
-        this.primus_client.on ( 'data',                 ( data : any ) => this._ngZone.run ( ( ) =>
+        this.primus_client.on ( 'data',                 ( data : ISocketMessage ) => this._ngZone.run ( ( ) =>
         {
             console.log ( 'Received a new message from the server', data );
 
             this.primus_client_event_count++;
 
             console.log ( 'primus event', this.primus_client_event_count );
+
+            this._notifyService.send_notification (
+
+                'title',
+                data.text,
+                './assets/icon/favicon.ico'
+
+            );
 
         } ) );
 
