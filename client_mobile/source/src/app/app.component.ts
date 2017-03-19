@@ -6,6 +6,8 @@ import { Nav, Platform }                    from 'ionic-angular';
 import { Splashscreen }                     from 'ionic-native';
 import { Storage }                          from '@ionic/storage';
 
+import { DataframeAccount }     from '../services/dataframe.account.service';
+
 import { LoginComponent }       from '../pages/login/login.component';
 import { DashboardComponent }   from '../pages/dashboard/dashboard.component';
 import { FlagComponent }        from '../pages/flag/flag.component';
@@ -14,6 +16,7 @@ import { SettingsComponent }    from '../pages/settings/settings.component';
 
 export interface PageInterface
 {
+    id          : number,
     title       : string;
     icon        : string;
     logsOut?    : boolean;
@@ -42,26 +45,31 @@ export class AppComponent implements OnInit
     appPages : PageInterface [] =
     [
         {
+            id          : 1,
             title       : 'Dashboard',
             icon        : 'md-home',
             component   : DashboardComponent
         },
         {
+            id          : 2,
             title       : 'Flag',
             icon        : 'md-home',
             component   : FlagComponent
         },
         {
+            id          : 3,
             title       : 'Mail',
             icon        : 'md-home',
             component   : MailComponent
         },
         {
+            id          : 4,
             title       : 'Settings',
             icon        : 'md-home',
             component   : SettingsComponent
         },
         {
+            id          : -1,
             title       : 'Logout',
             icon        : 'md-power',
             component   : LoginComponent
@@ -70,11 +78,12 @@ export class AppComponent implements OnInit
 
     rootPage: any;
 
-    constructor ( private _app      : App
-                , private _events   : Events
-                , private _menu     : MenuController
-                , private _platform : Platform
-                , private _storage  : Storage )
+    constructor ( private _app              : App
+                , private _events           : Events
+                , private _menu             : MenuController
+                , private _platform         : Platform
+                , private _storage          : Storage
+                , private _dataframeAccount : DataframeAccount )
     {
         console.log ( `::ctor` );
 
@@ -132,11 +141,25 @@ export class AppComponent implements OnInit
     {
         console.log ( `::openPage`, page );
 
-        this.nav.setRoot ( page.component ).catch( () =>
+        if ( -1 === page.id )
         {
-            console.log ( "Didn't set nav root" );
+            this._dataframeAccount.logout ( );
 
-        } );
+            this.nav.setRoot ( page.component ).catch( () =>
+            {
+                console.log ( "Didn't set nav root" );
+
+            } );
+
+        } else
+        {
+            this.nav.setRoot ( page.component ).catch( () =>
+            {
+                console.log ( "Didn't set nav root" );
+
+            } );
+
+        }
 
     }
 

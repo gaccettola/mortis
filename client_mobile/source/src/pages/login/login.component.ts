@@ -31,7 +31,7 @@ export class LoginComponent
     token_subscription  : Subscription;
 
     username        : string = 'gabriel@accettolasystems.com';
-    password        : string = 'accettolasystems not com';
+    password        : string = '123456';
 
     constructor ( private _app              : App,
                   private _events           : Events,
@@ -77,6 +77,26 @@ export class LoginComponent
         this._socketService.engine_init ( );
 
         jQuery('.mat-input-wrapper').css('width', '100%');
+
+        this._dataframeAccount.read (  ).then (
+
+            ( value ) =>
+            {
+                this._app.getRootNav().setRoot(DashboardComponent);
+            },
+            ( error ) =>
+            {
+                throw ( error );
+            }
+
+        ).catch (
+
+            ( ex ) =>
+            {
+                console.log ( `ERROR : Unable to read dataframe account -`, ex );
+            }
+
+        );
     }
 
     //
@@ -139,15 +159,11 @@ export class LoginComponent
 
             ( value ) =>
             {
-                let obj = JSON.parse ( value.data );
-
                 this._app.getRootNav().setRoot(DashboardComponent);
             },
             ( error ) =>
             {
-                let obj = JSON.parse ( error.data );
-
-                console.log ( obj );
+                console.log ( error );
             }
 
         );
