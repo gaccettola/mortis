@@ -1,5 +1,6 @@
 
-const electron = require('electron');
+const electron  = require ( 'electron' );
+const tray      = require ( './tray' );
 
 //noinspection JSUnresolvedVariable
 const app = electron.app;
@@ -43,6 +44,8 @@ function create_main_window ( )
         slashes     : true
 
     } ) );
+
+    tray.create_tray ( main_window );
 
     Menu.setApplicationMenu( null );
 
