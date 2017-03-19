@@ -69,7 +69,7 @@ export class SocketService
 
             this._notifyService.send_notification (
 
-                'title',
+                data.type,
                 data.text,
                 './assets/icon/favicon.ico'
 
