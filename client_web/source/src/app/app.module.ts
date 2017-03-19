@@ -19,6 +19,7 @@ import { DataframeBase }        from '../services/dataframe.base';
 import { DataframeAccount }     from '../services/dataframe.account.service';
 
 import { NotifyService }        from '../services/notify.service';
+import { DatastoreService }     from '../services/datastore.service';
 
 import { AppComponent }         from './app.component';
 
@@ -63,6 +64,7 @@ import { SettingsComponent }    from '../pages/settings/settings.component';
     ,   SocketService
     ,   DataframeBase
     ,   DataframeAccount
+    ,   DatastoreService
     ,   NotifyService
     ],
     bootstrap       :

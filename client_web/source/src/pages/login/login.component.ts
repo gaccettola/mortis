@@ -61,7 +61,30 @@ export class LoginComponent implements OnInit
 
     ngAfterContentInit ( )
     {
-        jQuery('.mat-input-wrapper').css('width', '100%');
+        jQuery('.mat-input-wrapper').css( 'width', '100%' );
+
+        this._dataframeAccount.read ( ).then (
+
+            ( value ) =>
+            {
+                console.log ( `LoginComponent::_dataframeAccount.read`, value );
+
+                this._routeService.transition_to ( { href : `/dashboard` } );
+            },
+            ( error ) =>
+            {
+                throw ( error );
+            }
+
+        ).catch (
+
+            ( ex ) =>
+            {
+                console.log ( `ERROR : Unable to read dataframe account -`, ex );
+            }
+
+        );
+
     }
 
     ngOnDestroy ( )

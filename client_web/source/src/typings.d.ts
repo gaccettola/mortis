@@ -5,3 +5,5 @@ declare var module: {
 };
 
 declare module 'httpinvoke';
+
+declare module 'localforage';

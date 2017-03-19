@@ -27,7 +27,8 @@
             "scripts"   :
             [
                 "../node_modules/jquery/dist/jquery.min.js",
-                "../node_modules/httpinvoke/src/browser.js"
+                "../node_modules/httpinvoke/src/browser.js",
+                "../node_modules/localforage/dist/localforage.js"
             ],
             "environmentSource" : "environments/environment.ts",
             "environments"  :

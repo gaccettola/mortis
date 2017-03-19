@@ -1,23 +1,36 @@
 
 import { Injectable, NgZone }   from '@angular/core';
 
-import { Observable }           from 'rxjs/Rx';
-import { BehaviorSubject }      from "rxjs/Rx";
+import { Observable }       from 'rxjs/Rx';
+import { BehaviorSubject }  from "rxjs/Rx";
 
-import { DataframeBase, IHttpInvokeResult }        from './dataframe.base';
+import { DataframeBase, IHttpInvokeResult } from './dataframe.base';
 
-import { NotifyService }        from './notify.service';
+import { DatastoreService, IStoreConfig } from './datastore.service';
 
 @Injectable()
 export class DataframeAccount extends DataframeBase
 {
+    store_config    : IStoreConfig =
+    {
+        store_key   : 'PK_Account',
+        store_name  : 'Account'
+    };
 
-    account_token         :any;
-    account_token_subject = new BehaviorSubject( this.account_token );
+    account_token           : any;
+    account_token_subject   = new BehaviorSubject( this.account_token );
 
-    constructor ( _ngZone : NgZone )
+    constructor ( protected _ngZone : NgZone,
+                  private   _store  : DatastoreService )
     {
         super ( _ngZone );
+
+        _store.init ( this.store_config ).then (
+
+            () => {},
+            () => {}
+
+        );
     }
 
     frameoption () : any
@@ -36,7 +49,7 @@ export class DataframeAccount extends DataframeBase
         return this.account_token_subject.asObservable();
     }
 
-    login ( payload ) : Promise<IHttpInvokeResult>
+    login ( payload ) : Promise<any>
     {
         return new Promise ( ( resolve, reject ) =>
         {
@@ -51,8 +64,6 @@ export class DataframeAccount extends DataframeBase
 
                 ( value ) =>
                 {
-                    console.log ( value );
-
                     if ( 200 === value.status )
                     {
                         this.account_token = JSON.parse ( value.data );
@@ -62,17 +73,33 @@ export class DataframeAccount extends DataframeBase
                         this.account_token = null;
                     }
 
-                    this.account_token_subject.next ( this.account_token );
+                    return this._store.setItem (
 
-                    resolve ( value );
+                        this.store_config.store_key,
+                        this.account_token
+
+                    );
+
                 },
                 ( error ) =>
                 {
-                    this.account_token = null;
+                    reject ( error );
+                }
 
+            ).then (
+
+                ( val ) =>
+                {
                     this.account_token_subject.next ( this.account_token );
 
-                    reject ( error );
+                    resolve ( val );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    reject ( ex );
                 }
 
             );
@@ -80,14 +107,41 @@ export class DataframeAccount extends DataframeBase
         } );
     }
 
-    logout ( ) : void
+    logout ( ) : Promise<any>
     {
-        this.account_token = null;
+        return new Promise ( ( resolve, reject ) =>
+        {
+            this._store.removeItem ( this.store_config.store_key ).then (
 
-        this.account_token_subject.next ( this.account_token );
+                ( value ) =>
+                {
+                    this.account_token = null;
+
+                    this.account_token_subject.next ( this.account_token );
+
+                    resolve ( );
+                },
+                ( error ) =>
+                {
+                    reject ( error );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    reject ( ex );
+                }
+            );
+
+        } );
+
     }
 
-    write ( payload ) : Promise<any>
+    /**
+     * Sign-up for a new account
+     */
+    write ( payload ) : Promise<IHttpInvokeResult>
     {
         return new Promise ( ( resolve, reject ) =>
         {
@@ -109,9 +163,82 @@ export class DataframeAccount extends DataframeBase
                     reject ( error );
                 }
 
+            ).catch (
+
+                ( ex ) =>
+                {
+                    reject ( ex );
+                }
+
             );
 
         } );
+    }
+
+    isvalid_account ( value ) : boolean
+    {
+        let retval : boolean = false;
+
+        if ( ! value )
+            return retval;
+
+        if ( ! value.result )
+            return retval;
+
+        if ( ! value.result.success )
+            return retval;
+
+        if ( ! value.result.token )
+            return retval;
+
+        if ( ! value.result.userName )
+            return retval;
+
+        retval = true;
+
+        return retval;
+    }
+
+    read ( ) : Promise<any>
+    {
+        return new Promise ( ( resolve, reject ) =>
+        {
+            this._store.getItem ( this.store_config.store_key ).then (
+
+                ( value ) =>
+                {
+                    if ( this.isvalid_account ( value ) )
+                    {
+                        this.account_token = value;
+
+                        this.account_token_subject.next ( this.account_token );
+
+                        resolve ( value );
+
+                    } else
+                    {
+                        throw ( `ERROR : Invalid dataframe.account` );
+                    }
+
+                },
+                ( error ) =>
+                {
+                    throw ( error );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    console.log ( `ERROR : Unable to read dataframe account -`, ex );
+
+                    reject ( ex );
+                }
+
+            );
+
+        } );
+
     }
 
 }
