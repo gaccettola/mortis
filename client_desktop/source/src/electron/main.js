@@ -1,6 +1,7 @@
 
-const electron  = require ( 'electron' );
-const tray      = require ( './tray' );
+const electron      = require ( 'electron' );
+const tray          = require ( './tray' );
+const window_state  = require ( './window_state' );
 
 //noinspection JSUnresolvedVariable
 const app = electron.app;
@@ -14,10 +15,15 @@ const path = require ( 'path' );
 
 const url = require ( 'url' );
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 var main_window;
 var web_contents;
+
+var main_window_state = window_state.create_state_saver ( 'main',
+{
+    width   : 1280,
+    height  : 768
+
+} );
 
 function create_main_window ( )
 {
@@ -25,8 +31,10 @@ function create_main_window ( )
     main_window = new BrowserWindow (
     {
         show        : false,
-        width       : 1024,
-        height      : 768,
+        x           : main_window_state.get_x ( ),
+        y           : main_window_state.get_y ( ),
+        width       : main_window_state.get_width ( ),
+        height      : main_window_state.get_height ( ),
         minWidth    : 480,
         minHeight   : 640
 
@@ -35,6 +43,11 @@ function create_main_window ( )
     web_contents = main_window.webContents;
 
     web_contents.openDevTools ( { detach : true } );
+
+    if ( main_window_state.is_maximized ( ) )
+    {
+        main_window.maximize ( );
+    }
 
     //noinspection JSUnresolvedFunction
     main_window.loadURL ( url.format (
@@ -49,15 +62,14 @@ function create_main_window ( )
 
     Menu.setApplicationMenu( null );
 
-    //noinspection JSUnresolvedVariable,JSUnresolvedFunction
-    // main_window.webContents.openDevTools();
+    main_window.on ( 'close', function ( )
+    {
+        main_window_state.save_state ( main_window );
 
-    // Emitted when the window is closed.
+    } );
+
     main_window.on ( 'closed', function ( )
     {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
         main_window = null;
 
     } );
@@ -66,8 +78,6 @@ function create_main_window ( )
     {
         main_window.show ( );
 
-        console.log ( 'app_info is now visible!' );
-
     } );
 
 }
@@ -75,16 +85,6 @@ function create_main_window ( )
 app.on ( 'ready', function ()
 {
     create_main_window ( );
-
-    main_window.loadURL ( 'file://' + __dirname + '/index.html' );
-
-    Menu.setApplicationMenu ( null );
-
-    main_window.on ( 'close', function ()
-    {
-        // main_window_state.saveState ( main_window );
-
-    } );
 
 } );
 
@@ -102,6 +102,3 @@ app.on ( 'activate', function ( )
     }
 
 } );
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
