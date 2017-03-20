@@ -1,5 +1,5 @@
 
--- test table
+-- System tokens
 
 CREATE TABLE IF NOT EXISTS token (
     tokenId     INT(10) UNSIGNED    NOT NULL AUTO_INCREMENT

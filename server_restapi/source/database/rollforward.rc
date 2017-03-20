@@ -12,6 +12,7 @@
 # tables
 
   create_table_account                  :: ./table/create_table_account.sql
+  create_table_accountToken             :: ./table/create_table_accountToken.sql
   create_table_active                   :: ./table/create_table_active.sql
   create_table_token                    :: ./table/create_table_token.sql
 
@@ -24,6 +25,12 @@
   sp_account_fetch_user                 :: ./function/sp_account_fetch_user.sql
   sp_account_patch                      :: ./function/sp_account_patch.sql
   sp_account_write                      :: ./function/sp_account_write.sql
+
+
+  sp_accountToken_fetch                 :: ./function/sp_accountToken_fetch.sql
+  sp_accountToken_fetch_account         :: ./function/sp_accountToken_fetch_account.sql
+  sp_accountToken_patch                 :: ./function/sp_accountToken_patch.sql
+  sp_accountToken_write                 :: ./function/sp_accountToken_write.sql
 
 
   sp_active_fetch                       :: ./function/sp_active_fetch.sql

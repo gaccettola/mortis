@@ -143,7 +143,7 @@ module.exports = function ( )
      */
     function fetch ( req, res, next )
     {
-        var sp_script = sprintf ( 'CALL %s( %s, %s, %s );',
+        var sp_script = sprintf ( 'CALL %s( %s );',
             'sp_account_fetch',
             mysql.escape ( req.body.accountId )
         );
@@ -238,6 +238,99 @@ module.exports = function ( )
 
     }
 
+    function verify_accountToken ( token )
+    {
+        return new Promise ( function ( resolve, reject )
+        {
+            var retval   = vm.protect_agent.token_verify ( token );
+
+            resolve ( retval );
+
+        } );
+    }
+
+    function accountToken_write ( fetch_user_result )
+    {
+        return new Promise ( function ( resolve, reject )
+        {
+            var payload     =
+            {
+                userName    : fetch_user_result.userName
+            };
+
+            var jwt_token   = vm.protect_agent.token_sign ( payload );
+
+            var sp_script = sprintf ( 'CALL %s( %s, %s );',
+                'sp_accountToken_write',
+                mysql.escape ( fetch_user_result.accountId ),
+                mysql.escape ( jwt_token )
+            );
+
+            vm.storage_agent.connection_exec ( sp_script ).then (
+
+                function ( value )
+                {
+                    resolve ( value[0][0] );
+                },
+                function ( error )
+                {
+                    throw ( error );
+                }
+
+            ).catch (
+
+                function ( ex )
+                {
+                    reject ( ex );
+                }
+
+            );
+
+        } );
+
+    }
+
+    function accountToken_fetch_account ( fetch_user_result )
+    {
+        return new Promise ( function ( resolve, reject )
+        {
+            var sp_script = sprintf ( 'CALL %s( %s );',
+                'sp_accountToken_fetch_account',
+                mysql.escape ( fetch_user_result.accountId )
+            );
+
+            vm.storage_agent.connection_exec ( sp_script ).then (
+
+                function ( value )
+                {
+                    var result_len  = value[0].length;
+
+                    if ( 1 > result_len )
+                    {
+                        throw ( 'account token not found' );
+                    }
+
+                    resolve ( value[0][0] );
+
+                },
+                function ( error )
+                {
+                    throw ( error );
+                }
+
+            ).catch (
+
+                function ( ex )
+                {
+                    reject ( ex );
+                }
+
+            );
+
+        } );
+
+    }
+
     /**
      * Login with userName & password
      * @param req.body.userName
@@ -253,39 +346,65 @@ module.exports = function ( )
             mysql.escape ( req.body.userName )
         );
 
+        var fetch_user_result;
+
         vm.storage_agent.connection_exec ( sp_script ).then (
 
             function ( value )
             {
-                var result_len  = value[0].length;
+                var result_len = value[0].length;
 
                 if ( 1 > result_len )
                 {
                     throw ( 'account not found' );
                 }
 
-                var result      = value[0][0];
+                fetch_user_result = value[0][0];
 
-                var confirmed   = vm.protect_agent.confirm_hash ( req.body.password, result.salt, result.hash );
+                fetch_user_result.confirmed = vm.protect_agent.confirm_hash (
 
-                if ( true !== confirmed )
+                    req.body.password,
+                    fetch_user_result.salt,
+                    fetch_user_result.hash
+
+                );
+
+                if ( true !== fetch_user_result.confirmed )
                 {
                     throw ( 'try again' );
                 }
 
-                var payload     =
-                {
-                    userName    : req.body.userName,
-                    success     : confirmed
-                };
+                return accountToken_fetch_account ( fetch_user_result );
+            },
+            function ( error )
+            {
+                throw ( error );
+            }
 
-                var jwt_token   = vm.protect_agent.token_sign ( payload );
+        ).then (
 
+            function ( value )
+            {
+                // account already has an accountToken, return it.
+
+                return value;
+            },
+            function ( error )
+            {
+                // no account token, make a token. return it
+
+                return accountToken_write ( fetch_user_result );
+            }
+
+        ).then (
+
+            function ( value )
+            {
                 var retval      =
                 {
                     userName    : req.body.userName,
-                    success     : confirmed,
-                    token       : jwt_token
+                    success     : fetch_user_result.confirmed,
+                    token       : value.token
                 };
 
                 return request_status_send ( res, 200, retval );
@@ -326,7 +445,26 @@ module.exports = function ( )
         console.log ( vm._service_name, `::check`, req.body.userName );
         console.log ( vm._service_name, `::check`, req.body.token );
 
-        return request_status_send ( res, 200, 'ok' );
+        verify_accountToken ( req.body.token ).then (
+
+            function ( value )
+            {
+                return request_status_send ( res, 200, 'ok' );
+            },
+            function ( error )
+            {
+                throw ( error );
+            }
+
+        ).catch (
+
+            function ( ex )
+            {
+                return request_status_send ( res, 400, 'no' );
+            }
+
+        );
+
     }
 
     function on_restapi_post ( req, res, next )

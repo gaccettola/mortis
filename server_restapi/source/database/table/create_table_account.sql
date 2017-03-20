@@ -1,5 +1,6 @@
 
--- test table
+-- Accounts created, security related.
+-- userName, the salt used, and the password hash
 
 CREATE TABLE IF NOT EXISTS account (
     accountId   INT(10) UNSIGNED    NOT NULL AUTO_INCREMENT
