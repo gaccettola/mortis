@@ -1,6 +1,10 @@
 
-import { Component }            from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
+import { App, Events, Nav }     from 'ionic-angular';
 import { Subscription }         from 'rxjs/Subscription';
+
+import { LoginComponent }       from '../login/login.component';
 
 import { SocketService }        from '../../services/socket.service';
 import { DataframeAccount }     from '../../services/dataframe.account.service';
@@ -12,18 +16,21 @@ import { DataframeAccount }     from '../../services/dataframe.account.service';
 } )
 export class DashboardComponent
 {
-    title           : string    = 'dashboard';
+    @ViewChild ( Nav ) nav  : Nav;
+    title                   : string    = 'dashboard';
 
-    listof_thing    : any       =
+    listof_thing            : any       =
     [
         { name : 'a' }
     ];
 
-    current_token       : any;
-    token_subscription  : Subscription;
+    current_token           : any;
+    token_subscription      : Subscription;
 
-    constructor ( private _socketService     : SocketService,
-                  private _dataframeAccount  : DataframeAccount )
+    constructor ( private _app              : App,
+                  private _events           : Events,
+                  private _socketService    : SocketService,
+                  private _dataframeAccount : DataframeAccount )
     {
         console.log ( `::ctor` );
     }
@@ -93,11 +100,53 @@ export class DashboardComponent
     // Runs before the view can enter. This can be used as a sort of "guard" in authenticated
     // views where you need to check permissions before the view can enter
     //
-    ionViewCanEnter ( ) : boolean
+    ionViewCanEnter ( ) : Promise<boolean>
     {
         console.log ( `::ionViewCanEnter` );
 
-        return true;
+        return new Promise ( ( resolve, reject ) =>
+        {
+            this._dataframeAccount.is_logged_in ( ).then (
+
+                ( value ) =>
+                {
+                    console.log ( `::ionViewCanEnter :is_logged_in va`, value );
+
+                    if ( false === value )
+                    {
+                        this._app.getRootNav().setRoot(LoginComponent);
+
+                        resolve ( false );
+
+                    } else
+                    {
+                        resolve ( true );
+                    }
+                },
+                ( error ) =>
+                {
+                    console.log ( `::ionViewCanEnter :is_logged_in er`, error );
+
+                    this._app.getRootNav().setRoot(LoginComponent);
+
+                    resolve ( false );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    console.log ( `::ionViewCanEnter :is_logged_in ex`, ex );
+
+                    this._app.getRootNav().setRoot(LoginComponent);
+
+                    resolve ( false );
+                }
+
+            );
+
+        } );
+
     }
 
     //

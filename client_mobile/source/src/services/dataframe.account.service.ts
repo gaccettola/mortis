@@ -175,6 +175,40 @@ export class DataframeAccount extends DataframeBase
         } );
     }
 
+    check ( payload ) : Promise<IHttpInvokeResult>
+    {
+        return new Promise ( ( resolve, reject ) =>
+        {
+            let frame =
+            {
+                check    : true,
+                userName : payload.userName,
+                token    : payload.token
+            };
+
+            this.invoke_frame ( frame, this.frameoption () ).then (
+
+                ( value ) =>
+                {
+                    resolve ( value );
+                },
+                ( error ) =>
+                {
+                    reject ( error );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    reject ( ex );
+                }
+
+            );
+
+        } );
+    }
+
     isvalid_account ( value ) : boolean
     {
         let retval : boolean = false;
@@ -199,6 +233,13 @@ export class DataframeAccount extends DataframeBase
         return retval;
     }
 
+    set_account_token ( token : any )
+    {
+        this.account_token = token;
+
+        this.account_token_subject.next ( this.account_token );
+    }
+
     read ( ) : Promise<any>
     {
         return new Promise ( ( resolve, reject ) =>
@@ -209,10 +250,6 @@ export class DataframeAccount extends DataframeBase
                 {
                     if ( this.isvalid_account ( value ) )
                     {
-                        this.account_token = value;
-
-                        this.account_token_subject.next ( this.account_token );
-
                         resolve ( value );
 
                     } else
@@ -239,6 +276,58 @@ export class DataframeAccount extends DataframeBase
 
         } );
 
+    }
+
+    is_logged_in ( ) : Promise<boolean>
+    {
+        return new Promise ( ( resolve, reject ) =>
+        {
+            this._store.getItem ( this.store_config.store_key ).then (
+
+                ( value ) =>
+                {
+                    if ( this.isvalid_account ( value ) )
+                    {
+                        let payload =
+                        {
+                            userName : value.result.userName,
+                            token    : value.result.token
+                        };
+
+                        return this.check ( payload );
+
+                    } else
+                    {
+                        throw ( false );
+                    }
+
+                },
+                ( error ) =>
+                {
+                    throw ( false );
+                }
+
+            ).then (
+
+                ( value ) =>
+                {
+                    resolve ( true );
+                },
+                ( error ) =>
+                {
+                    throw ( false );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    resolve ( false );
+                }
+
+            );
+
+        } );
     }
 
 }

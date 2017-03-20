@@ -75,28 +75,6 @@ export class LoginComponent
         );
 
         this._socketService.engine_init ( );
-
-        jQuery('.mat-input-wrapper').css('width', '100%');
-
-        this._dataframeAccount.read (  ).then (
-
-            ( value ) =>
-            {
-                this._app.getRootNav().setRoot(DashboardComponent);
-            },
-            ( error ) =>
-            {
-                throw ( error );
-            }
-
-        ).catch (
-
-            ( ex ) =>
-            {
-                console.log ( `ERROR : Unable to read dataframe account -`, ex );
-            }
-
-        );
     }
 
     //
@@ -129,11 +107,53 @@ export class LoginComponent
     // Runs before the view can enter. This can be used as a sort of "guard" in authenticated
     // views where you need to check permissions before the view can enter
     //
-    ionViewCanEnter ( ) : boolean
+    ionViewCanEnter ( ) : Promise<boolean>
     {
         console.log ( `::ionViewCanEnter` );
 
-        return true;
+        return new Promise ( ( resolve, reject ) =>
+        {
+            this._dataframeAccount.is_logged_in ( ).then (
+
+                ( value ) =>
+                {
+                    console.log ( `::ionViewCanEnter :is_logged_in va`, value );
+
+                    if ( true === value )
+                    {
+                        this._app.getRootNav().setRoot(DashboardComponent);
+
+                        resolve ( true );
+
+                    } else
+                    {
+                        resolve ( true );
+                    }
+                },
+                ( error ) =>
+                {
+                    console.log ( `::ionViewCanEnter :is_logged_in er`, error );
+
+                    this._app.getRootNav().setRoot(LoginComponent);
+
+                    resolve ( true );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    console.log ( `::ionViewCanEnter :is_logged_in ex`, ex );
+
+                    this._app.getRootNav().setRoot(LoginComponent);
+
+                    resolve ( true );
+                }
+
+            );
+
+        } );
+
     }
 
     //
@@ -197,9 +217,7 @@ export class LoginComponent
 
             ( value ) =>
             {
-                let obj = JSON.parse ( value.data );
-
-                return value;
+               return value;
             },
             ( error ) =>
             {

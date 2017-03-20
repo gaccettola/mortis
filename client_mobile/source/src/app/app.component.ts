@@ -86,12 +86,6 @@ export class AppComponent implements OnInit
                 , private _dataframeAccount : DataframeAccount )
     {
         console.log ( `::ctor` );
-
-        this.rootPage = LoginComponent;
-
-        this.platformReady ( );
-
-        this.enableMenu ( );
     }
 
     // ////////////////////////////////////////////////////////////////////////
@@ -101,6 +95,57 @@ export class AppComponent implements OnInit
     ngOnInit ( ) : void
     {
         console.log ( `::ngOnInit` );
+
+        this._dataframeAccount.is_logged_in ( ).then (
+
+            ( value ) =>
+            {
+                console.log ( `::ionViewCanEnter :is_logged_in va`, value );
+
+                if ( true === value )
+                {
+                    this.rootPage = DashboardComponent;
+
+                    this.platformReady ( );
+
+                    this.enableMenu ( );
+
+                } else
+                {
+                    this.rootPage = LoginComponent;
+
+                    this.platformReady ( );
+
+                    this.enableMenu ( );
+                }
+            },
+            ( error ) =>
+            {
+                console.log ( `::ionViewCanEnter :is_logged_in er`, error );
+
+                this.rootPage = LoginComponent;
+
+                this.platformReady ( );
+
+                this.enableMenu ( );
+            }
+
+        ).catch (
+
+            ( ex ) =>
+            {
+                console.log ( `::ionViewCanEnter :is_logged_in ex`, ex );
+
+                this.rootPage = LoginComponent;
+
+                this.platformReady ( );
+
+                this.enableMenu ( );
+
+            }
+
+        );
+
     }
 
     // ////////////////////////////////////////////////////////////////////////
