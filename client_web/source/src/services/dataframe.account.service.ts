@@ -203,7 +203,6 @@ export class DataframeAccount extends DataframeBase
     {
         this.account_token = token;
 
-        console.log ( 'c' );
         this.account_token_subject.next ( this.account_token );
     }
 
