@@ -33,6 +33,7 @@ import { MailComponent }        from '../pages/mail/mail.component';
 import { FlagComponent }        from '../pages/flag/flag.component';
 import { SettingsComponent }    from '../pages/settings/settings.component';
 
+import { AuthenticatedGuardAll }     from '../services/authenticated.guard.all';
 import { AuthenticatedGuardLogin }   from '../services/authenticated.guard.login';
 
 import { AuthenticatedResolveAll }   from '../services/authenticated.resolve.all';
@@ -71,6 +72,7 @@ import { AuthenticatedResolveLogin } from '../services/authenticated.resolve.log
     ,   DataframeAccount
     ,   DatastoreService
     ,   NotifyService
+    ,   AuthenticatedGuardAll
     ,   AuthenticatedGuardLogin
     ,   AuthenticatedResolveAll
     ,   AuthenticatedResolveLogin

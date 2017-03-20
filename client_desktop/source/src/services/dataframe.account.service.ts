@@ -175,6 +175,40 @@ export class DataframeAccount extends DataframeBase
         } );
     }
 
+    check ( payload ) : Promise<IHttpInvokeResult>
+    {
+        return new Promise ( ( resolve, reject ) =>
+        {
+            let frame =
+            {
+                check    : true,
+                userName : payload.userName,
+                token    : payload.token
+            };
+
+            this.invoke_frame ( frame, this.frameoption () ).then (
+
+                ( value ) =>
+                {
+                    resolve ( value );
+                },
+                ( error ) =>
+                {
+                    reject ( error );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    reject ( ex );
+                }
+
+            );
+
+        } );
+    }
+
     isvalid_account ( value ) : boolean
     {
         let retval : boolean = false;
@@ -254,17 +288,34 @@ export class DataframeAccount extends DataframeBase
                 {
                     if ( this.isvalid_account ( value ) )
                     {
-                        resolve ( true );
+                        let payload =
+                        {
+                            userName : value.result.userName,
+                            token    : value.result.token
+                        };
+
+                        return this.check ( payload );
 
                     } else
                     {
-                        resolve ( false );
+                        throw ( false );
                     }
 
                 },
                 ( error ) =>
                 {
-                    resolve ( false );
+                    throw ( false );
+                }
+
+            ).then (
+
+                ( value ) =>
+                {
+                    resolve ( true );
+                },
+                ( error ) =>
+                {
+                    throw ( false );
                 }
 
             ).catch (

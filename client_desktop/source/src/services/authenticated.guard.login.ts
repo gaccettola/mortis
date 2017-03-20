@@ -1,4 +1,4 @@
-// authenticated.guard.ts
+// authenticated.guard.login.ts
 
 import { Injectable }       from '@angular/core';
 import { CanActivate }      from '@angular/router';
