@@ -90,7 +90,6 @@ export class DataframeAccount extends DataframeBase
 
                 ( val ) =>
                 {
-                    console.log ( 'a' );
                     this.account_token_subject.next ( this.account_token );
 
                     resolve ( val );
@@ -118,7 +117,6 @@ export class DataframeAccount extends DataframeBase
                 {
                     this.account_token = null;
 
-                    console.log ( 'b' );
                     this.account_token_subject.next ( this.account_token );
 
                     resolve ( );
@@ -219,8 +217,6 @@ export class DataframeAccount extends DataframeBase
                 {
                     if ( this.isvalid_account ( value ) )
                     {
-                        // this.set_account_token ( value );
-
                         resolve ( value );
 
                     } else
