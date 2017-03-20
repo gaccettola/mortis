@@ -1,5 +1,6 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute }               from '@angular/router';
 import { Subscription }                 from 'rxjs/Subscription';
 
 import { LayoutService  }               from '../../services/layout.service';
@@ -10,7 +11,7 @@ import { DataframeAccount }             from '../../services/dataframe.account.s
 {
     selector    : 'mail'
 ,   templateUrl : './mail.component.html'
-,   styleUrls   : ['./mail.component.css']
+,   styleUrls   : ['./mail.component.scss']
 } )
 export class MailComponent implements OnInit
 {
@@ -20,9 +21,10 @@ export class MailComponent implements OnInit
     current_token       : any;
     token_subscription  : Subscription;
 
-    constructor ( private _layoutService    : LayoutService,
-                  private _socketService    : SocketService,
-                  private _dataframeAccount : DataframeAccount )
+    constructor ( private _route            : ActivatedRoute
+                , private _layoutService    : LayoutService
+                , private _socketService    : SocketService
+                , private _dataframeAccount : DataframeAccount )
     {
     }
 

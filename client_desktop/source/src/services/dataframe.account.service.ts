@@ -199,6 +199,13 @@ export class DataframeAccount extends DataframeBase
         return retval;
     }
 
+    set_account_token ( token : any )
+    {
+        this.account_token = token;
+
+        this.account_token_subject.next ( this.account_token );
+    }
+
     read ( ) : Promise<any>
     {
         return new Promise ( ( resolve, reject ) =>
@@ -209,10 +216,6 @@ export class DataframeAccount extends DataframeBase
                 {
                     if ( this.isvalid_account ( value ) )
                     {
-                        this.account_token = value;
-
-                        this.account_token_subject.next ( this.account_token );
-
                         resolve ( value );
 
                     } else
@@ -239,6 +242,41 @@ export class DataframeAccount extends DataframeBase
 
         } );
 
+    }
+
+    is_logged_in ( ) : Promise<boolean>
+    {
+        return new Promise ( ( resolve, reject ) =>
+        {
+            this._store.getItem ( this.store_config.store_key ).then (
+
+                ( value ) =>
+                {
+                    if ( this.isvalid_account ( value ) )
+                    {
+                        resolve ( true );
+
+                    } else
+                    {
+                        resolve ( false );
+                    }
+
+                },
+                ( error ) =>
+                {
+                    resolve ( false );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    resolve ( false );
+                }
+
+            );
+
+        } );
     }
 
 }

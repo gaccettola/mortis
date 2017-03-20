@@ -8,32 +8,71 @@ import { MailComponent }        from '../pages/mail/mail.component';
 import { FlagComponent }        from '../pages/flag/flag.component';
 import { SettingsComponent }    from '../pages/settings/settings.component';
 
+import { AuthenticatedGuardLogin }   from '../services/authenticated.guard.login';
+
+import { AuthenticatedResolveAll }   from '../services/authenticated.resolve.all';
+import { AuthenticatedResolveLogin } from '../services/authenticated.resolve.login';
+
 const appRoutes: any[] =
 [
     {
-        path: '',
-        component: LoginComponent
+        path        : '',
+        component   : LoginComponent,
+        canActivate : [ AuthenticatedGuardLogin ],
+        resolve     :
+        {
+            token   : AuthenticatedResolveLogin
+        }
     },
     {
-        path: 'dashboard',
-        component: DashboardComponent
+        path        : 'dashboard',
+        component   : DashboardComponent,
+        resolve     :
+        {
+            token   : AuthenticatedResolveAll
+        }
     },
     {
-        path: 'mail',
-        component: MailComponent
+        path        : 'mail',
+        component   : MailComponent,
+        resolve     :
+        {
+            token   : AuthenticatedResolveAll
+        }
     },
     {
-        path: 'flag',
-        component: FlagComponent
+        path        : 'flag',
+        component   : FlagComponent,
+        resolve     :
+        {
+            token   : AuthenticatedResolveAll
+        }
     },
     {
-        path: 'settings',
-        component: SettingsComponent
+        path        : 'settings',
+        component   : SettingsComponent,
+        resolve     :
+        {
+            token   : AuthenticatedResolveAll
+        }
     },
     {
-        path: '**',
-        component: LoginComponent
+        path        : 'login',
+        component   : LoginComponent,
+        resolve     :
+        {
+            token   : AuthenticatedResolveAll
+        }
+    },
+    {
+        path        : '**',
+        component   : LoginComponent,
+        resolve     :
+        {
+            token   : AuthenticatedResolveLogin
+        }
     }
+
 ];
 
 @NgModule (

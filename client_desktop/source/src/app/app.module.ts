@@ -33,6 +33,11 @@ import { MailComponent }        from '../pages/mail/mail.component';
 import { FlagComponent }        from '../pages/flag/flag.component';
 import { SettingsComponent }    from '../pages/settings/settings.component';
 
+import { AuthenticatedGuardLogin }   from '../services/authenticated.guard.login';
+
+import { AuthenticatedResolveAll }   from '../services/authenticated.resolve.all';
+import { AuthenticatedResolveLogin } from '../services/authenticated.resolve.login';
+
 @NgModule (
 {
     declarations    :
@@ -66,6 +71,9 @@ import { SettingsComponent }    from '../pages/settings/settings.component';
     ,   DataframeAccount
     ,   DatastoreService
     ,   NotifyService
+    ,   AuthenticatedGuardLogin
+    ,   AuthenticatedResolveAll
+    ,   AuthenticatedResolveLogin
     ],
     bootstrap       :
     [
