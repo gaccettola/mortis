@@ -306,6 +306,29 @@ module.exports = function ( )
 
     }
 
+    /**
+     * Login with userName & password
+     * @param req.body.userName
+     * @param req.body.token
+     */
+    function check ( req, res, next )
+    {
+        if ( ! req.body.userName )
+        {
+            return request_status_send ( res, 400, 'no' );
+        }
+
+        if ( ! req.body.token )
+        {
+            return request_status_send ( res, 400, 'no' );
+        }
+
+        console.log ( vm._service_name, `::check`, req.body.userName );
+        console.log ( vm._service_name, `::check`, req.body.token );
+
+        return request_status_send ( res, 200, 'ok' );
+    }
+
     function on_restapi_post ( req, res, next )
     {
         if ( req.body.fetch ) return fetch ( req, res, next );
@@ -315,6 +338,8 @@ module.exports = function ( )
         if ( req.body.write ) return write ( req, res, next );
 
         if ( req.body.login ) return login ( req, res, next );
+
+        if ( req.body.check ) return check ( req, res, next );
 
         return request_status_send ( res, 400, { error : 'bad request' } );
     }
