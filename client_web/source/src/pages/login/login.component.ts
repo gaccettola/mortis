@@ -1,5 +1,6 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute }               from '@angular/router';
 import { Subscription }                 from 'rxjs/Subscription';
 
 import { MdSnackBar }                   from '@angular/material';
@@ -30,17 +31,20 @@ export class LoginComponent implements OnInit
     username        : string = 'gabriel@accettolasystems.com';
     password        : string = '123456';
 
-    constructor ( private _routeService     : RouteService,
-                  private _layoutService    : LayoutService,
-                  private _socketService    : SocketService,
-                  private _dataframeAccount : DataframeAccount,
-                  private _notifyService    : NotifyService,
-                  private _snackBar         : MdSnackBar )
+    constructor ( private _route            : ActivatedRoute
+                , private _routeService     : RouteService
+                , private _layoutService    : LayoutService
+                , private _socketService    : SocketService
+                , private _dataframeAccount : DataframeAccount
+                , private _notifyService    : NotifyService
+                , private _snackBar         : MdSnackBar )
     {
     }
 
     ngOnInit ( ) : void
     {
+        this.current_token = this._route.snapshot.data['token'];
+
         this.height_subscription = this._layoutService.observe_content_height ( ).subscribe (
 
             value => { this.resizeFn ( ); }
@@ -62,29 +66,6 @@ export class LoginComponent implements OnInit
     ngAfterContentInit ( )
     {
         jQuery('.mat-input-wrapper').css( 'width', '100%' );
-
-        this._dataframeAccount.read ( ).then (
-
-            ( value ) =>
-            {
-                console.log ( `LoginComponent::_dataframeAccount.read`, value );
-
-                this._routeService.transition_to ( { href : `/dashboard` } );
-            },
-            ( error ) =>
-            {
-                throw ( error );
-            }
-
-        ).catch (
-
-            ( ex ) =>
-            {
-                console.log ( `ERROR : Unable to read dataframe account -`, ex );
-            }
-
-        );
-
     }
 
     ngOnDestroy ( )

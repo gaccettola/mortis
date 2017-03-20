@@ -90,6 +90,7 @@ export class DataframeAccount extends DataframeBase
 
                 ( val ) =>
                 {
+                    console.log ( 'a' );
                     this.account_token_subject.next ( this.account_token );
 
                     resolve ( val );
@@ -117,6 +118,7 @@ export class DataframeAccount extends DataframeBase
                 {
                     this.account_token = null;
 
+                    console.log ( 'b' );
                     this.account_token_subject.next ( this.account_token );
 
                     resolve ( );
@@ -199,6 +201,14 @@ export class DataframeAccount extends DataframeBase
         return retval;
     }
 
+    set_account_token ( token : any )
+    {
+        this.account_token = token;
+
+        console.log ( 'c' );
+        this.account_token_subject.next ( this.account_token );
+    }
+
     read ( ) : Promise<any>
     {
         return new Promise ( ( resolve, reject ) =>
@@ -209,9 +219,7 @@ export class DataframeAccount extends DataframeBase
                 {
                     if ( this.isvalid_account ( value ) )
                     {
-                        this.account_token = value;
-
-                        this.account_token_subject.next ( this.account_token );
+                        // this.set_account_token ( value );
 
                         resolve ( value );
 
@@ -239,6 +247,41 @@ export class DataframeAccount extends DataframeBase
 
         } );
 
+    }
+
+    is_logged_in ( ) : Promise<boolean>
+    {
+        return new Promise ( ( resolve, reject ) =>
+        {
+            this._store.getItem ( this.store_config.store_key ).then (
+
+                ( value ) =>
+                {
+                    if ( this.isvalid_account ( value ) )
+                    {
+                        resolve ( true );
+
+                    } else
+                    {
+                        resolve ( false );
+                    }
+
+                },
+                ( error ) =>
+                {
+                    resolve ( false );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    resolve ( false );
+                }
+
+            );
+
+        } );
     }
 
 }

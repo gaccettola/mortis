@@ -1,5 +1,6 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute }               from '@angular/router';
 import { Subscription }                 from 'rxjs/Subscription';
 
 import { LayoutService  }               from '../../services/layout.service';
@@ -20,9 +21,10 @@ export class SettingsComponent implements OnInit
     current_token       : any;
     token_subscription  : Subscription;
 
-    constructor ( private _layoutService    : LayoutService,
-                  private _socketService    : SocketService,
-                  private _dataframeAccount : DataframeAccount )
+    constructor ( private _route            : ActivatedRoute
+                , private _layoutService    : LayoutService
+                , private _socketService    : SocketService
+                , private _dataframeAccount : DataframeAccount )
     {
     }
 
