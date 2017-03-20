@@ -34,8 +34,8 @@ export class AuthenticatedGuardAll implements CanActivate
                     {
                         let payload =
                         {
-                            userName : value.result.token,
-                            token    : value.result.userName
+                            userName : value.result.userName,
+                            token    : value.result.token
                         };
 
                         return this._dataframeAccount.check ( payload );
