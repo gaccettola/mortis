@@ -25,8 +25,15 @@ kubectl get pods
 
 ##### forward the ports 
 ```
-kubectl port-forward mortis-mysql-3654861006-kn2b9 3306
-kubectl port-forward mortis-redis-1554497675-jhkj4 6379
+kubectl port-forward mortis-mysql-3654861006-nfb27 3306
+kubectl port-forward mortis-redis-1554497675-mptrv 6379
+```
+
+##### 
+```
+kubectl get services
+minikube service mysql --url
+minikube service redis --url
 ```
 
 ##### prepare the restapi, from ./mortis/server_restapi

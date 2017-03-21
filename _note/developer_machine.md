@@ -211,7 +211,8 @@ sudo mv kubectl /usr/local/bin/
 
 ### minikube
 ```
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64
+# curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.17.1/minikube-linux-amd64
 chmod +x minikube
 sudo mv minikube /usr/local/bin/
 
@@ -232,7 +233,8 @@ curl -L https://github.com/docker/machine/releases/download/v0.10.0/docker-machi
 sudo apt-get update
 sudo apt-get install qemu-kvm libvirt-bin virt-manager
 
-sudo curl -L https://github.com/dhiltgen/docker-machine-kvm/releases/download/v0.7.0/docker-machine-driver-kvm -o /usr/local/bin/docker-machine-driver-kvm
+# sudo curl -L https://github.com/dhiltgen/docker-machine-kvm/releases/download/v0.7.0/docker-machine-driver-kvm -o /usr/local/bin/docker-machine-driver-kvm
+sudo curl -L https://github.com/dhiltgen/docker-machine-kvm/releases/download/v0.8.2/docker-machine-driver-kvm -o /usr/local/bin/docker-machine-driver-kvm
 
 sudo chmod +x /usr/local/bin/docker-machine-driver-kvm
 
