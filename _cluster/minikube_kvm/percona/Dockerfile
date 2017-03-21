@@ -23,7 +23,7 @@ RUN apt-get update                                                              
     wget https://repo.percona.com/apt/percona-release_0.1-4.xenial_all.deb --no-check-certificate           && \
     dpkg -i percona-release_0.1-4.xenial_all.deb                                                            && \
     apt-get update                                                                                          && \
-    apt-get install percona-server-server-5.7 -y                                                            && \
+    apt-get install -y percona-server-server-5.7                                                            && \
     sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf                                                && \
     sed -i 's/^\(log_error\s.*\)/# \1/' /etc/mysql/my.cnf                                                   && \
     echo "mysqld_safe &"                                                                     > /tmp/config  && \
