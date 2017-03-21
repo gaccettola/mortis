@@ -238,7 +238,7 @@ module.exports = function ( )
 
     }
 
-    function verify_accountToken ( token )
+    function accountToken_verify ( token )
     {
         return new Promise ( function ( resolve, reject )
         {
@@ -445,7 +445,7 @@ module.exports = function ( )
         console.log ( vm._service_name, `::check`, req.body.userName );
         console.log ( vm._service_name, `::check`, req.body.token );
 
-        verify_accountToken ( req.body.token ).then (
+        accountToken_verify ( req.body.token ).then (
 
             function ( value )
             {
