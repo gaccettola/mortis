@@ -1,7 +1,8 @@
 
-# Redis Dockerfile
-#
-# https://github.com/dockerfile/redis
+# - Redis Dockerfile
+# -
+# -
+# - https://github.com/dockerfile/redis
 
 FROM ubuntu:latest
 

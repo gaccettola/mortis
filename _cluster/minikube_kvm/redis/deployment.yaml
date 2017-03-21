@@ -14,4 +14,3 @@ spec:
         image: mortis-redis:001
         ports:
         - containerPort: 6379
-          hostPort: 6379

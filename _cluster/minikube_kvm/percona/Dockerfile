@@ -1,7 +1,8 @@
 
-# Percona Server Dockerfile
-#
-# https://github.com/dockerfile/percona
+# - Percona Server Dockerfile
+# -
+# -
+# - https://github.com/dockerfile/percona
 
 FROM ubuntu:latest
 

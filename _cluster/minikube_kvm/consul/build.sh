@@ -10,18 +10,18 @@
 minikube docker-env
 eval $(minikube docker-env)
 
-docker build -t mortis-mysql:001 .
+docker build -t mortis-consul:001 .
 
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 
-minikube service --url=true mortis-mysql
+minikube service --url=true mortis-consul
 
 # kubectl get pods
-#
-# kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 3306
-# kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 3306
-# kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 3306
+# 
+# kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 8500
+# kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 8500
+# kubectl port-forward xxxxxxxxxxxxxxxxxxxxxxxxxxxxx 8500
 # 
 # 
 # kubectl exec -it xxxxxxxxxxxxxxxxxxxxxxxxxxxxx bash

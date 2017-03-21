@@ -1,16 +1,16 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: mortis-mysql
+  name: mortis-consul
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: mysql
+        app: consul
     spec:
       containers:
-      - name: mysql
-        image: mortis-mysql:001
+      - name: consul
+        image: mortis-consul:001
         ports:
-        - containerPort: 3306
+        - containerPort: 8500
