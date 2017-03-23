@@ -4,6 +4,7 @@
 -- the token that was issued
 
 CREATE TABLE IF NOT EXISTS accountToken (
+
     accountTokenId  INT(10) UNSIGNED    NOT NULL AUTO_INCREMENT
 
 ,   accountId       INT(10) UNSIGNED    NOT NULL

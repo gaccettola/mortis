@@ -2,6 +2,7 @@
 -- System tokens
 
 CREATE TABLE IF NOT EXISTS token (
+
     tokenId     INT(10) UNSIGNED    NOT NULL AUTO_INCREMENT
 
 ,   tokenName   VARCHAR( 256)       NOT NULL DEFAULT ''
