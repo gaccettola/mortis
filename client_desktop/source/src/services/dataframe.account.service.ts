@@ -92,7 +92,7 @@ export class DataframeAccount extends DataframeBase
                 {
                     this.account_token_subject.next ( this.account_token );
 
-                    resolve ( val );
+                    resolve ( this.account_token );
                 }
 
             ).catch (
