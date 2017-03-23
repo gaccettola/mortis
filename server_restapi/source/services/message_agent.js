@@ -184,7 +184,7 @@ module.exports = function ( )
 
         } );
 
-        vm.primus.save ( __dirname + '/../../../common/source/mortis_primus.js' );
+        vm.primus.save ( __dirname + '/../../../common/source/lib_primus.js' );
 
         // when we get a connection...
         vm.primus.on ( 'connection', function ( spark )
