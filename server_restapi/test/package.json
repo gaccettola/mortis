@@ -1,0 +1,32 @@
+{
+  "name": "server_testapi",
+  "author": "Accettola Systems",
+  "version": "1.0.0",
+  "description": "the restapi tester",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/dynalabcreative/mobile-web-desktop.git"
+  },
+  "main": "server_testapi.js",
+  "scripts": {
+    "test": "mocha **/*.test.js --recursive"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "^3.4.35",
+    "@types/mocha": "^2.2.40",
+    "assert": "^1.4.1",
+    "bluebird": "^3.5.0",
+    "chai": "^3.5.0",
+    "dotenv": "^4.0.0",
+    "httpinvoke": "^1.4.0",
+    "lodash": "^4.17.4",
+    "mocha": "^3.2.0",
+    "mysql": "^2.13.0",
+    "path": "^0.12.7",
+    "sprintf": "^0.1.5",
+    "ts-node": "^3.0.2",
+    "typings": "^2.1.0"
+  }
+}
