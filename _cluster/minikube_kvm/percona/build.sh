@@ -27,3 +27,5 @@ minikube service --url=true mortis-mysql
 # kubectl exec -it xxxxxxxxxxxxxxxxxxxxxxxxxxxxx bash
 # kubectl exec -it xxxxxxxxxxxxxxxxxxxxxxxxxxxxx bash
 # kubectl exec -it xxxxxxxxxxxxxxxxxxxxxxxxxxxxx bash
+#
+# minikube dashboard
