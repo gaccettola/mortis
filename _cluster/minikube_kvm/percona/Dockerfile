@@ -25,6 +25,7 @@ RUN apt-get update                                                              
     apt-get update                                                                                          && \
     apt-get install -y percona-server-server-5.7                                                            && \
     sed -i 's/^\(bind-address\s.*\)/# \1/' /etc/mysql/my.cnf                                                && \
+    sed -i 's/.*bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/percona-server.conf.d/mysqld.cnf         && \
     sed -i 's/^\(log_error\s.*\)/# \1/' /etc/mysql/my.cnf                                                   && \
     echo "mysqld_safe &"                                                                     > /tmp/config  && \
     echo "mysqladmin --silent --wait=30 ping || exit 1"                                     >> /tmp/config  && \
