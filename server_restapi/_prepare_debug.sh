@@ -18,16 +18,11 @@ export MANPATH="$NPM_PACKAGES/share/man:$MANPATH"
 
 echo preparing server_restapi,
 
-mkdir -p ./debug/
+mkdir -p source/common/
 
-cp ./source/.env ./debug/
-cp -a ./source/* ./debug/
+cp ../common/source/* ./source/common/
 
-mkdir -p ./debug/common/
-
-cp ../common/source/* ./debug/common/
-
-cd debug
+cd source
 
 npm install
 
