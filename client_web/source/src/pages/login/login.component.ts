@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit
     current_token       : any;
     token_subscription  : Subscription;
 
-    username        : string = 'gabriel@accettolasystems.com';
+    username        : string = 'test@domain.com';
     password        : string = '123456';
 
     constructor ( private _route            : ActivatedRoute
