@@ -48,7 +48,7 @@ export class AuthenticatedGuardAll implements CanActivate
                 },
                 ( error ) =>
                 {
-                    throw ( '! _dataframeAccount.read -', error );
+                    throw ( '! _dataframeAccount.read -' + error );
                 }
 
             ).then (
@@ -61,7 +61,7 @@ export class AuthenticatedGuardAll implements CanActivate
                 },
                 ( error ) =>
                 {
-                    throw ( '! _dataframeAccount.check -', error );
+                    throw ( '! _dataframeAccount.check -' + error );
                 }
 
             ).catch (
