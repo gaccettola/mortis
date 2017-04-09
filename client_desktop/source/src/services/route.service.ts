@@ -49,9 +49,9 @@ export class RouteService
             },
             {
                 id   : 3,
-                icon : `flag`,
-                href : `/flag`,
-                name : `Audit`
+                icon : `device_hub`,
+                href : `/designer`,
+                name : `Designer`
             },
             {
                 id   : 4,

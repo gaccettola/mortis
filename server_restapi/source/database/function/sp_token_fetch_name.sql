@@ -7,7 +7,7 @@ DROP PROCEDURE IF EXISTS sp_token_fetch_name;
 
 CREATE PROCEDURE sp_token_fetch_name
 (
-    p_tokenName     VARCHAR( 256)
+    p_tokenName         VARCHAR( 256)
 )
 this_proc:BEGIN
 

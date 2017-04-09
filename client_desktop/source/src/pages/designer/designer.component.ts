@@ -9,11 +9,11 @@ import { DataframeAccount }             from '../../services/dataframe.account.s
 
 @Component (
 {
-    selector    : 'flag'
-,   templateUrl : './flag.component.html'
-,   styleUrls   : ['./flag.component.scss']
+    selector    : 'designer'
+,   templateUrl : './designer.component.html'
+,   styleUrls   : ['./designer.component.scss']
 } )
-export class FlagComponent implements OnInit
+export class DesignerComponent implements OnInit
 {
     current_height      : string;
     height_subscription : Subscription;

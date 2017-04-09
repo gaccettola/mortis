@@ -1,5 +1,5 @@
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, NgZone } from '@angular/core';
 
 import { App, Events, Nav }     from 'ionic-angular';
 import { Subscription }         from 'rxjs/Subscription';
@@ -8,6 +8,10 @@ import { LoginComponent }       from '../login/login.component';
 
 import { SocketService }        from '../../services/socket.service';
 import { DataframeAccount }     from '../../services/dataframe.account.service';
+
+import * as jQuery              from 'jquery';
+import * as _                   from 'lodash';
+import * as RSVP                from 'rsvp';
 
 @Component (
 {
@@ -30,7 +34,8 @@ export class DashboardComponent
     constructor ( private _app              : App,
                   private _events           : Events,
                   private _socketService    : SocketService,
-                  private _dataframeAccount : DataframeAccount )
+                  private _dataframeAccount : DataframeAccount,
+                  protected _ngZone         : NgZone )
     {
         console.log ( `::ctor` );
     }
@@ -165,6 +170,55 @@ export class DashboardComponent
         console.log ( `::ionViewDidLoad` );
 
         this._socketService.engine_init ( );
+
+        return new Promise ( ( resolve, reject ) =>
+        {
+            console.log ( ` DataframeDecisionTree       :: persist_tree `);
+
+            // this.listof_thing = [ ];
+
+            let rsvp_array=
+            [
+                { item_idx : 1, name : '11', desc : 'aa' },
+                { item_idx : 2, name : '22', desc : 'bb' },
+                { item_idx : 3, name : '33', desc : 'cc' },
+                { item_idx : 4, name : '44', desc : 'dd' },
+                { item_idx : 5, name : '55', desc : 'ee' },
+                { item_idx : 6, name : '66', desc : 'ff' },
+                { item_idx : 7, name : '77', desc : 'gg' }
+            ];
+
+            rsvp_array.reduce ( ( cur, itm ) =>
+
+                {
+                    return cur.then ( ( ) => this._ngZone.run ( ( ) =>
+                    {
+                        console.log ( ` DataframeDecisionTree       :: persist_tree ${ itm.desc } `);
+
+                        this.listof_thing.push ( itm );
+
+                    } ) );
+
+                }, RSVP.resolve ( )
+
+            ).then (
+
+                ( ) =>
+                {
+                    resolve ( '' );
+                }
+
+            ).catch (
+
+                ( ex ) =>
+                {
+                    resolve ( '' );
+                }
+
+            );
+
+        } );
+
     }
 
 }

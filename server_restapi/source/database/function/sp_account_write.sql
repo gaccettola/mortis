@@ -7,9 +7,9 @@ DROP PROCEDURE IF EXISTS sp_account_write;
 
 CREATE PROCEDURE sp_account_write
 (
-    p_userName  VARCHAR(256)
-,   p_salt      VARCHAR(1024)
-,   p_hash      VARCHAR(1024)
+    p_userName          VARCHAR(256)
+,   p_salt              VARCHAR(1024)
+,   p_hash              VARCHAR(1024)
 )
 this_proc:BEGIN
 

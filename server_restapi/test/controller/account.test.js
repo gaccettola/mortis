@@ -87,8 +87,8 @@ describe ( 'httpinvoke - account', function ( )
         var frame   =
         {
             login       : true,
-            userName    : 'user@domain.com',
-            password    : 'secret password'
+            userName    : 'test@domain.com',
+            password    : '123456'
         };
 
         var option  =
@@ -117,8 +117,8 @@ describe ( 'httpinvoke - account', function ( )
         var frame   =
         {
             login       : true,
-            userName    : 'user@domain.com',
-            password    : 'secret password'
+            userName    : 'test@domain.com',
+            password    : '123456'
         };
 
         var option  =
@@ -143,7 +143,7 @@ describe ( 'httpinvoke - account', function ( )
                 frame   =
                 {
                     check    : true,
-                    userName : 'user@domain.com',
+                    userName : 'test@domain.com',
                     token    : result.token
                 };
 

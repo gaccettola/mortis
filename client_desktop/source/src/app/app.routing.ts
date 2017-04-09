@@ -1,12 +1,12 @@
 
-import { NgModule }             from '@angular/core';
-import { RouterModule }         from '@angular/router';
+import { NgModule }                  from '@angular/core';
+import { RouterModule }              from '@angular/router';
 
-import { LoginComponent }       from '../pages/login/login.component';
-import { DashboardComponent }   from '../pages/dashboard/dashboard.component';
-import { MailComponent }        from '../pages/mail/mail.component';
-import { FlagComponent }        from '../pages/flag/flag.component';
-import { SettingsComponent }    from '../pages/settings/settings.component';
+import { LoginComponent }            from '../pages/login/login.component';
+import { DashboardComponent }        from '../pages/dashboard/dashboard.component';
+import { MailComponent }             from '../pages/mail/mail.component';
+import { DesignerComponent }         from '../pages/designer/designer.component';
+import { SettingsComponent }         from '../pages/settings/settings.component';
 
 import { AuthenticatedGuardAll }     from '../services/authenticated.guard.all';
 import { AuthenticatedGuardLogin }   from '../services/authenticated.guard.login';
@@ -44,8 +44,8 @@ const appRoutes: any[] =
         }
     },
     {
-        path        : 'flag',
-        component   : FlagComponent,
+        path        : 'designer',
+        component   : DesignerComponent,
         canActivate : [ AuthenticatedGuardAll ],
         resolve     :
         {

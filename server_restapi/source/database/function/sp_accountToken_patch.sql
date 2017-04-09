@@ -7,8 +7,8 @@ DROP PROCEDURE IF EXISTS sp_accountToken_patch;
 
 CREATE PROCEDURE sp_accountToken_patch
 (
-    p_accountTokenId    INT(10)
-,   p_accountId         INT(10) UNSIGNED
+    p_accountTokenId    BIGINT
+,   p_accountId         BIGINT
 ,   p_token             VARCHAR(1024)
 )
 this_proc:BEGIN

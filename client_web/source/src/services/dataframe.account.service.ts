@@ -83,16 +83,20 @@ export class DataframeAccount extends DataframeBase
                 },
                 ( error ) =>
                 {
-                    reject ( error );
+                    throw ( error );
                 }
 
             ).then (
 
-                ( val ) =>
+                ( value ) =>
                 {
                     this.account_token_subject.next ( this.account_token );
 
                     resolve ( this.account_token );
+                },
+                ( error ) =>
+                {
+                    throw ( error );
                 }
 
             ).catch (

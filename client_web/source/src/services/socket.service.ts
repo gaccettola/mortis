@@ -18,8 +18,7 @@ export interface ISocketMessage {
 @Injectable()
 export class SocketService
 {
-    server_socket_url :string   = 'ws://192.168.1.99:8989';
-    // server_socket_url :string   = 'ws://localhost:8989';
+    server_socket_url :string   = 'ws://localhost:8989';
 
     primus_client               : any;
     primus_socket_options       : any =
@@ -67,13 +66,16 @@ export class SocketService
 
             console.log ( 'primus event', this.primus_client_event_count );
 
-            this._notifyService.send_notification (
+            if ( data && data.type && data.text )
+            {
+                this._notifyService.send_notification (
 
-                data.type,
-                data.text,
-                './assets/icon/favicon.ico'
+                    data.type,
+                    data.text,
+                    './assets/icon/favicon.ico'
 
-            );
+                );
+            }
 
         } ) );
 

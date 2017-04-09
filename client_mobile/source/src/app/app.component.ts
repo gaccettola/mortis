@@ -10,7 +10,7 @@ import { DataframeAccount }     from '../services/dataframe.account.service';
 
 import { LoginComponent }       from '../pages/login/login.component';
 import { DashboardComponent }   from '../pages/dashboard/dashboard.component';
-import { FlagComponent }        from '../pages/flag/flag.component';
+import { DesignerComponent }    from '../pages/designer/designer.component';
 import { MailComponent }        from '../pages/mail/mail.component';
 import { SettingsComponent }    from '../pages/settings/settings.component';
 
@@ -52,9 +52,9 @@ export class AppComponent implements OnInit
         },
         {
             id          : 2,
-            title       : 'Flag',
-            icon        : 'md-home',
-            component   : FlagComponent
+            title       : 'Designer',
+            icon        : 'md-analytics',
+            component   : DesignerComponent
         },
         {
             id          : 3,
@@ -182,25 +182,30 @@ export class AppComponent implements OnInit
     //
     //
 
+    logout_and_redirect_to_login_page ( )
+    {
+        this._dataframeAccount.logout ( );
+
+        this.nav.setRoot ( LoginComponent ).catch( () =>
+        {
+            console.log ( "Didn't set nav root" );
+
+        } );
+    }
+
     openPage ( page : PageInterface )
     {
         console.log ( `::openPage`, page );
 
         if ( -1 === page.id )
         {
-            this._dataframeAccount.logout ( );
-
-            this.nav.setRoot ( page.component ).catch( () =>
-            {
-                console.log ( "Didn't set nav root" );
-
-            } );
+            this.logout_and_redirect_to_login_page ( );
 
         } else
         {
             this.nav.setRoot ( page.component ).catch( () =>
             {
-                console.log ( "Didn't set nav root" );
+                this.logout_and_redirect_to_login_page ( );
 
             } );
 

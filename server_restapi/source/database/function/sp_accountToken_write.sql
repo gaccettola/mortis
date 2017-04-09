@@ -7,7 +7,7 @@ DROP PROCEDURE IF EXISTS sp_accountToken_write;
 
 CREATE PROCEDURE sp_accountToken_write
 (
-    p_accountId         INT(10) UNSIGNED
+    p_accountId         BIGINT
 ,   p_token             VARCHAR(1024)
 )
 this_proc:BEGIN

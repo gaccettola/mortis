@@ -7,7 +7,7 @@ DROP PROCEDURE IF EXISTS sp_account_fetch_user;
 
 CREATE PROCEDURE sp_account_fetch_user
 (
-    p_userName  VARCHAR(256)
+    p_userName          VARCHAR(256)
 )
 this_proc:BEGIN
 

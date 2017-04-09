@@ -267,7 +267,7 @@ module.exports = function ( )
         }
         catch ( e )
         {
-            console.log ( e );
+            console.log ( chalk.red ( 'token verify failure - ', e.message ) );
         }
 
         return retval;

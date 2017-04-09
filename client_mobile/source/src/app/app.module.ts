@@ -16,7 +16,7 @@ import { AppComponent }             from './app.component';
 
 import { LoginComponent }           from '../pages/login/login.component';
 import { DashboardComponent }       from '../pages/dashboard/dashboard.component';
-import { FlagComponent }            from '../pages/flag/flag.component';
+import { DesignerComponent }        from '../pages/designer/designer.component';
 import { MailComponent }            from '../pages/mail/mail.component';
 import { SettingsComponent }        from '../pages/settings/settings.component';
 
@@ -27,7 +27,7 @@ import { SettingsComponent }        from '../pages/settings/settings.component';
         AppComponent
     ,   LoginComponent
     ,   DashboardComponent
-    ,   FlagComponent
+    ,   DesignerComponent
     ,   MailComponent
     ,   SettingsComponent
     ],
@@ -49,7 +49,7 @@ import { SettingsComponent }        from '../pages/settings/settings.component';
         AppComponent
     ,   LoginComponent
     ,   DashboardComponent
-    ,   FlagComponent
+    ,   DesignerComponent
     ,   MailComponent
     ,   SettingsComponent
     ],

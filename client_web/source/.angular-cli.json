@@ -26,7 +26,9 @@
             ],
             "scripts"   :
             [
+                "../node_modules/lodash/lodash.js",
                 "../node_modules/jquery/dist/jquery.min.js",
+                "../node_modules/rsvp/dist/rsvp.js",
                 "../node_modules/httpinvoke/src/browser.js",
                 "../node_modules/localforage/dist/localforage.js"
             ],

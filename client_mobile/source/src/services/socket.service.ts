@@ -67,13 +67,16 @@ export class SocketService
 
             console.log ( 'primus event', this.primus_client_event_count );
 
-            this._notifyService.send_notification (
+            if ( data && data.type && data.text )
+            {
+                this._notifyService.send_notification (
 
-                data.type,
-                data.text,
-                './assets/icon/favicon.ico'
+                    data.type,
+                    data.text,
+                    './assets/icon/favicon.ico'
 
-            );
+                );
+            }
 
         } ) );
 

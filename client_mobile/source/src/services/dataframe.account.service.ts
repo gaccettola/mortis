@@ -93,6 +93,10 @@ export class DataframeAccount extends DataframeBase
                     this.account_token_subject.next ( this.account_token );
 
                     resolve ( this.account_token );
+                },
+                ( error ) =>
+                {
+                    reject ( error );
                 }
 
             ).catch (

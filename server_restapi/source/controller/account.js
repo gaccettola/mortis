@@ -151,25 +151,6 @@ module.exports = function ( )
         return sp_exec ( req, res, next, sp_script );
     }
 
-    /**
-     *
-     * @param req.body.accountId
-     * @param req.body.userName
-     * @param req.body.salt
-     * @param req.body.hash
-     */
-    function patch ( req, res, next )
-    {
-        var sp_script = sprintf ( 'CALL %s( %s, %s, %s, %s );',
-            'sp_account_patch',
-            mysql.escape ( req.body.accountId ),
-            mysql.escape ( req.body.userName ),
-            mysql.escape ( req.body.salt ),
-            mysql.escape ( req.body.hash )
-        );
-
-        return sp_exec ( req, res, next, sp_script );
-    }
 
     /**
      *
@@ -332,9 +313,9 @@ module.exports = function ( )
     }
 
     /**
-     * Login with userName & password
+     * Login with userName & token
      * @param req.body.userName
-     * @param req.body.password
+     * @param req.body.token
      */
     function login ( req, res, next )
     {
@@ -442,13 +423,55 @@ module.exports = function ( )
             return request_status_send ( res, 400, 'no' );
         }
 
-        console.log ( vm._service_name, `::check`, req.body.userName );
-        console.log ( vm._service_name, `::check`, req.body.token );
+        console.log ( vm._service_name, '::check', req.body.userName );
+        console.log ( vm._service_name, '::check', req.body.token );
 
         accountToken_verify ( req.body.token ).then (
 
             function ( value )
             {
+                // verify it is one of our tokens
+
+                if ( ! value )
+                {
+                    throw ( 'account token verification failure' );
+                }
+
+                console.log ( 'account token, ' );
+                console.log ( value );
+                console.log ( '' );
+
+                if ( value.userName !== req.body.userName )
+                {
+                    throw ( 'account token verification failure, token forgery' );
+                }
+
+                // token is valid
+                // confirm the user is valid
+
+                var sp_script = sprintf ( 'CALL %s( %s );',
+                    'sp_account_fetch_user',
+                    mysql.escape ( req.body.userName )
+                );
+
+                return vm.storage_agent.connection_exec ( sp_script );
+            },
+            function ( error )
+            {
+                throw ( error );
+            }
+
+        ).then (
+
+            function ( value )
+            {
+                var result_len = value[0].length;
+
+                if ( 1 > result_len )
+                {
+                    throw ( 'account not found' );
+                }
+
                 return request_status_send ( res, 200, 'ok' );
             },
             function ( error )
@@ -460,7 +483,7 @@ module.exports = function ( )
 
             function ( ex )
             {
-                return request_status_send ( res, 400, 'no' );
+                return request_status_send ( res, 400, ex );
             }
 
         );
@@ -470,8 +493,6 @@ module.exports = function ( )
     function on_restapi_post ( req, res, next )
     {
         if ( req.body.fetch ) return fetch ( req, res, next );
-
-        if ( req.body.patch ) return patch ( req, res, next );
 
         if ( req.body.write ) return write ( req, res, next );
 

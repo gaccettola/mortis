@@ -635,6 +635,17 @@ module.exports = function one(fn) {
 var has = Object.prototype.hasOwnProperty;
 
 /**
+ * Decode a URI encoded string.
+ *
+ * @param {String} input The URI encoded string.
+ * @returns {String} The decoded string.
+ * @api private
+ */
+function decode(input) {
+  return decodeURIComponent(input.replace(/\+/g, ' '));
+}
+
+/**
  * Simple query string parser.
  *
  * @param {String} query The query string that needs to be parsed.
@@ -653,7 +664,7 @@ function querystring(query) {
   //
   for (;
     part = parser.exec(query);
-    result[decodeURIComponent(part[1])] = decodeURIComponent(part[2])
+    result[decode(part[1])] = decode(part[2])
   );
 
   return result;
@@ -1856,7 +1867,7 @@ URL.qs = qs;
 
 module.exports = URL;
 
-},{"./lolcation":13,"querystringify":7,"requires-port":10}],13:[function(_dereq_,module,exports){
+},{"./lolcation":13,"querystringify":14,"requires-port":10}],13:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -1914,6 +1925,69 @@ module.exports = function lolcation(loc) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./":12}],14:[function(_dereq_,module,exports){
+'use strict';
+
+var has = Object.prototype.hasOwnProperty;
+
+/**
+ * Simple query string parser.
+ *
+ * @param {String} query The query string that needs to be parsed.
+ * @returns {Object}
+ * @api public
+ */
+function querystring(query) {
+  var parser = /([^=?&]+)=?([^&]*)/g
+    , result = {}
+    , part;
+
+  //
+  // Little nifty parsing hack, leverage the fact that RegExp.exec increments
+  // the lastIndex property so we can continue executing this loop until we've
+  // parsed all results.
+  //
+  for (;
+    part = parser.exec(query);
+    result[decodeURIComponent(part[1])] = decodeURIComponent(part[2])
+  );
+
+  return result;
+}
+
+/**
+ * Transform a query string to an object.
+ *
+ * @param {Object} obj Object that should be transformed.
+ * @param {String} prefix Optional prefix.
+ * @returns {String}
+ * @api public
+ */
+function querystringify(obj, prefix) {
+  prefix = prefix || '';
+
+  var pairs = [];
+
+  //
+  // Optionally prefix with a '?' if needed
+  //
+  if ('string' !== typeof prefix) prefix = '?';
+
+  for (var key in obj) {
+    if (has.call(obj, key)) {
+      pairs.push(encodeURIComponent(key) +'='+ encodeURIComponent(obj[key]));
+    }
+  }
+
+  return pairs.length ? prefix + pairs.join('&') : '';
+}
+
+//
+// Expose the module.
+//
+exports.stringify = querystringify;
+exports.parse = querystring;
+
+},{}],15:[function(_dereq_,module,exports){
 'use strict';
 
 var alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_'.split('')
@@ -1983,7 +2057,7 @@ yeast.encode = encode;
 yeast.decode = decode;
 module.exports = yeast;
 
-},{}],15:[function(_dereq_,module,exports){
+},{}],16:[function(_dereq_,module,exports){
 /*globals require, define */
 'use strict';
 
@@ -2043,8 +2117,7 @@ try {
  * - manual, don't automatically call `.open` to start the connection.
  * - websockets, force the use of WebSockets, even when you should avoid them.
  * - timeout, connect timeout, server didn't respond in a timely manner.
- * - ping, The heartbeat interval for sending a ping packet to the server.
- * - pong, The heartbeat timeout for receiving a response to the ping.
+ * - pingTimeout, The maximum amount of time to wait for the server to send a ping.
  * - network, Use network events as leading method for network connection drops.
  * - strategy, Reconnection strategies.
  * - transport, Transport options.
@@ -2061,9 +2134,10 @@ function Primus(url, options) {
   Primus.Stream.call(this);
 
   if ('function' !== typeof this.client) {
-    var message = 'The client library has not been compiled correctly, ' +
-      'see https://github.com/primus/primus#client-library for more details';
-    return this.critical(new Error(message));
+    return this.critical(new Error(
+      'The client library has not been compiled correctly, see '+
+      'https://github.com/primus/primus#client-library for more details'
+    ));
   }
 
   if ('object' === typeof url) {
@@ -2071,6 +2145,12 @@ function Primus(url, options) {
     url = options.url || options.uri || defaultUrl;
   } else {
     options = options || {};
+  }
+
+  if ('ping' in options || 'pong' in options) {
+    return this.critical(new Error(
+      'The `ping` and `pong` options have been removed'
+    ));
   }
 
   var primus = this;
@@ -2085,10 +2165,7 @@ function Primus(url, options) {
   options.reconnect = 'reconnect' in options ? options.reconnect : {};
 
   // Heartbeat ping interval.
-  options.ping = 'ping' in options ? options.ping : 25000;
-
-  // Heartbeat pong response timeout.
-  options.pong = 'pong' in options ? options.pong : 10e3;
+  options.pingTimeout = 'pingTimeout' in options ? options.pingTimeout : 45000;
 
   // Reconnect strategies.
   options.strategy = 'strategy' in options ? options.strategy : [];
@@ -2383,8 +2460,6 @@ Primus.prototype.initialise = function initialise(options) {
       primus.emit('readyStateChange', 'open');
     }
 
-    primus.latency = +new Date() - start;
-    primus.timers.clear('ping', 'pong');
     primus.heartbeat();
 
     if (primus.buffer.length) {
@@ -2402,12 +2477,11 @@ Primus.prototype.initialise = function initialise(options) {
     primus.emit('open');
   });
 
-  primus.on('incoming::pong', function pong(time) {
+  primus.on('incoming::ping', function ping(time) {
     primus.online = true;
-    primus.timers.clear('pong');
     primus.heartbeat();
-
-    primus.latency = (+new Date()) - time;
+    primus.emit('outgoing::pong', time);
+    primus._write('primus::pong::'+ time);
   });
 
   primus.on('incoming::error', function error(e) {
@@ -2611,9 +2685,9 @@ Primus.prototype.protocol = function protocol(msg) {
     , value = msg.slice(last + 2);
 
   switch (msg.slice(8,  last)) {
-    case 'pong':
-      this.emit('incoming::pong', +value);
-    break;
+    case 'ping':
+      this.emit('incoming::ping', +value);
+      break;
 
     case 'server':
       //
@@ -2623,11 +2697,11 @@ Primus.prototype.protocol = function protocol(msg) {
       if ('close' === value) {
         this.disconnect = true;
       }
-    break;
+      break;
 
     case 'id':
       this.emit('incoming::id', value);
-    break;
+      break;
 
     //
     // Unknown protocol, somebody is probably sending `primus::` prefixed
@@ -2809,51 +2883,26 @@ Primus.prototype._write = function write(data) {
 };
 
 /**
- * Send a new heartbeat over the connection to ensure that we're still
- * connected and our internet connection didn't drop. We cannot use server side
- * heartbeats for this unfortunately.
+ * Set a timer that, upon expiration, closes the client.
  *
  * @returns {Primus}
  * @api private
  */
 Primus.prototype.heartbeat = function heartbeat() {
-  var primus = this;
+  if (!this.options.pingTimeout) return this;
 
-  if (!primus.options.ping) return primus;
-
-  /**
-   * Exterminate the connection as we've timed out.
-   *
-   * @api private
-   */
-  function pong() {
-    primus.timers.clear('pong');
-
+  this.timers.clear('heartbeat');
+  this.timers.setTimeout('heartbeat', function expired() {
     //
     // The network events already captured the offline event.
     //
-    if (!primus.online) return;
+    if (!this.online) return;
 
-    primus.online = false;
-    primus.emit('offline');
-    primus.emit('incoming::end');
-  }
+    this.online = false;
+    this.emit('offline');
+    this.emit('incoming::end');
+  }, this.options.pingTimeout);
 
-  /**
-   * We should send a ping message to the server.
-   *
-   * @api private
-   */
-  function ping() {
-    var value = +new Date();
-
-    primus.timers.clear('ping');
-    primus._write('primus::ping::'+ value);
-    primus.emit('outgoing::ping', value);
-    primus.timers.setTimeout('pong', pong, primus.options.pong);
-  }
-
-  primus.timers.setTimeout('ping', ping, primus.options.ping);
   return this;
 };
 
@@ -3133,10 +3182,7 @@ Primus.prototype.transform = function transform(type, fn) {
  * @api private
  */
 Primus.prototype.critical = function critical(err) {
-  if (this.listeners('error').length) {
-    this.emit('error', err);
-    return this;
-  }
+  if (this.emit('error', err)) return this;
 
   throw err;
 };
@@ -3280,7 +3326,7 @@ Primus.prototype.decoder = function decoder(data, fn) {
 
   fn(err, data);
 };
-Primus.prototype.version = "6.1.0";
+Primus.prototype.version = "7.0.0";
 
 if (
      'undefined' !== typeof document
@@ -3329,7 +3375,7 @@ if (
 //
 module.exports = Primus;
 
-},{"demolish":1,"emits":2,"eventemitter3":3,"inherits":4,"querystringify":7,"recovery":8,"tick-tock":11,"url-parse":12,"yeast":14}]},{},[15])(15);
+},{"demolish":1,"emits":2,"eventemitter3":3,"inherits":4,"querystringify":7,"recovery":8,"tick-tock":11,"url-parse":12,"yeast":15}]},{},[16])(16);
 Primus.prototype.ark["emit"] = function client(primus) {
   var toString = Object.prototype.toString
     , emit = primus.emit;

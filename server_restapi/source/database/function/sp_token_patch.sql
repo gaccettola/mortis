@@ -7,10 +7,10 @@ DROP PROCEDURE IF EXISTS sp_token_patch;
 
 CREATE PROCEDURE sp_token_patch
 (
-    p_tokenId       INT(10)
-,   p_tokenName     VARCHAR( 256)
-,   p_publicKey     VARCHAR(1024)
-,   p_privateKey    VARCHAR(1024)
+    p_tokenId           BIGINT
+,   p_tokenName         VARCHAR( 256)
+,   p_publicKey         VARCHAR(1024)
+,   p_privateKey        VARCHAR(1024)
 )
 this_proc:BEGIN
 

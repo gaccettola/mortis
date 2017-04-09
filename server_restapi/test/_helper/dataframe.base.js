@@ -3,6 +3,9 @@
 'use strict';
 
 var dotenv      = require ( 'dotenv'     ).config(),
+    assert      = require ( 'assert'     ),
+    expect      = require ( 'chai'       ).expect,
+    path        = require ( 'path'       ),
     Promise     = require ( 'bluebird'   ),
     _           = require ( 'lodash'     ),
     sprintf     = require ( 'sprintf'    ),
@@ -12,6 +15,16 @@ var dotenv      = require ( 'dotenv'     ).config(),
 
 var url_base    = 'http://localhost:8989/v1/';
 
+var server_root = '../../../server_restapi/source/';
+
+function require_relative ( module_path )
+{
+    return require ( path.join ( server_root, module_path ) );
+}
+
+var services_storage_agent  = require_relative ( 'services/storage_agent' )( );
+var services_storage_proxy  = require_relative ( 'services/storage_proxy' )( );
+
 module.exports = function ( )
 {
     var vm = this || {};
@@ -20,7 +33,8 @@ module.exports = function ( )
 
     var api =
     {
-        invoke_frame : invoke_frame
+        invoke_frame : invoke_frame,
+        sp_exec      : sp_exec
     };
 
     /**
@@ -74,6 +88,58 @@ module.exports = function ( )
         } );
     }
 
+    function sp_exec ( script )
+    {
+        return new Promise ( function ( resolve, reject )
+        {
+            services_storage_agent.ctor ( null ).then (
+
+                function ( value )
+                {
+                    return services_storage_proxy.ctor ( null, services_storage_agent );
+                },
+                function ( error )
+                {
+                    throw ( error );
+                }
+
+            ).then (
+
+                function ( value )
+                {
+                    return services_storage_agent.connection_exec ( script );
+                },
+                function ( error )
+                {
+                    throw ( error );
+                }
+
+            ).then (
+
+                function ( value )
+                {
+                    expect ( value ).to.have.property ( 'length' );
+                    expect ( value.length ).to.equal ( 2 );
+
+                    resolve ( value );
+                },
+                function ( error )
+                {
+                    throw ( error );
+                }
+
+            ).catch (
+
+                function ( ex )
+                {
+                    reject ( ex );
+                }
+
+            );
+
+        } );
+
+    }
 
     return api;
 

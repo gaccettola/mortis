@@ -1,14 +1,14 @@
 {
-  "name": "mortis_restapi",
+  "name": "server_restapi",
+  "author": "Dynalab Creative",
   "version": "1.0.0",
-  "description": "the restapi server is designed to deliver data to the web, mobile, and desktop client",
+  "description": "the restapi server",
+  "license": "MIT",
   "main": "server_restapi.js",
   "scripts": {
     "start": "node server_restapi.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Accettola Systems",
-  "license": "MIT",
   "dependencies": {
     "bluebird": "^3.4.7",
     "body-parser": "^1.16.1",
@@ -29,12 +29,12 @@
     "node-schedule": "^1.2.1",
     "omega-supreme": "^2.1.1",
     "postal": "^2.0.5",
-    "primus": "^6.1.0",
+    "primus": "^7.0.0",
     "primus-emit": "^1.0.0",
     "rsvp": "^3.3.3",
     "sprintf": "^0.1.5",
     "statman-stopwatch": "^2.4.0",
-    "uws": "^0.13.0",
+    "uws": "^0.14.1",
     "ws": "^2.1.0"
   }
 }

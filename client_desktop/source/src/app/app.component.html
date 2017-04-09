@@ -1,25 +1,26 @@
 
 <div class="layout-overflow" >
 
-    <div class="layout-canvas">
+    <div class="layout-canvas" >
 
-        <app-header *ngIf="this.isAuthenticated" (navToggled)="on_event_toggle_sidebar_menu($event)">
+        <app-header *ngIf="isAuthenticated"
+                    (navToggled)="on_event_toggle_sidebar_menu($event)" >
         </app-header>
 
-        <div fxLayout="row" fxFlex class="app-thing" >
+        <div fxLayout="row" fxFlex >
 
-            <app-sidebar *ngIf="this.isAuthenticated"
+            <app-sidebar *ngIf="isAuthenticated"
                          [(isMenuOpen)]="isMenuOpen"
-                         (onMenuItem)="on_event_select_sidebar_menu_item($event)">
+                         (onMenuItem)="on_event_select_sidebar_menu_item($event)" >
             </app-sidebar>
 
-            <div class="layout-view">
+            <div class="layout-view" >
                 <router-outlet></router-outlet>
             </div>
 
         </div>
 
-        <app-footer *ngIf="this.isAuthenticated">
+        <app-footer *ngIf="isAuthenticated" >
         </app-footer>
 
     </div>

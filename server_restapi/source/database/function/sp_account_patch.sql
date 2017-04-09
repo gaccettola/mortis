@@ -7,10 +7,10 @@ DROP PROCEDURE IF EXISTS sp_account_patch;
 
 CREATE PROCEDURE sp_account_patch
 (
-    p_accountId INT(10)
-,   p_userName  VARCHAR(256)
-,   p_salt      VARCHAR(1024)
-,   p_hash      VARCHAR(1024)
+    p_accountId         BIGINT
+,   p_userName          VARCHAR(256)
+,   p_salt              VARCHAR(1024)
+,   p_hash              VARCHAR(1024)
 )
 this_proc:BEGIN
 

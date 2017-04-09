@@ -11,13 +11,13 @@ import { DataframeAccount }     from '../../services/dataframe.account.service';
 
 @Component (
 {
-    selector    : 'flag'
-,   templateUrl : 'flag.component.html'
+    selector    : 'designer'
+,   templateUrl : 'designer.component.html'
 } )
-export class FlagComponent
+export class DesignerComponent
 {
     @ViewChild ( Nav ) nav  : Nav;
-    title                   : string    = 'flag';
+    title                   : string    = 'designer';
 
     listof_thing            : any       =
     [

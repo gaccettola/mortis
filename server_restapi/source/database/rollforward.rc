@@ -21,24 +21,30 @@
 #
 # functions
 
+# account
   sp_account_fetch                      :: ./function/sp_account_fetch.sql
   sp_account_fetch_user                 :: ./function/sp_account_fetch_user.sql
   sp_account_patch                      :: ./function/sp_account_patch.sql
   sp_account_write                      :: ./function/sp_account_write.sql
 
-
+# accountToken
   sp_accountToken_fetch                 :: ./function/sp_accountToken_fetch.sql
   sp_accountToken_fetch_account         :: ./function/sp_accountToken_fetch_account.sql
   sp_accountToken_patch                 :: ./function/sp_accountToken_patch.sql
   sp_accountToken_write                 :: ./function/sp_accountToken_write.sql
 
-
+# active
   sp_active_fetch                       :: ./function/sp_active_fetch.sql
   sp_active_patch                       :: ./function/sp_active_patch.sql
   sp_active_write                       :: ./function/sp_active_write.sql
 
-
+# token
   sp_token_fetch                        :: ./function/sp_token_fetch.sql
   sp_token_fetch_name                   :: ./function/sp_token_fetch_name.sql
   sp_token_patch                        :: ./function/sp_token_patch.sql
   sp_token_write                        :: ./function/sp_token_write.sql
+
+# userRole
+  sp_userRole_fetch                     :: ./function/sp_userRole_fetch.sql
+  sp_userRole_patch                     :: ./function/sp_userRole_patch.sql
+  sp_userRole_write                     :: ./function/sp_userRole_write.sql

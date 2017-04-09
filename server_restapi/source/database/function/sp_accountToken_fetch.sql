@@ -7,40 +7,20 @@ DROP PROCEDURE IF EXISTS sp_accountToken_fetch;
 
 CREATE PROCEDURE sp_accountToken_fetch
 (
-    p_accountTokenId    INT(10)
+    p_accountTokenId    BIGINT
 )
 this_proc:BEGIN
 
-    IF p_accountTokenId = -1 THEN
-    BEGIN
-
-        SELECT
-            t.accountTokenId
-        ,   t.accountId
-        ,   t.token
-        ,   t.createdOn
-        ,   t.updatedOn
-        FROM
-            accountToken t
-        ;
-
-    END;
-    ELSE
-    BEGIN
-
-        SELECT
-            t.accountTokenId
-        ,   t.accountId
-        ,   t.token
-        ,   t.createdOn
-        ,   t.updatedOn
-        FROM
-            accountToken t
-        WHERE
-            t.accountTokenId    = p_accountTokenId
-        ;
-
-    END;
-    END IF;
+    SELECT
+        t.accountTokenId
+    ,   t.accountId
+    ,   t.token
+    ,   t.createdOn
+    ,   t.updatedOn
+    FROM
+        accountToken t
+    WHERE
+        t.accountTokenId    = p_accountTokenId
+    ;
 
 END

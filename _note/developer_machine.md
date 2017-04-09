@@ -147,6 +147,12 @@ npm install -g appium-doctor
 npm install -g electron
 npm install -g electron-rebuild
 
+npm install -g jscs
+npm install -g node-sass
+npm install -g bower
+npm install -g nativescript
+npm install -g typings
+
 ```
 
 
@@ -212,7 +218,9 @@ sudo mv kubectl /usr/local/bin/
 ### minikube
 ```
 # curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.16.0/minikube-linux-amd64
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.17.1/minikube-linux-amd64
+# curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.17.1/minikube-linux-amd64
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.18.0/minikube-linux-amd64
+
 chmod +x minikube
 sudo mv minikube /usr/local/bin/
 
