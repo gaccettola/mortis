@@ -4,8 +4,8 @@ import { RouterModule }              from '@angular/router';
 
 import { LoginComponent }            from '../pages/login/login.component';
 import { DashboardComponent }        from '../pages/dashboard/dashboard.component';
+import { DesignerComponent }         from '../pages/designer/designer.component.base';
 import { MailComponent }             from '../pages/mail/mail.component';
-import { DesignerComponent }         from '../pages/designer/designer.component';
 import { SettingsComponent }         from '../pages/settings/settings.component';
 
 import { AuthenticatedGuardAll }     from '../services/authenticated.guard.all';
@@ -35,8 +35,8 @@ const appRoutes: any[] =
         }
     },
     {
-        path        : 'mail',
-        component   : MailComponent,
+        path        : 'designer',
+        component   : DesignerComponent,
         canActivate : [ AuthenticatedGuardAll ],
         resolve     :
         {
@@ -44,8 +44,8 @@ const appRoutes: any[] =
         }
     },
     {
-        path        : 'designer',
-        component   : DesignerComponent,
+        path        : 'mail',
+        component   : MailComponent,
         canActivate : [ AuthenticatedGuardAll ],
         resolve     :
         {

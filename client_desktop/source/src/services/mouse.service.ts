@@ -108,54 +108,54 @@ export class MouseService
             } else if ( ele && ele.className && ele.className.baseVal )
             {
 
-                if ( _.includes ( ele.className.baseVal, 'flow-item-connection' ) &&
-                     _.includes ( ele.className.baseVal, 'flow-item-connection-selected' ) )
+                if ( _.includes ( ele.className.baseVal, 'designer-item-connection' ) &&
+                     _.includes ( ele.className.baseVal, 'designer-item-connection-selected' ) )
                 {
-                    typ = 'flow-item-connection-selected';
+                    typ = 'designer-item-connection-selected';
 
                     return typ;
                 }
 
-                if (  _.includes ( ele.className.baseVal, 'flow-item-connection' ) &&
-                    ! _.includes ( ele.className.baseVal, 'flow-item-connection-selected' ) )
+                if (  _.includes ( ele.className.baseVal, 'designer-item-connection' ) &&
+                    ! _.includes ( ele.className.baseVal, 'designer-item-connection-selected' ) )
                 {
-                    typ = 'flow-item-connection';
-
-                    return typ;
-                }
-
-
-                if ( _.includes ( ele.className.baseVal, 'flow-item-connector' ) &&
-                     _.includes ( ele.className.baseVal, 'flow-item-connector-selected' ) )
-                {
-                    typ = 'flow-item-connector-selected';
+                    typ = 'designer-item-connection';
 
                     return typ;
                 }
 
 
-                if (  _.includes ( ele.className.baseVal, 'flow-item-connector' ) &&
-                    ! _.includes ( ele.className.baseVal, 'flow-item-connector-selected' ) )
+                if ( _.includes ( ele.className.baseVal, 'designer-item-connector' ) &&
+                     _.includes ( ele.className.baseVal, 'designer-item-connector-selected' ) )
                 {
-                    typ = 'flow-item-connector';
+                    typ = 'designer-item-connector-selected';
 
                     return typ;
                 }
 
 
-                if ( _.includes ( ele.className.baseVal, 'flow-item' ) &&
-                     _.includes ( ele.className.baseVal, 'flow-item-selected' ) )
+                if (  _.includes ( ele.className.baseVal, 'designer-item-connector' ) &&
+                    ! _.includes ( ele.className.baseVal, 'designer-item-connector-selected' ) )
                 {
-                    typ = 'flow-item-selected';
+                    typ = 'designer-item-connector';
 
                     return typ;
                 }
 
 
-                if (  _.includes ( ele.className.baseVal, 'flow-item' ) &&
-                    ! _.includes ( ele.className.baseVal, 'flow-item-selected' ) )
+                if ( _.includes ( ele.className.baseVal, 'designer-item' ) &&
+                     _.includes ( ele.className.baseVal, 'designer-item-selected' ) )
                 {
-                    typ = 'flow-item';
+                    typ = 'designer-item-selected';
+
+                    return typ;
+                }
+
+
+                if (  _.includes ( ele.className.baseVal, 'designer-item' ) &&
+                    ! _.includes ( ele.className.baseVal, 'designer-item-selected' ) )
+                {
+                    typ = 'designer-item';
 
                     return typ;
                 }

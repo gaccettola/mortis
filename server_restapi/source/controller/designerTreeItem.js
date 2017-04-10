@@ -19,7 +19,7 @@ module.exports = function ( )
 {
     var vm = this || {};
 
-    vm._service_name = 'userRole';
+    vm._service_name = 'designerTreeItem';
 
     var api =
     {
@@ -139,13 +139,13 @@ module.exports = function ( )
 
     /**
      *
-     * @param req.body.userRoleId
+     * @param req.body.designerTreeItemId
      */
     function fetch ( req, res, next )
     {
         var sp_script = sprintf ( 'CALL %s( %s );',
-            'sp_userRole_fetch',
-            mysql.escape ( req.body.accountId )
+            'sp_designerTreeItem_fetch',
+            mysql.escape ( req.body.designerTreeItemId )
         );
 
         return sp_exec ( req, res, next, sp_script );
@@ -153,16 +153,30 @@ module.exports = function ( )
 
     /**
      *
-     * @param req.body.userRoleId
+     * @param req.body.designerTreeItemId
      * @param req.body.name
      * @param req.body.description
      * @param req.body.note
      */
     function patch ( req, res, next )
     {
-        var sp_script = sprintf ( 'CALL %s( %s );',
-            'sp_userRole_patch',
-            mysql.escape ( req.body.accountId )
+        var sp_script = sprintf ( 'CALL %s( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s  );',
+            'sp_designerTreeItem_patch',
+            mysql.escape ( req.body.designerTreeItemId ),
+            mysql.escape ( req.body.designerTreeId ),
+            mysql.escape ( req.body.businessId ),
+            mysql.escape ( req.body.idx ),
+            mysql.escape ( req.body.fill ),
+            mysql.escape ( req.body.radius ),
+            mysql.escape ( req.body.cx ),
+            mysql.escape ( req.body.cy ),
+            mysql.escape ( req.body.selected ),
+            mysql.escape ( req.body.min_height ),
+            mysql.escape ( req.body.height ),
+            mysql.escape ( req.body.width ),
+            mysql.escape ( req.body.is_primary ),
+            mysql.escape ( req.body.message_text )
+
         );
 
         return sp_exec ( req, res, next, sp_script );
@@ -176,14 +190,40 @@ module.exports = function ( )
      */
     function write ( req, res, next )
     {
-        var sp_script = sprintf ( 'CALL %s( %s );',
-            'sp_userRole_write',
-            mysql.escape ( req.body.accountId )
+        var sp_script = sprintf ( 'CALL %s( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s  );',
+            'sp_designerTreeItem_write',
+            mysql.escape ( req.body.designerTreeId ),
+            mysql.escape ( req.body.businessId ),
+            mysql.escape ( req.body.idx ),
+            mysql.escape ( req.body.fill ),
+            mysql.escape ( req.body.radius ),
+            mysql.escape ( req.body.cx ),
+            mysql.escape ( req.body.cy ),
+            mysql.escape ( req.body.selected ),
+            mysql.escape ( req.body.min_height ),
+            mysql.escape ( req.body.height ),
+            mysql.escape ( req.body.width ),
+            mysql.escape ( req.body.is_primary ),
+            mysql.escape ( req.body.message_text )
+
         );
 
         return sp_exec ( req, res, next, sp_script );
     }
 
+    /**
+     *
+     * @param req.body.designerTreeId
+     */
+    function fetch_tree ( req, res, next )
+    {
+        var sp_script = sprintf ( 'CALL %s( %s );',
+            'sp_designerTreeItem_fetch_tree',
+            mysql.escape ( req.body.designerTreeId )
+        );
+
+        return sp_exec ( req, res, next, sp_script );
+    }
 
     function on_restapi_post ( req, res, next )
     {
@@ -192,6 +232,8 @@ module.exports = function ( )
         if ( req.body.patch ) return patch ( req, res, next );
 
         if ( req.body.write ) return write ( req, res, next );
+
+        if ( req.body.fetch_tree ) return fetch_tree ( req, res, next );
 
         return request_status_send ( res, 400, { error : 'bad request' } );
     }

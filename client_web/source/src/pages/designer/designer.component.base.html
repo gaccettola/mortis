@@ -1,0 +1,364 @@
+
+<div fxLayout="column" fxFlex
+     [style.height]="current_height"
+     [style.min-height]="current_height" >
+
+    <div fxLayout="row" fxFlex class="component-view">
+
+        <div fxLayout="column" class="designer-host" fxFlex >
+
+            <div fxLayout="row" class="designer-host-toolbar"
+                 (click)="on_click_item_host_toolbar ( $event )">
+
+                <md-select class="designer-host-toolbar-select"
+                           [(ngModel)]="uiInstance.tree_selected"
+                           (change)="on_change_selected_tree($event)"  >
+                    <md-option *ngFor="let tree of listof_decision_tree" [value]="tree">
+                        {{ tree.designerTreeName }}
+                    </md-option>
+                </md-select>
+
+                <div class="designer-host-toolbar-host" mdTooltip="new decision tree" mdTooltipPosition="below"
+                     (click)="on_new_decision_tree ( )" >
+                    <md-icon class="designer-host-toolbar-icon">note_add</md-icon>
+                </div>
+
+                <div class="designer-host-toolbar-host" mdTooltip="add node" mdTooltipPosition="below"
+                     (click)="on_add_designer_item ( )" >
+                    <md-icon class="designer-host-toolbar-icon">add_circle_outline</md-icon>
+                </div>
+
+                <div *ngIf="-1 < uiInstance.item_selected_idx"
+                     class="designer-host-toolbar-host" mdTooltip="remove output" mdTooltipPosition="below"
+                     (click)="on_del_designer_item ( $event )" >
+                    <md-icon class="designer-host-toolbar-icon">remove_circle_outline</md-icon>
+                </div>
+
+                <span fxFlex></span>
+
+                <div class="designer-host-toolbar-host" *ngIf="uiInstance.hide_properties"
+                     (click)="on_show_properties ( )" >
+                    <md-icon class="designer-host-toolbar-icon">chevron_left</md-icon>
+                </div>
+
+                <div class="designer-host-toolbar-host" *ngIf="!uiInstance.hide_properties"
+                     (click)="on_hide_properties ( )" >
+                    <md-icon class="designer-host-toolbar-icon">chevron_right</md-icon>
+                </div>
+
+            </div>
+
+            <svg fxLayout="row" class="designer-host-main" fxFlex
+                 [ngClass]="{ 'svg-online': uiInstance.svg_online, 'svg-offline': ! uiInstance.svg_online }"
+                 (mousedown)="on_background_mousedown ( $event )"
+                 (mousemove)="on_background_mousemove ( $event )"
+                 (mouseup)="on_background_mouseup ( $event )">
+
+                <defs>
+                    <filter id="shadow-2dp" x="-50%" y="-100%" width="200%" height="300%">
+                        <feOffset in="SourceAlpha" result="offA" dy="2" />
+                        <feOffset in="SourceAlpha" result="offB" dy="1" />
+                        <feOffset in="SourceAlpha" result="offC" dy="3" />
+                        <feMorphology in="offC" result="spreadC" operator="erode" radius="2" />
+                        <feGaussianBlur in="offA" result="blurA" stdDeviation="1" /><!--2px 0-->
+                        <feGaussianBlur in="offB" result="blurB" stdDeviation="2.5" /><!--5px 0-->
+                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="0.5" /><!--1px -2px-->
+                        <feFlood flood-opacity="0.14" result="opA" />
+                        <feFlood flood-opacity="0.12" result="opB" />
+                        <feFlood flood-opacity="0.20" result="opC" />
+                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
+                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
+                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
+                        <feMerge>
+                            <feMergeNode in="shA" />
+                            <feMergeNode in="shB" />
+                            <feMergeNode in="shC" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <filter id="shadow-3dp" x="-50%" y="-100%" width="200%" height="300%">
+                        <feOffset in="SourceAlpha" result="offA" dy="3" />
+                        <feOffset in="SourceAlpha" result="offB" dy="1" />
+                        <feOffset in="SourceAlpha" result="offC" dy="3" />
+                        <feMorphology in="offC" result="spreadC" operator="erode" radius="2" />
+                        <feGaussianBlur in="offA" result="blurA" stdDeviation="2" /><!--4px 0-->
+                        <feGaussianBlur in="offB" result="blurB" stdDeviation="4" /><!--8px 0-->
+                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="1.5" /><!--3px -2px-->
+                        <feFlood flood-opacity="0.14" result="opA" />
+                        <feFlood flood-opacity="0.12" result="opB" />
+                        <feFlood flood-opacity="0.40" result="opC" />
+                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
+                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
+                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
+                        <feMerge>
+                            <feMergeNode in="shA" />
+                            <feMergeNode in="shB" />
+                            <feMergeNode in="shC" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <filter id="shadow-4dp" x="-50%" y="-100%" width="200%" height="300%">
+                        <feOffset in="SourceAlpha" result="offA" dy="4" />
+                        <feOffset in="SourceAlpha" result="offB" dy="1" />
+                        <feOffset in="SourceAlpha" result="offC" dy="2" />
+                        <feMorphology in="offC" result="spreadC" operator="erode" radius="1" />
+                        <feGaussianBlur in="offA" result="blurA" stdDeviation="2.5" /><!--5px 0-->
+                        <feGaussianBlur in="offB" result="blurB" stdDeviation="5" /><!--10px 0-->
+                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="2" /><!--4px -1px-->
+                        <feFlood flood-opacity="0.14" result="opA" />
+                        <feFlood flood-opacity="0.12" result="opB" />
+                        <feFlood flood-opacity="0.40" result="opC" />
+                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
+                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
+                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
+                        <feMerge>
+                            <feMergeNode in="shA" />
+                            <feMergeNode in="shB" />
+                            <feMergeNode in="shC" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <filter id="shadow-6dp" x="-50%" y="-100%" width="200%" height="300%">
+                        <feOffset in="SourceAlpha" result="offA" dy="6" />
+                        <feOffset in="SourceAlpha" result="offB" dy="1" />
+                        <feOffset in="SourceAlpha" result="offC" dy="3" />
+                        <feMorphology in="offC" result="spreadC" operator="erode" radius="1" />
+                        <feGaussianBlur in="offA" result="blurA" stdDeviation="5" /><!--10px 0-->
+                        <feGaussianBlur in="offB" result="blurB" stdDeviation="9" /><!--18px 0-->
+                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="2.5" /><!--5px -1px-->
+                        <feFlood flood-opacity="0.14" result="opA" />
+                        <feFlood flood-opacity="0.12" result="opB" />
+                        <feFlood flood-opacity="0.40" result="opC" />
+                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
+                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
+                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
+                        <feMerge>
+                            <feMergeNode in="shA" />
+                            <feMergeNode in="shB" />
+                            <feMergeNode in="shC" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <filter id="shadow-8dp" x="-50%" y="-100%" width="200%" height="300%">
+                        <feOffset in="SourceAlpha" result="offA" dy="8" />
+                        <feOffset in="SourceAlpha" result="offB" dy="3" />
+                        <feOffset in="SourceAlpha" result="offC" dy="5" />
+                        <feMorphology in="offA" result="spreadA" operator="dilate" radius="1" />
+                        <feMorphology in="offB" result="spreadB" operator="dilate" radius="2" />
+                        <feMorphology in="offC" result="spreadC" operator="erode" radius="3" />
+                        <feGaussianBlur in="spreadA" result="blurA" stdDeviation="5" /><!--10px 1px-->
+                        <feGaussianBlur in="spreadB" result="blurB" stdDeviation="7" /><!--14px 2px-->
+                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="2.5" /><!--5px -3px-->
+                        <feFlood flood-opacity="0.14" result="opA" />
+                        <feFlood flood-opacity="0.12" result="opB" />
+                        <feFlood flood-opacity="0.40" result="opC" />
+                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
+                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
+                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
+                        <feMerge>
+                            <feMergeNode in="shA" />
+                            <feMergeNode in="shB" />
+                            <feMergeNode in="shC" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <filter id="shadow-12dp" x="-50%" y="-100%" width="200%" height="300%">
+                        <feOffset in="SourceAlpha" result="offA" dy="12" />
+                        <feOffset in="SourceAlpha" result="offB" dy="4" />
+                        <feOffset in="SourceAlpha" result="offC" dy="6" />
+                        <feMorphology in="offA" result="spreadA" operator="dilate" radius="1" />
+                        <feMorphology in="offB" result="spreadB" operator="dilate" radius="3" />
+                        <feMorphology in="offC" result="spreadC" operator="erode" radius="4" />
+                        <feGaussianBlur in="spreadA" result="blurA" stdDeviation="8" /><!--16px 1px-->
+                        <feGaussianBlur in="spreadB" result="blurB" stdDeviation="11" /><!--22px 3px-->
+                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="3.5" /><!--7px -4px-->
+                        <feFlood flood-opacity="0.14" result="opA" />
+                        <feFlood flood-opacity="0.12" result="opB" />
+                        <feFlood flood-opacity="0.40" result="opC" />
+                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
+                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
+                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
+                        <feMerge>
+                            <feMergeNode in="shA" />
+                            <feMergeNode in="shB" />
+                            <feMergeNode in="shC" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <filter id="shadow-16dp" x="-50%" y="-100%" width="200%" height="300%">
+                        <feOffset in="SourceAlpha" result="offA" dy="16" />
+                        <feOffset in="SourceAlpha" result="offB" dy="6" />
+                        <feOffset in="SourceAlpha" result="offC" dy="8" />
+                        <feMorphology in="offA" result="spreadA" operator="dilate" radius="2" />
+                        <feMorphology in="offB" result="spreadB" operator="dilate" radius="5" />
+                        <feMorphology in="offC" result="spreadC" operator="erode" radius="5" />
+                        <feGaussianBlur in="spreadA" result="blurA" stdDeviation="12" /><!--24px 2px-->
+                        <feGaussianBlur in="spreadB" result="blurB" stdDeviation="15" /><!--30px 5px-->
+                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="5" /><!--10px -5px-->
+                        <feFlood flood-opacity="0.14" result="opA" />
+                        <feFlood flood-opacity="0.12" result="opB" />
+                        <feFlood flood-opacity="0.40" result="opC" />
+                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
+                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
+                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
+                        <feMerge>
+                            <feMergeNode in="shA" />
+                            <feMergeNode in="shB" />
+                            <feMergeNode in="shC" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <g *ngFor="let item_conn of uiInstance.listof_item_conn">
+
+                    <path class="designer-item-connection designer-item-connection-line"
+                          shape-rendering="geometricPrecision"
+                          [ngClass]="{ 'designer-item-connection-selected': item_conn.selected }"
+                          [attr.id]="item_conn.idx"
+                          [attr.d]="item_conn.path" >
+                    </path>
+s
+                    <circle class="designer-item-connection designer-item-connection-endpoint"
+                            [ngClass]="{ 'designer-item-connection-selected-endpoint': item_conn.selected }"
+                            r="4"
+                            [attr.cx]="item_conn.src_cx"
+                            [attr.cy]="item_conn.src_cy" >
+
+                    </circle>
+
+                    <circle class="designer-item-connection designer-item-connection-endpoint"
+                            [ngClass]="{ 'designer-item-connection-selected-endpoint': item_conn.selected }"
+                            r="4"
+                            [attr.cx]="item_conn.dst_cx"
+                            [attr.cy]="item_conn.dst_cy" >
+
+                    </circle>
+
+                </g>
+
+                <g *ngFor="let item of uiInstance.listof_item"
+                   [attr.fill]="item.fill" fxFlex >
+
+                    <rect class="designer-item"
+                          [ngClass]="{ 'designer-item-selected': item.selected, 'designer-item-primary': item.is_primary }"
+                          [attr.id]="item.idx"
+                          [attr.height]="item.height"
+                          [attr.width]="item.width"
+                          [attr.rx]="item.radius"
+                          [attr.ry]="item.radius"
+                          [attr.x]="item.cx"
+                          [attr.y]="item.cy"
+                          (mousedown)="on_designer_item_mousedown ( item, $event )"
+                          (mouseup)="on_node_mouseup ( $event )"
+                          (mousemove)="on_node_mousemove ( $event )" >
+
+                        <!--filter="url(#shadow-4dp)"-->
+
+                    </rect>
+
+                    <!-- terminal input -->
+                    <g *ngFor="let conn of item.input" >
+
+                        <text [attr.x]="conn.cx + 20"
+                              [attr.y]="conn.cy"
+                              text-anchor="start"
+                              alignment-baseline="middle" >{{conn.label}}
+                        </text>
+
+                        <circle class="designer-item-connector"
+                                [ngClass]="{ 'designer-item-connector-selected': conn.selected, 'designer-item-connector-primary': item.is_primary }"
+                                [attr.id]="conn.idx"
+                                [attr.fill]="blue"
+                                [attr.stroke]="black"
+                                [attr.stroke-width]="2"
+                                [attr.r]="conn.radius"
+                                [attr.cx]="conn.cx"
+                                [attr.cy]="conn.cy" >
+                        </circle>
+                    </g>
+
+                    <!-- terminal output -->
+                    <g *ngFor="let conn of item.output" >
+
+                        <text [attr.x]="conn.cx - 20"
+                              [attr.y]="conn.cy"
+                              text-anchor="end"
+                              alignment-baseline="middle" >{{conn.label}}
+                        </text>
+
+                        <circle class="designer-item-connector"
+                                [ngClass]="{ 'designer-item-connector-selected': conn.selected, 'designer-item-connector-primary': item.is_primary }"
+                                [attr.id]="conn.idx"
+                                [attr.fill]="blue"
+                                [attr.stroke]="black"
+                                [attr.stroke-width]="2"
+                                [attr.r]="conn.radius"
+                                [attr.cx]="conn.cx"
+                                [attr.cy]="conn.cy" >
+                        </circle>
+                    </g>
+
+                </g>
+
+                <g *ngIf="drag_progress.in_progress" >
+
+                    <path class="dragging-connection dragging-connection-line"
+                          shape-rendering="geometricPrecision"
+                          [attr.d]="drag_progress.svg_path" >
+                    </path>
+
+                    <circle class="dragging-connection dragging-connection-endpoint"
+                            r="4"
+                            [attr.cx]="drag_progress.point1.cx"
+                            [attr.cy]="drag_progress.point1.cy" >
+                    </circle>
+
+                    <circle class="dragging-connection dragging-connection-endpoint"
+                            r="4"
+                            [attr.cx]="drag_progress.point2.cx"
+                            [attr.cy]="drag_progress.point2.cy" >
+                    </circle>
+
+                </g>
+
+            </svg>
+
+        </div>
+
+        <div fxLayout="column" class="designer-prop"
+             [ngClass]="{ 'designer-prop-hidden': uiInstance.hide_properties }">
+
+            <div fxLayout="row" class="designer-prop-toolbar" >
+
+                <span fxFlex></span>
+
+                <div *ngIf="-1 < uiInstance.item_selected_idx" mdTooltip="add input" mdTooltipPosition="below"
+                     class="designer-host-toolbar-host" (click)="connector_input_add ( )" >
+                    <md-icon class="designer-host-toolbar-icon">subdirectory_arrow_left</md-icon>
+                </div>
+
+                <div *ngIf="-1 < uiInstance.item_selected_idx" mdTooltip="add output" mdTooltipPosition="below"
+                     class="designer-host-toolbar-host" (click)="connector_output_add ( )" >
+                    <md-icon class="designer-host-toolbar-icon">subdirectory_arrow_right</md-icon>
+                </div>
+
+            </div>
+
+            <div fxLayout="row" class="designer-prop-main" fxFlex >
+
+                <prop-base fxLayout="column" fxFlex
+                           [(designer_config)]="designer_config"
+                           [(drag_progress)]="drag_progress"
+                           [(uiInstance)]="uiInstance"
+                           (selectCanvas)="on_event_select_canvas( $event )"
+                           (persist)="on_event_persist( $event )" >
+                </prop-base>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

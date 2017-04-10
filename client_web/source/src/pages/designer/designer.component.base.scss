@@ -1,0 +1,266 @@
+
+$primary:    #663399;
+$secondary:  #ffc107;
+$danger:     #f53d3d;
+$light:      #f4f4f4;
+$dark:       #222;
+
+.designer-host {
+
+}
+
+.designer-host-toolbar {
+    height:48px;
+
+    background-color: mix($light, $primary, 90%);
+    border-top: 1px solid mix($light, $primary, 80%);
+    border-bottom: 1px solid mix($light, $primary, 80%);
+}
+
+.svg-online {
+
+    transition: all 0.5s ease;
+    opacity : 1;
+}
+
+.svg-offline {
+
+    //transition: all 0.25s ease;
+    opacity : 0;
+}
+
+.designer-host-toolbar-select {
+
+    width: 304px;
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.designer-host-main {
+
+    border-right: 1px solid mix($light, $primary, 80%);
+}
+
+.designer-item {
+
+    fill: mix($light, $primary, 90%);
+    stroke: mix($light, $primary, 30%);
+    stroke-width: 2;
+}
+
+.designer-item:hover {
+
+    fill: mix($light, $primary, 80%);
+}
+
+.designer-item-selected {
+
+    fill: mix($light, $primary, 70%);
+    stroke: mix($light, $primary, 20%);
+    stroke-width: 2;
+}
+.designer-item-selected:hover {
+
+    fill: mix($light, $primary, 60%);
+}
+
+.designer-item-primary {
+
+    fill: mix($light, $secondary, 70%);
+    stroke: mix($light, $secondary, 20%) !important;
+}
+
+.designer-item-primary:hover {
+
+    fill: mix($light, $secondary, 60%);
+}
+
+
+.designer-item-connector {
+    fill: $light;
+    stroke: mix(white, $primary, 20%);
+    stroke-width: 2;
+}
+
+.designer-item-connector-selected {
+    stroke: mix(white, $primary, 20%);
+}
+
+.designer-item-connector-primary {
+    stroke: mix(white, $secondary, 20%);
+}
+
+.dragging-connection {
+
+    pointer-events: none;
+}
+
+.dragging-connection-line {
+
+    stroke: gray;
+    stroke-width: 2;
+    fill: transparent;
+}
+
+.dragging-connection-endpoint {
+    fill: gray;
+}
+
+.designer-item-connection {
+
+    pointer-events: all;
+}
+
+.designer-item-connection-line {
+
+    stroke: mix($light, $primary, 20%);
+    stroke-width: 2;
+    fill: transparent;
+
+
+}
+
+.designer-item-connection-endpoint {
+    fill: mix($light, $primary, 20%);
+}
+
+.designer-item-connection-selected {
+
+    stroke: mix($light, $secondary, 50%);
+    pointer-events: all;
+}
+
+.designer-item-connection-selected-line {
+
+    stroke: mix($light, $secondary, 50%);
+    stroke-width: 2;
+    fill: transparent;
+}
+
+.designer-item-connection-selected-endpoint {
+    fill: mix($light, $secondary, 50%);
+}
+
+.designer-prop {
+
+    transition: all 0.2s ease;
+    width: 380px;
+}
+
+.designer-prop-button-save {
+
+    max-width: 128px;
+
+    background-color: mix($light, $primary, 50%);
+}
+
+.designer-prop-button-save:hover {
+    background-color: mix($light, $primary, 30%);
+}
+
+.designer-prop-toolbar {
+    height:48px;
+
+    background-color: mix($light, $primary, 90%);
+    border-top: 1px solid mix($light, $primary, 80%);
+    border-bottom: 1px solid mix($light, $primary, 80%);
+}
+
+.designer-prop-main {
+
+}
+
+.designer-prop-item {
+
+    font-size: 15px;
+    line-height: 56px;
+    height: 56px;
+    min-height: 56px;
+
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.designer-prop-item-label {
+
+}
+
+.designer-prop-item-value {
+
+    min-width: 112px;
+}
+
+.designer-prop-item-icon-host {
+    width: 56px;
+}
+
+.designer-prop-item-icon {
+
+    height: 56px;
+    width: 56px;
+
+    color: mix($light, $primary, 30%);
+
+    line-height: 56px;
+    text-align: center;
+    user-select: none;
+
+    border-radius: 22px;
+}
+
+.designer-prop-item-icon:hover {
+
+    color: mix($light, $secondary, 25%);
+    transition: all 0.7s ease;
+}
+
+.designer-prop-text-area {
+
+    padding-left: 12px;
+    padding-right: 12px;
+
+}
+
+.designer-host-toolbar-host {
+
+    line-height: 48px;
+    color: mix($light, $primary, 30%);
+    user-select: none;
+    padding-right: 10px;
+
+}
+
+.designer-host-toolbar-icon {
+
+    height: 45px !important;
+    width: 45px !important;
+    line-height: 48px;
+    text-align: center;
+    user-select: none;
+
+    border-radius: 22px;
+}
+
+.designer-host-toolbar-icon:hover {
+
+    background-color: mix($light, $primary, 85%);
+    transition: all 0.3s ease;
+}
+
+.designer-host-toolbar-host:hover {
+
+    color: $primary;
+}
+
+.designer-prop-hidden {
+
+    transition: all 0.2s ease;
+    width: 0px;
+}
+
+.designer-prop-footer {
+
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+}

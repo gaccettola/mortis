@@ -1,0 +1,49 @@
+<div fxLayout="column" fxFlex  >
+
+    <div fxLayout="row" class="designer-prop-item" >
+        <div fxLayout="column" class="designer-prop-item-label" fxFlex>Selected Item </div>
+    </div>
+
+
+    <div fxLayout="row" class="designer-prop-item">
+        <div fxLayout="column" class="designer-prop-item-value" fxFlex >
+            <md-input-container fxLayout="row" >
+                <input mdInput placeholder="name"
+                       maxlength="32"
+                       [(ngModel)]="uiInstance.tree_selected.designerTreeName">
+                <md-hint align="end"> {{ uiInstance.tree_selected.designerTreeName.length }} / 32 </md-hint>
+            </md-input-container>
+        </div>
+    </div>
+
+    <div fxLayout="row" class="designer-prop-text-area" >
+
+        <md-input-container fxFlex >
+            <textarea mdInput fxFlex
+                      required rows="8"
+                      [(ngModel)]="uiInstance.tree_selected.designerTreeDesc"
+                      maxlength="255"
+                      placeholder="description" >
+            </textarea>
+            <md-hint align="end"> {{ uiInstance.tree_selected.designerTreeDesc.length }} / 255 </md-hint>
+        </md-input-container>
+
+    </div>
+
+    <div fxLayout="row" fxFlex >
+
+        <!--this section left intentionally blank-->
+        <!--            just a spring            -->
+
+    </div>
+
+    <div fxLayout="row" class="designer-prop-footer" >
+
+        <div fxFlex > </div>
+        <button md-raised-button fxFlex class="designer-prop-button-save"
+                [attr.disabled]="this.uiInstance.svg_online !== true ? true : null"
+                (click)="on_click_persist($event)">save</button>
+
+    </div>
+
+</div>

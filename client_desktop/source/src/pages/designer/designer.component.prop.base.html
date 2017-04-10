@@ -1,0 +1,50 @@
+
+<div [ngSwitch]="this.uiInstance.current_selection" fxLayout="column" fxFlex >
+
+    <div *ngSwitchCase="'canvas'" fxLayout="row" fxFlex>
+        <prop-canvas fxLayout="column" fxFlex
+                     [(designer_config)]="designer_config"
+                     [(drag_progress)]="drag_progress"
+                     [(uiInstance)]="uiInstance"
+                     (selectCanvas)="on_event_select_canvas( $event )"
+                     (persist)="on_event_persist( $event )" >
+        </prop-canvas>
+    </div>
+    <div *ngSwitchCase="'designer-item'" fxLayout="row" fxFlex >
+        <prop-item fxLayout="column" fxFlex
+                   [(designer_config)]="designer_config"
+                   [(drag_progress)]="drag_progress"
+                   [(uiInstance)]="uiInstance"
+                   (selectCanvas)="on_event_select_canvas( $event )"
+                   (persist)="on_event_persist( $event )" >
+        </prop-item>
+    </div>
+    <div *ngSwitchCase="'designer-item-terminal'" fxLayout="row" fxFlex >
+        <prop-terminal fxLayout="column" fxFlex
+                       [(designer_config)]="designer_config"
+                       [(drag_progress)]="drag_progress"
+                       [(uiInstance)]="uiInstance"
+                       (selectCanvas)="on_event_select_canvas( $event )"
+                       (persist)="on_event_persist( $event )" >
+        </prop-terminal>
+    </div>
+    <div *ngSwitchCase="'designer-item-connector'" fxLayout="row" fxFlex >
+        <prop-connector fxLayout="column" fxFlex
+                        [(designer_config)]="designer_config"
+                        [(drag_progress)]="drag_progress"
+                        [(uiInstance)]="uiInstance"
+                        (selectCanvas)="on_event_select_canvas( $event )"
+                        (persist)="on_event_persist( $event )" >
+        </prop-connector>
+    </div>
+    <div *ngSwitchDefault fxLayout="row" fxFlex >
+        <prop-canvas fxLayout="column" fxFlex
+                     [(designer_config)]="designer_config"
+                     [(drag_progress)]="drag_progress"
+                     [(uiInstance)]="uiInstance"
+                     (selectCanvas)="on_event_select_canvas( $event )"
+                     (persist)="on_event_persist( $event )"  >
+        </prop-canvas>
+    </div>
+
+</div>

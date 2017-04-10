@@ -1,0 +1,80 @@
+<div fxLayout="column" fxFlex style="overflow-y: scroll;" >
+
+    <div fxLayout="row" class="designer-prop-item" >
+        <div fxLayout="column" class="designer-prop-item-label" fxFlex>Default / Initial</div>
+        <div fxLayout="column" >
+            <md-slide-toggle [(ngModel)]="uiInstance.item_selected.is_primary"
+                             (click)="on_toggle_primary ( idx )">
+            </md-slide-toggle>
+        </div>
+    </div>
+
+    <div fxLayout="row" class="designer-prop-item">
+        <div fxLayout="column" class="designer-prop-item-value" fxFlex >
+            <md-input-container fxLayout="row"  >
+                <input mdInput placeholder="width" type="number" min="160" max="999"
+                       [(ngModel)]="uiInstance.item_selected.width"
+                       (change)="on_width_change($event)">
+            </md-input-container>
+        </div>
+    </div>
+
+    <!-- terminal input -->
+    <div *ngFor="let item_input of uiInstance.item_selected.input; let idx=index" >
+
+        <div fxLayout="row" class="designer-prop-item">
+            <div fxLayout="column" class="designer-prop-item-value" fxFlex >
+                <md-input-container fxLayout="row" >
+                    <input mdInput placeholder="input"
+                           [(ngModel)]="item_input.label">
+                </md-input-container>
+            </div>
+            <div fxLayout="column" class="designer-prop-item-icon-host"
+                 (click)="on_delete_terminal_in ( idx )">
+                <md-icon class="designer-prop-item-icon">delete</md-icon>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- terminal output -->
+    <div *ngFor="let item_output of uiInstance.item_selected.output; let idx=index" >
+
+        <div fxLayout="row" class="designer-prop-item">
+            <div fxLayout="column" class="designer-prop-item-value" fxFlex >
+                <md-input-container fxLayout="row" >
+                    <input mdInput placeholder="signal"
+                           [(ngModel)]="item_output.label">
+                </md-input-container>
+            </div>
+            <div fxLayout="column" class="designer-prop-item-icon-host"
+                 (click)="on_delete_terminal_ut ( idx )">
+                <md-icon class="designer-prop-item-icon">delete</md-icon>
+            </div>
+        </div>
+
+    </div>
+
+    <div fxLayout="row" fxFlex >
+
+        <!--this section left intentionally blank-->
+        <!--            just a spring            -->
+
+    </div>
+
+    <div fxLayout="row" class="designer-prop-text-area" >
+
+        <md-input-container fxFlex >
+            <textarea mdInput fxFlex
+                      required rows="6"
+                      [(ngModel)]="uiInstance.item_selected.message_text"
+                      (change)="on_message_text_change($event)"
+                      maxlength="160"
+                      placeholder="Message" >
+            </textarea>
+            <md-hint align="end"> {{ uiInstance.item_selected.message_text.length }} / 160 </md-hint>
+        </md-input-container>
+
+    </div>
+
+</div>
