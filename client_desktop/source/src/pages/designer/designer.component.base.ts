@@ -54,6 +54,11 @@ export class DesignerComponent implements OnInit, OnDestroy
     drag_progress           : IDesignerDragProgress;
     uiInstance              : IDesignerUiInstance;
 
+    selected_height         : number = -1;
+    selected_width          : number = -1;
+    selected_cx             : number = -1;
+    selected_cy             : number = -1;
+
     constructor ( protected _ngZone              : NgZone
                 , private _layoutService         : LayoutService
                 , private _socketService         : SocketService
@@ -141,7 +146,10 @@ export class DesignerComponent implements OnInit, OnDestroy
 
         if ( this._designerService.is_canvas ( mouse_type ) )
         {
-            console.log ( 'a' );
+            this.selected_height    = -1;
+            this.selected_width     = -1;
+            this.selected_cx        = -1;
+            this.selected_cy        = -1;
 
             this.uiInstance.current_selection = 'canvas';
 
@@ -150,7 +158,10 @@ export class DesignerComponent implements OnInit, OnDestroy
 
         if ( this._designerService.is_connector ( mouse_type ) )
         {
-            console.log ( 'b' );
+            this.selected_height    = -1;
+            this.selected_width     = -1;
+            this.selected_cx        = -1;
+            this.selected_cy        = -1;
 
             this.uiInstance.current_selection = 'designer-item-terminal';
 
@@ -159,12 +170,20 @@ export class DesignerComponent implements OnInit, OnDestroy
 
         if ( this._designerService.is_connection ( mouse_type ) )
         {
-            console.log ( 'c' );
+            this.selected_height    = -1;
+            this.selected_width     = -1;
+            this.selected_cx        = -1;
+            this.selected_cy        = -1;
 
             this.uiInstance.current_selection = 'designer-item-connector';
 
             return this.on_background_mousedown_connection ( event )
         }
+
+        this.selected_height    = -1;
+        this.selected_width     = -1;
+        this.selected_cx        = -1;
+        this.selected_cy        = -1;
 
     }
 
@@ -306,7 +325,17 @@ export class DesignerComponent implements OnInit, OnDestroy
         this.on_background_mousedown_canvas ( event );
     }
 
-    on_designer_item_mousedown ( flow, event ) : void
+    on_change_item_position ( event ) : void
+    {
+        this.uiInstance.item_selected.height    = this.selected_height;
+        this.uiInstance.item_selected.width     = this.selected_width;
+        this.uiInstance.item_selected.cx        = this.selected_cx;
+        this.uiInstance.item_selected.cy        = this.selected_cy ;
+
+        this.on_width_change ( event );
+    }
+
+    on_item_mousedown ( flow, event ) : void
     {
         event.preventDefault ( );
         event.stopPropagation ( );
@@ -321,7 +350,7 @@ export class DesignerComponent implements OnInit, OnDestroy
 
         for ( let i = 0; i < this.uiInstance.listof_item.length; ++i )
         {
-           this.uiInstance.listof_item[i].selected = false;
+            this.uiInstance.listof_item[i].selected = false;
         }
 
         flow.selected = true;
@@ -342,9 +371,14 @@ export class DesignerComponent implements OnInit, OnDestroy
 
         jQuery('.mat-input-wrapper').css( 'width', '100%' );
 
+        this.selected_height    = this.uiInstance.item_selected.height;
+        this.selected_width     = this.uiInstance.item_selected.width;
+        this.selected_cx        = this.uiInstance.item_selected.cx;
+        this.selected_cy        = this.uiInstance.item_selected.cy;
+
     }
 
-    on_node_mouseup ( event ) : void
+    on_item_mouseup ( event ) : void
     {
         event.preventDefault ( );
         event.stopPropagation ( );
@@ -354,7 +388,7 @@ export class DesignerComponent implements OnInit, OnDestroy
         if ( ! event ) return;
     }
 
-    on_node_mousemove ( event ) : void
+    on_item_mousemove ( event ) : void
     {
         if ( false === this.uiInstance.is_mouse_down ) return;
 
@@ -390,6 +424,11 @@ export class DesignerComponent implements OnInit, OnDestroy
         );
 
         this.flow_connect_adjuster ( );
+
+        this.selected_height    = this.uiInstance.item_selected.height;
+        this.selected_width     = this.uiInstance.item_selected.width;
+        this.selected_cx        = this.uiInstance.item_selected.cx;
+        this.selected_cy        = this.uiInstance.item_selected.cy;
     }
 
     connector_input_add ( ) : void

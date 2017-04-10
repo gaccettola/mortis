@@ -36,6 +36,35 @@
 
                 <span fxFlex></span>
 
+                <div class="designer-host-toolbar-number" *ngIf="-1 < selected_height">h</div>
+                <md-input-container *ngIf="-1 < selected_height" align="end"
+                                    (change)="on_change_item_position($event)" >
+                    <input mdInput type="number" min="0" max="9999"
+                           [(ngModel)]="selected_height" >
+                </md-input-container>
+
+                <div class="designer-host-toolbar-number" *ngIf="-1 < selected_width">w</div>
+                <md-input-container *ngIf="-1 < selected_width" align="end"
+                                    (change)="on_change_item_position($event)" >
+                    <input mdInput type="number" min="0" max="9999"
+                           [(ngModel)]="selected_width" >
+                </md-input-container>
+
+                <div class="designer-host-toolbar-number" *ngIf="-1 < selected_cx">x</div>
+                <md-input-container *ngIf="-1 < selected_cx" align="end"
+                                    (change)="on_change_item_position($event)" >
+                    <input mdInput type="number" min="0" max="9999"
+                           [(ngModel)]="selected_cx" >
+                </md-input-container>
+
+                <div class="designer-host-toolbar-number" *ngIf="-1 < selected_cy">y</div>
+                <md-input-container *ngIf="-1 < selected_cy" align="end"
+                                    (change)="on_change_item_position($event)" >
+                    <input mdInput type="number" min="0" max="9999"
+                           [(ngModel)]="selected_cy" >
+                </md-input-container>
+
+
                 <div class="designer-host-toolbar-host" *ngIf="uiInstance.hide_properties"
                      (click)="on_show_properties ( )" >
                     <md-icon class="designer-host-toolbar-icon">chevron_left</md-icon>
@@ -249,9 +278,9 @@ s
                           [attr.ry]="item.radius"
                           [attr.x]="item.cx"
                           [attr.y]="item.cy"
-                          (mousedown)="on_designer_item_mousedown ( item, $event )"
-                          (mouseup)="on_node_mouseup ( $event )"
-                          (mousemove)="on_node_mousemove ( $event )" >
+                          (mousedown)="on_item_mousedown ( item, $event )"
+                          (mouseup)="on_item_mouseup ( $event )"
+                          (mousemove)="on_item_mousemove ( $event )" >
 
                         <!--filter="url(#shadow-4dp)"-->
 

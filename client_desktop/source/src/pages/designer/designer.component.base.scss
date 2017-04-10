@@ -230,6 +230,15 @@ $dark:       #222;
 
 }
 
+.designer-host-toolbar-number{
+
+    line-height: 48px;
+    color: mix($light, $primary, 30%);
+    user-select: none;
+    padding-right: 10px;
+
+}
+
 .designer-host-toolbar-icon {
 
     height: 45px !important;
