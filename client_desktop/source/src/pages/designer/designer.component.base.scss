@@ -250,6 +250,20 @@ $dark:       #222;
     border-radius: 22px;
 }
 
+.designer-host-toolbar-svgicon {
+
+    height: 32px !important;
+    width: 32px !important;
+    line-height: 48px;
+    text-align: center;
+    user-select: none;
+
+    border-radius: 22px;
+
+    margin-top: 6px;
+    fill: $primary !important;
+}
+
 .designer-host-toolbar-icon:hover {
 
     background-color: mix($light, $primary, 85%);

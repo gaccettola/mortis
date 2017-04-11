@@ -247,7 +247,7 @@
                           [attr.id]="item_conn.idx"
                           [attr.d]="item_conn.path" >
                     </path>
-s
+
                     <circle class="designer-item-connection designer-item-connection-endpoint"
                             [ngClass]="{ 'designer-item-connection-selected-endpoint': item_conn.selected }"
                             r="4"
@@ -364,12 +364,12 @@ s
 
                 <div *ngIf="-1 < uiInstance.item_selected_idx" mdTooltip="add input" mdTooltipPosition="below"
                      class="designer-host-toolbar-host" (click)="connector_input_add ( )" >
-                    <md-icon class="designer-host-toolbar-icon">subdirectory_arrow_left</md-icon>
+                    <md-icon class="designer-host-toolbar-svgicon" svgIcon="merge" ></md-icon>
                 </div>
 
                 <div *ngIf="-1 < uiInstance.item_selected_idx" mdTooltip="add output" mdTooltipPosition="below"
                      class="designer-host-toolbar-host" (click)="connector_output_add ( )" >
-                    <md-icon class="designer-host-toolbar-icon">subdirectory_arrow_right</md-icon>
+                    <md-icon class="designer-host-toolbar-svgicon" svgIcon="split" ></md-icon>
                 </div>
 
             </div>

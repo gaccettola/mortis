@@ -1,6 +1,9 @@
 
 import { Component, OnInit, OnDestroy, AfterContentInit, NgZone } from '@angular/core';
 
+import {DomSanitizer}                   from '@angular/platform-browser';
+import {MdIconRegistry}                 from '@angular/material';
+
 import { Observable }                   from 'rxjs/Rx';
 import { Subscription }                 from 'rxjs/Subscription';
 
@@ -65,8 +68,17 @@ export class DesignerComponent implements OnInit, OnDestroy
                 , private _dataframeAccount      : DataframeAccount
                 , private _mouseService          : MouseService
                 , private _designerService       : DesignerService
-                , private _dataframeDesignerTree : DataframeDesignerTree )
+                , private _dataframeDesignerTree : DataframeDesignerTree
+                , private _mdIconRegistry        : MdIconRegistry
+                , private _sanitizer             : DomSanitizer )
     {
+        _mdIconRegistry
+            .addSvgIcon( 'merge',
+                _sanitizer.bypassSecurityTrustResourceUrl ( './assets/merge.svg' ) );
+
+        _mdIconRegistry
+            .addSvgIcon('split',
+                _sanitizer.bypassSecurityTrustResourceUrl ( './assets/split.svg' ) );
     }
 
     ngOnInit ( ) : void
