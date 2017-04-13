@@ -1,37 +1,37 @@
 
-<div fxLayout="column" class="center_left" >
+<div class="flex-container-col complete-height center_left" >
 
     <div [style.width]="nav_center_left_width"
          [style.min-width]="nav_center_left_width"
          class="sidebar-list" >
 
         <div *ngFor="let menu_item of listof_menu_item;"
-             class="center_left_menu_item_host"
-             fxLayout="row"
+             class="flex-container-row center_left_menu_item_host"
              (click)="on_select_sidebar_menu_item ( menu_item )" >
 
-            <div fxLayout="column" class="center_left_menu_icon_host" >
+            <div class="flex-container-col center_left_menu_icon_host" >
                 <md-icon class="center_left_menu_icon">{{ menu_item.icon }}</md-icon>
             </div>
-            <div fxLayout="column" fxFlex class="center_left_menu_item">
+
+            <div class="flex-container-col complete-height center_left_menu_item">
                 <div [ngClass]="{'hide-text': !isMenuOpen}">{{ menu_item.name }}</div>
             </div>
 
         </div>
 
-        <div fxLayout="row" fxFlex
+        <div class="flex-container-row complete-width"
              [style.height]="sidebar_height_flex"
              [style.min-height]="sidebar_height_flex" >
         </div>
 
-        <div fxLayout="row"
-             class="center_left_menu_item_host_last"
+        <div class="flex-container-row center_left_menu_item_host_last"
              (click)="on_select_sidebar_menu_item ( logout_menu_item )" >
 
-            <div fxLayout="column" class="center_left_menu_icon_host" >
+            <div class="flex-container-col center_left_menu_icon_host" >
                 <md-icon class="center_left_menu_icon">{{ logout_menu_item.icon }}</md-icon>
             </div>
-            <div fxLayout="column" fxFlex class="center_left_menu_item_last">
+
+            <div class="flex-container-col complete-height center_left_menu_item_last">
                 <div [ngClass]="{'hide-text': !isMenuOpen}">{{ logout_menu_item.name }}</div>
             </div>
 
