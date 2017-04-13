@@ -1,5 +1,8 @@
 
 import { NgModule }                 from '@angular/core';
+import { BrowserModule }            from '@angular/platform-browser';
+import { HttpModule }               from '@angular/http';
+
 
 import { IonicApp, IonicModule }    from 'ionic-angular';
 import { IonicStorageModule }       from '@ionic/storage';
@@ -20,6 +23,9 @@ import { DesignerComponent }        from '../pages/designer/designer.component';
 import { MailComponent }            from '../pages/mail/mail.component';
 import { SettingsComponent }        from '../pages/settings/settings.component';
 
+import { StatusBar }                from '@ionic-native/status-bar';
+import { SplashScreen }             from '@ionic-native/splash-screen';
+
 @NgModule (
 {
     declarations    :
@@ -35,10 +41,14 @@ import { SettingsComponent }        from '../pages/settings/settings.component';
     [
         IonicModule.forRoot(AppComponent)
     ,   IonicStorageModule.forRoot()
+    ,   BrowserModule
+    ,   HttpModule
     ],
     providers       :
     [
-        SocketService
+        StatusBar
+    ,   SocketService
+    ,   SplashScreen
     ,   DataframeBase
     ,   DataframeAccount
     ,   DatastoreService
