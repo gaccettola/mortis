@@ -14,12 +14,17 @@
 
 
 .page_footer_text {
+
+  line-height: 13px;
   font-size: 13px;
-  margin-top: 4px;
+  margin-top: 1px;
   margin-right: 8px;
   color: rebeccapurple;
   text-transform: uppercase;
 
   user-select: none;
   cursor: default;
+
+  justify-content: center;
+  align-items: center;
 }

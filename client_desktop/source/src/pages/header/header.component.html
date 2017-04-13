@@ -1,23 +1,16 @@
 
-
-<div fxLayout="row" fxFlex class="page_header_nav" >
+<div class="flex-container-row page_header_nav" >
 
     <div class="page_header_menu_button"
          (click)="on_select_page_header_menu_button()" >
         <md-icon class="page_header_nav_icon">menu</md-icon>
     </div>
 
-    <div fxFlex></div>
-
-    <!--title not needed on desktop-->
-    <!--<div class="page_header_nav_title" >{{name}}</div>-->
-
-    <div fxFlex></div>
+    <div class="flex-container-col-center">{{name}}</div>
 
     <div class="page_header_menu_button">
         <!-- empty -->
         <!-- maybe add a single command over on the right -->
     </div>
-
 
 </div>
