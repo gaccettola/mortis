@@ -1,13 +1,16 @@
 
+<!--class="flex-container-col complete-height"-->
+<!--class="flex-container-row complete-width"-->
+
 <div class="flex-container-row layout-overflow complete-width" >
 
-    <div class="flex-container-col layout-canvas complete-height"  >
+    <div class="flex-container-col layout-canvas complete-height" >
 
         <app-header *ngIf="isAuthenticated"
                     (navToggled)="on_event_toggle_sidebar_menu($event)" >
         </app-header>
 
-        <div class="flex-container-row complete-width"  >
+        <div class="flex-container-row complete-width" >
 
             <app-sidebar *ngIf="isAuthenticated"
                          [(isMenuOpen)]="isMenuOpen"
