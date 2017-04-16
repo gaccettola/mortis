@@ -3,7 +3,7 @@
      [style.height]="current_height"
      [style.min-height]="current_height" >
 
-    <div fxLayout="row" fxFlex class="component-view">
+    <div fxLayout="row" fxFlex class="designer-background">
 
         <div fxLayout="column" class="designer-host" fxFlex >
 
@@ -64,7 +64,6 @@
                            [(ngModel)]="selected_cy" >
                 </md-input-container>
 
-
                 <div class="designer-host-toolbar-host" *ngIf="uiInstance.hide_properties"
                      (click)="on_show_properties ( )" >
                     <md-icon class="designer-host-toolbar-icon">chevron_left</md-icon>
@@ -82,162 +81,6 @@
                  (mousedown)="on_background_mousedown ( $event )"
                  (mousemove)="on_background_mousemove ( $event )"
                  (mouseup)="on_background_mouseup ( $event )">
-
-                <defs>
-                    <filter id="shadow-2dp" x="-50%" y="-100%" width="200%" height="300%">
-                        <feOffset in="SourceAlpha" result="offA" dy="2" />
-                        <feOffset in="SourceAlpha" result="offB" dy="1" />
-                        <feOffset in="SourceAlpha" result="offC" dy="3" />
-                        <feMorphology in="offC" result="spreadC" operator="erode" radius="2" />
-                        <feGaussianBlur in="offA" result="blurA" stdDeviation="1" /><!--2px 0-->
-                        <feGaussianBlur in="offB" result="blurB" stdDeviation="2.5" /><!--5px 0-->
-                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="0.5" /><!--1px -2px-->
-                        <feFlood flood-opacity="0.14" result="opA" />
-                        <feFlood flood-opacity="0.12" result="opB" />
-                        <feFlood flood-opacity="0.20" result="opC" />
-                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
-                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
-                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
-                        <feMerge>
-                            <feMergeNode in="shA" />
-                            <feMergeNode in="shB" />
-                            <feMergeNode in="shC" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                    <filter id="shadow-3dp" x="-50%" y="-100%" width="200%" height="300%">
-                        <feOffset in="SourceAlpha" result="offA" dy="3" />
-                        <feOffset in="SourceAlpha" result="offB" dy="1" />
-                        <feOffset in="SourceAlpha" result="offC" dy="3" />
-                        <feMorphology in="offC" result="spreadC" operator="erode" radius="2" />
-                        <feGaussianBlur in="offA" result="blurA" stdDeviation="2" /><!--4px 0-->
-                        <feGaussianBlur in="offB" result="blurB" stdDeviation="4" /><!--8px 0-->
-                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="1.5" /><!--3px -2px-->
-                        <feFlood flood-opacity="0.14" result="opA" />
-                        <feFlood flood-opacity="0.12" result="opB" />
-                        <feFlood flood-opacity="0.40" result="opC" />
-                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
-                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
-                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
-                        <feMerge>
-                            <feMergeNode in="shA" />
-                            <feMergeNode in="shB" />
-                            <feMergeNode in="shC" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                    <filter id="shadow-4dp" x="-50%" y="-100%" width="200%" height="300%">
-                        <feOffset in="SourceAlpha" result="offA" dy="4" />
-                        <feOffset in="SourceAlpha" result="offB" dy="1" />
-                        <feOffset in="SourceAlpha" result="offC" dy="2" />
-                        <feMorphology in="offC" result="spreadC" operator="erode" radius="1" />
-                        <feGaussianBlur in="offA" result="blurA" stdDeviation="2.5" /><!--5px 0-->
-                        <feGaussianBlur in="offB" result="blurB" stdDeviation="5" /><!--10px 0-->
-                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="2" /><!--4px -1px-->
-                        <feFlood flood-opacity="0.14" result="opA" />
-                        <feFlood flood-opacity="0.12" result="opB" />
-                        <feFlood flood-opacity="0.40" result="opC" />
-                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
-                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
-                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
-                        <feMerge>
-                            <feMergeNode in="shA" />
-                            <feMergeNode in="shB" />
-                            <feMergeNode in="shC" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                    <filter id="shadow-6dp" x="-50%" y="-100%" width="200%" height="300%">
-                        <feOffset in="SourceAlpha" result="offA" dy="6" />
-                        <feOffset in="SourceAlpha" result="offB" dy="1" />
-                        <feOffset in="SourceAlpha" result="offC" dy="3" />
-                        <feMorphology in="offC" result="spreadC" operator="erode" radius="1" />
-                        <feGaussianBlur in="offA" result="blurA" stdDeviation="5" /><!--10px 0-->
-                        <feGaussianBlur in="offB" result="blurB" stdDeviation="9" /><!--18px 0-->
-                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="2.5" /><!--5px -1px-->
-                        <feFlood flood-opacity="0.14" result="opA" />
-                        <feFlood flood-opacity="0.12" result="opB" />
-                        <feFlood flood-opacity="0.40" result="opC" />
-                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
-                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
-                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
-                        <feMerge>
-                            <feMergeNode in="shA" />
-                            <feMergeNode in="shB" />
-                            <feMergeNode in="shC" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                    <filter id="shadow-8dp" x="-50%" y="-100%" width="200%" height="300%">
-                        <feOffset in="SourceAlpha" result="offA" dy="8" />
-                        <feOffset in="SourceAlpha" result="offB" dy="3" />
-                        <feOffset in="SourceAlpha" result="offC" dy="5" />
-                        <feMorphology in="offA" result="spreadA" operator="dilate" radius="1" />
-                        <feMorphology in="offB" result="spreadB" operator="dilate" radius="2" />
-                        <feMorphology in="offC" result="spreadC" operator="erode" radius="3" />
-                        <feGaussianBlur in="spreadA" result="blurA" stdDeviation="5" /><!--10px 1px-->
-                        <feGaussianBlur in="spreadB" result="blurB" stdDeviation="7" /><!--14px 2px-->
-                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="2.5" /><!--5px -3px-->
-                        <feFlood flood-opacity="0.14" result="opA" />
-                        <feFlood flood-opacity="0.12" result="opB" />
-                        <feFlood flood-opacity="0.40" result="opC" />
-                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
-                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
-                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
-                        <feMerge>
-                            <feMergeNode in="shA" />
-                            <feMergeNode in="shB" />
-                            <feMergeNode in="shC" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                    <filter id="shadow-12dp" x="-50%" y="-100%" width="200%" height="300%">
-                        <feOffset in="SourceAlpha" result="offA" dy="12" />
-                        <feOffset in="SourceAlpha" result="offB" dy="4" />
-                        <feOffset in="SourceAlpha" result="offC" dy="6" />
-                        <feMorphology in="offA" result="spreadA" operator="dilate" radius="1" />
-                        <feMorphology in="offB" result="spreadB" operator="dilate" radius="3" />
-                        <feMorphology in="offC" result="spreadC" operator="erode" radius="4" />
-                        <feGaussianBlur in="spreadA" result="blurA" stdDeviation="8" /><!--16px 1px-->
-                        <feGaussianBlur in="spreadB" result="blurB" stdDeviation="11" /><!--22px 3px-->
-                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="3.5" /><!--7px -4px-->
-                        <feFlood flood-opacity="0.14" result="opA" />
-                        <feFlood flood-opacity="0.12" result="opB" />
-                        <feFlood flood-opacity="0.40" result="opC" />
-                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
-                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
-                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
-                        <feMerge>
-                            <feMergeNode in="shA" />
-                            <feMergeNode in="shB" />
-                            <feMergeNode in="shC" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                    <filter id="shadow-16dp" x="-50%" y="-100%" width="200%" height="300%">
-                        <feOffset in="SourceAlpha" result="offA" dy="16" />
-                        <feOffset in="SourceAlpha" result="offB" dy="6" />
-                        <feOffset in="SourceAlpha" result="offC" dy="8" />
-                        <feMorphology in="offA" result="spreadA" operator="dilate" radius="2" />
-                        <feMorphology in="offB" result="spreadB" operator="dilate" radius="5" />
-                        <feMorphology in="offC" result="spreadC" operator="erode" radius="5" />
-                        <feGaussianBlur in="spreadA" result="blurA" stdDeviation="12" /><!--24px 2px-->
-                        <feGaussianBlur in="spreadB" result="blurB" stdDeviation="15" /><!--30px 5px-->
-                        <feGaussianBlur in="spreadC" result="blurC" stdDeviation="5" /><!--10px -5px-->
-                        <feFlood flood-opacity="0.14" result="opA" />
-                        <feFlood flood-opacity="0.12" result="opB" />
-                        <feFlood flood-opacity="0.40" result="opC" />
-                        <feComposite in="opA" in2="blurA" result="shA" operator="in" />
-                        <feComposite in="opB" in2="blurB" result="shB" operator="in" />
-                        <feComposite in="opC" in2="blurC" result="shC" operator="in" />
-                        <feMerge>
-                            <feMergeNode in="shA" />
-                            <feMergeNode in="shB" />
-                            <feMergeNode in="shC" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
 
                 <g *ngFor="let item_conn of uiInstance.listof_item_conn">
 

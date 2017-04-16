@@ -39,7 +39,7 @@ export class LayoutService
 
     get_height_footer ( ) : number
     {
-        return 24;
+        return 28;
     }
 
     get_content_height ( ) : string
@@ -66,7 +66,7 @@ export class LayoutService
 
         if ( 0 > adjusted_height ) adjusted_height = 240;
 
-        this.current_height = adjusted_height;
+        this.current_height = adjusted_height - 6;
 
         this.content_height = `${adjusted_height}px`;
 

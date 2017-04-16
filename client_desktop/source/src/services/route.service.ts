@@ -49,12 +49,18 @@ export class RouteService
             },
             {
                 id   : 3,
+                icon : `subject`,
+                href : `/editor`,
+                name : `Editor`
+            },
+            {
+                id   : 4,
                 icon : `device_hub`,
                 href : `/designer`,
                 name : `Designer`
             },
             {
-                id   : 4,
+                id   : 5,
                 icon : `settings`,
                 href : `/settings`,
                 name : `Settings`

@@ -5,6 +5,7 @@ import { RouterModule }              from '@angular/router';
 import { LoginComponent }            from '../pages/login/login.component';
 import { DashboardComponent }        from '../pages/dashboard/dashboard.component';
 import { DesignerComponent }         from '../pages/designer/designer.component.base';
+import { EditorComponent }           from '../pages/editor/editor.component';
 import { MailComponent }             from '../pages/mail/mail.component';
 import { SettingsComponent }         from '../pages/settings/settings.component';
 
@@ -42,6 +43,15 @@ const appRoutes: any[] =
         {
             token   : AuthenticatedResolveAll
         }
+    },
+    {
+        path        : 'editor',
+        component   : EditorComponent,
+        canActivate : [ AuthenticatedGuardAll ],
+        resolve     :
+            {
+                token   : AuthenticatedResolveAll
+            }
     },
     {
         path        : 'mail',

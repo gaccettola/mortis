@@ -1,0 +1,64 @@
+
+<!--class="flex-container-row "-->
+<!--class="flex-container-row complete-width"-->
+
+<!--class="flex-container-col "-->
+<!--class="flex-container-col complete-height"-->
+
+<!--fxLayout="column" fxFlex-->
+
+<div class="flex-container-col complete-height"
+     [style.height]="current_height"
+     [style.min-height]="current_height" >
+
+    <div fxLayout="row" class="editor-host-toolbar">
+
+        <md-input-container class="editor-host-toolbar-title"
+                            (change)="on_change_editor_title($event)" >
+            <input mdInput type="text" min="0" max="9999"
+                   [(ngModel)]="doc.title" >
+        </md-input-container>
+
+        <span fxFlex></span>
+
+        <div fxLayout="row" class="editor-host-toolbar-slide" >
+            <div fxLayout="column" class="editor-host-toolbar-slide-label" fxFlex>{{view_mode_label}}
+            </div>
+            <div fxLayout="column" class="editor-host-toolbar-slide-ctrl" >
+                <md-slider min="1" max="3" step="1"
+                           [(ngModel)]="editor_config.view_mode"
+                           (click)="on_toggle_preview ( )">
+                </md-slider>
+            </div>
+        </div>
+
+    </div>
+
+    <div fxLayout="row" fxFlex class="editor-background">
+
+        <div *ngIf="editor_config.view_mode===1||editor_config.view_mode===3"
+             class="editor-area-pad"></div>
+
+        <codemirror fxLayout="column" fxFlex="50"
+                    [ngClass]="{'hide-panel': editor_config.view_mode===3}"
+                    class="card editor-area"
+                    [(ngModel)]="codemirror_code"
+                    [config]="codemirror_config"
+                    (focus)="onCodeMirrorEditorFocused($event)"
+                    (change)="onCodeMirrorEditorChanged($event)"
+                    (blur)="onCodeMirrorEditorBlur($event)" >
+        </codemirror>
+
+        <!--[innerHTML]="inner_html_md"-->
+        <div fxLayout="column" fxFlex="50"
+             class="card editor-preview markdown-body"
+             [ngClass]="{'hide-panel': editor_config.view_mode===1}"
+             [md]="inner_html_md" [options]="options" >
+        </div>
+
+        <div *ngIf="editor_config.view_mode===1||editor_config.view_mode===3"
+             class="editor-area-pad"></div>
+
+    </div>
+
+</div>

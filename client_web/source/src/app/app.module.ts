@@ -50,6 +50,8 @@ import { DesignerComponentPropTerminal }    from '../pages/designer/designer.com
 
 import { DesignerService }                  from '../pages/designer/designer.component.service';
 
+import { EditorComponent }                  from '../pages/editor/editor.component';
+
 import { SettingsComponent }                from '../pages/settings/settings.component';
 
 import { AuthenticatedGuardAll }            from '../services/authenticated.guard.all';
@@ -57,6 +59,10 @@ import { AuthenticatedGuardLogin }          from '../services/authenticated.guar
 
 import { AuthenticatedResolveAll }          from '../services/authenticated.resolve.all';
 import { AuthenticatedResolveLogin }        from '../services/authenticated.resolve.login';
+
+import { CodemirrorComponent }              from '../controls/ngCodeMirror/codemirror.component';
+
+import { MdModule }                         from 'ng2-md';
 
 @NgModule (
 {
@@ -71,12 +77,15 @@ import { AuthenticatedResolveLogin }        from '../services/authenticated.reso
     ,   DashboardComponent
     ,   MailComponent
     ,   DesignerComponent
+
     ,   DesignerComponentPropBase
     ,   DesignerComponentPropCanvas
     ,   DesignerComponentPropConnector
     ,   DesignerComponentPropItem
     ,   DesignerComponentPropTerminal
+    ,   EditorComponent
     ,   SettingsComponent
+    ,   CodemirrorComponent
     ],
     imports         :
     [
@@ -87,6 +96,8 @@ import { AuthenticatedResolveLogin }        from '../services/authenticated.reso
     ,   MaterialModule
     ,   FlexLayoutModule
     ,   AppRouting
+
+    ,   MdModule
     ],
     providers       :
     [
