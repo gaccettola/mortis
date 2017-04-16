@@ -22,7 +22,12 @@
             "prefix"    : "app",
             "styles"    :
             [
-                "theme/variables.scss"
+                "theme/variables.scss",
+                "../node_modules/codemirror/lib/codemirror.css",
+                "../node_modules/codemirror/theme/eclipse.css",
+                "../node_modules/codemirror/theme/elegant.css",
+                "../node_modules/codemirror/theme/neat.css",
+                "../node_modules/codemirror/theme/neo.css"
             ],
             "scripts"   :
             [
@@ -30,7 +35,8 @@
                 "../node_modules/jquery/dist/jquery.min.js",
                 "../node_modules/rsvp/dist/rsvp.js",
                 "../node_modules/httpinvoke/src/browser.js",
-                "../node_modules/localforage/dist/localforage.js"
+                "../node_modules/localforage/dist/localforage.js",
+                "../node_modules/codemirror/lib/codemirror.js"
             ],
             "environmentSource" : "environments/environment.ts",
             "environments"  :
