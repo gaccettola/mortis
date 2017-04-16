@@ -1,11 +1,4 @@
 
-<!--class="flex-container-row "-->
-<!--class="flex-container-row complete-width"-->
-
-<!--class="flex-container-col "-->
-<!--class="flex-container-col complete-height"-->
-
-<!--fxLayout="column" fxFlex-->
 
 <div class="flex-container-col complete-height"
      [style.height]="current_height"
@@ -21,14 +14,14 @@
 
         <span fxFlex></span>
 
-        <div fxLayout="row" class="editor-host-toolbar-slide" >
-            <div fxLayout="column" class="editor-host-toolbar-slide-label" fxFlex>{{view_mode_label}}
-            </div>
+        <div fxLayout="row" class="editor-host-toolbar-slide-size" >
             <div fxLayout="column" class="editor-host-toolbar-slide-ctrl" >
-                <md-slider min="1" max="3" step="1"
-                           [(ngModel)]="editor_config.view_mode"
-                           (click)="on_toggle_preview ( )">
+                <md-slider min="0" max="100" step="10"
+                           [(ngModel)]="editor_config.view_size" (change)="on_change_view_size($event)" >
                 </md-slider>
+            </div>
+            <div fxLayout="column" class="editor-host-toolbar-slide-label" fxFlex>
+                <span>{{code_size}} / {{html_size}}</span>
             </div>
         </div>
 
@@ -36,10 +29,8 @@
 
     <div fxLayout="row" fxFlex class="editor-background">
 
-        <div *ngIf="editor_config.view_mode===1||editor_config.view_mode===3"
-             class="editor-area-pad"></div>
-
-        <codemirror fxLayout="column" fxFlex="50"
+        <codemirror fxLayout="column" [fxFlex]="code_size"
+                    *ngIf="code_size > 0"
                     [ngClass]="{'hide-panel': editor_config.view_mode===3}"
                     class="card editor-area"
                     [(ngModel)]="codemirror_code"
@@ -49,15 +40,12 @@
                     (blur)="onCodeMirrorEditorBlur($event)" >
         </codemirror>
 
-        <!--[innerHTML]="inner_html_md"-->
-        <div fxLayout="column" fxFlex="50"
+        <div fxLayout="column" [fxFlex]="html_size"
+             *ngIf="html_size > 0"
              class="card editor-preview markdown-body"
              [ngClass]="{'hide-panel': editor_config.view_mode===1}"
              [md]="inner_html_md" [options]="options" >
         </div>
-
-        <div *ngIf="editor_config.view_mode===1||editor_config.view_mode===3"
-             class="editor-area-pad"></div>
 
     </div>
 

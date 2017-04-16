@@ -27,7 +27,8 @@
                 "../node_modules/codemirror/theme/eclipse.css",
                 "../node_modules/codemirror/theme/elegant.css",
                 "../node_modules/codemirror/theme/neat.css",
-                "../node_modules/codemirror/theme/neo.css"
+                "../node_modules/codemirror/theme/neo.css",
+                "../node_modules/github-markdown-css/github-markdown.css"
             ],
             "scripts"   :
             [

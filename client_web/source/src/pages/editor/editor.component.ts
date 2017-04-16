@@ -18,7 +18,7 @@ import * as _                           from 'lodash';
 {
     selector    : 'editor'
 ,   templateUrl : './editor.component.html'
-,   styleUrls   : ['./editor.component.scss']
+,   styleUrls   : ['./editor.component.scss', './markdown.scss']
 } )
 export class EditorComponent implements OnInit
 {
@@ -32,7 +32,8 @@ export class EditorComponent implements OnInit
 
     editor_config : any =
     {
-        view_mode    : 2
+        view_mode   : 2,
+        view_size   : 50
     };
 
     doc : any =
@@ -48,14 +49,16 @@ export class EditorComponent implements OnInit
         // theme        : 'elegant',
         theme           : 'eclipse',
 
-        // mode         : 'javascript'
-        mode            : 'markdown',
+        // mode         : 'javascript',
+        mode         : 'markdown',
 
         lineNumbers     : true,
         lineWrapping    : true,
     };
 
     inner_html_md : string = '';
+    code_size :number = 50;
+    html_size :number = 50;
 
     options: IConverterOptionsChangeable =
     {
@@ -69,10 +72,10 @@ export class EditorComponent implements OnInit
         headerLevelStart                        : 1,
         literalMidWordUnderscores               : true,
         noHeaderId                              : true,
-        omitExtraWLInCodeBlocks                 : true,
+        omitExtraWLInCodeBlocks                 : false,
         parseImgDimensions                      : true,
         prefixHeaderId                          : true,
-        requireSpaceBeforeHeadingText           : true,
+        requireSpaceBeforeHeadingText           : false,
         simpleLineBreaks                        : true,
         simplifiedAutoLink                      : true,
         smartIndentationFix                     : true,
@@ -81,7 +84,7 @@ export class EditorComponent implements OnInit
         tables                                  : true,
         tablesHeaderId                          : true,
         tasklists                               : true,
-        trimEachLine                            : 'space'
+     // trimEachLine                            : 'space'
     };
 
     constructor ( private _route            : ActivatedRoute
@@ -108,28 +111,16 @@ export class EditorComponent implements OnInit
         );
 
         this._socketService.engine_init ( );
-
-        this.on_toggle_preview ( );
     }
 
     ngAfterContentInit ( )
     {
-        console.log ( 'ngAfterContentInit' );
-
-        jQuery('.CodeMirror').css( 'height',     '100%' );
-        jQuery('.CodeMirror').css( 'min-height', '100%' );
-
-        let font = `Roboto, "Helvetica Neue", sans-serif`;
-        jQuery('.CodeMirror').css( 'font-family', font );
+        this.resizeFn ( );
     }
 
     ngAfterViewInit ( )
     {
-        jQuery('.CodeMirror').css( 'height',     '100%' );
-        jQuery('.CodeMirror').css( 'min-height', '100%' );
-
-        let font = `Roboto, "Helvetica Neue", sans-serif`;
-        jQuery('.CodeMirror').css( 'font-family', font );
+        this.resizeFn ( );
     }
 
     ngOnDestroy ( )
@@ -154,18 +145,6 @@ export class EditorComponent implements OnInit
 
     }
 
-    on_toggle_preview ( )
-    {
-        this.view_mode_label = 'view both';
-
-        if ( 1 === this.editor_config.view_mode )
-            this.view_mode_label = 'editor only';
-
-        if ( 3 === this.editor_config.view_mode )
-            this.view_mode_label = 'preview only';
-
-    }
-
     onCodeMirrorEditorFocused ( )
     {
     }
@@ -177,6 +156,15 @@ export class EditorComponent implements OnInit
 
     onCodeMirrorEditorBlur ( )
     {
+    }
+
+    on_change_view_size ( ) : void
+    {
+        this.code_size = this.editor_config.view_size;
+
+        this.html_size = 100 - this.code_size;
+
+        this.resizeFn ( );
     }
 
 }
