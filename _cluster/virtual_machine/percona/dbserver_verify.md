@@ -24,9 +24,9 @@ GRANT SUPER ON *.* TO 'node_process'@'xavier' IDENTIFIED BY '123456';
 GRANT ALL PRIVILEGES ON *.* TO 'node_process'@'192.168.1.78';
 GRANT ALL PRIVILEGES ON *.* TO 'node_process'@'xavier';
 
-CREATE DATABASE node_data;
-GRANT ALL PRIVILEGES ON node_data.* TO 'node_process'@'192.168.1.78';
-GRANT ALL PRIVILEGES ON node_data.* TO 'node_process'@'xavier';
+CREATE DATABASE mortis_data;
+GRANT ALL PRIVILEGES ON mortis_data.* TO 'node_process'@'192.168.1.78';
+GRANT ALL PRIVILEGES ON mortis_data.* TO 'node_process'@'xavier';
 
 FLUSH PRIVILEGES;
 

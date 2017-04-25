@@ -46,9 +46,8 @@ mysql -u root -p
     CREATE USER "node_process"@"%" IDENTIFIED BY "93bdfe5ea84a66d73f3874aa793dc77f0676d67e";
     GRANT SUPER ON *.* TO "node_process"@"%" IDENTIFIED BY "93bdfe5ea84a66d73f3874aa793dc77f0676d67e";
     GRANT ALL PRIVILEGES ON *.* TO "node_process"@"%";
-    CREATE DATABASE node_data;
-    GRANT ALL PRIVILEGES ON node_data.* TO "node_process"@"%";
-exit
+    CREATE DATABASE mortis_data;
+    GRANT ALL PRIVILEGES ON mortis_data.* TO "node_process"@"%";
 ```
 
 ```
