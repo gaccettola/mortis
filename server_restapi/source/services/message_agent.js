@@ -93,6 +93,9 @@ module.exports = function ( )
                     vm.central_relay.subscribe ( constant_server_restapi.scheduled_minute,
                                                  on_central_relay_scheduled_minute  );
 
+                    vm.central_relay.subscribe ( constant_server_restapi.twilio_posted,
+                                                 on_central_relay_twilio_posted  );
+
                     // ////////////////////////////////////////////////////////////////
 
                     console.log ( chalk.green ( 'on the line :', service_name ( ) ) );
@@ -184,7 +187,7 @@ module.exports = function ( )
 
         } );
 
-        vm.primus.save ( __dirname + '/../../../common/source/lib_primus.js' );
+        // vm.primus.save ( __dirname + '/../../../common/source/lib_primus.js' );
 
         // when we get a connection...
         vm.primus.on ( 'connection', function ( spark )
@@ -211,7 +214,6 @@ module.exports = function ( )
 
             console.log ( 'noop.. all gone -', spark.id );
 
-
             list_spark_count ( );
 
         } );
@@ -230,6 +232,18 @@ module.exports = function ( )
             type : constant_server_restapi.scheduled_minute,
             text : message_text
         } );
+    }
+
+    function on_central_relay_twilio_posted ( data, envelope )
+    {
+        console.log ( 'twilio posted' );
+
+        message_every (
+        {
+            type : constant_server_restapi.twilio_posted,
+            text : ''
+        } );
+
     }
 
     function list_spark_count ( )

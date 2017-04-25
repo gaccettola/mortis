@@ -1,6 +1,6 @@
 {
   "name": "server_restapi",
-  "author": "Dynalab Creative",
+  "author": "Accettola Systems",
   "version": "1.0.0",
   "description": "the restapi server",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "http": "0.0.0",
+    "httpinvoke": "^1.4.0",
     "ioredis": "^2.5.0",
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
@@ -34,6 +35,7 @@
     "rsvp": "^3.3.3",
     "sprintf": "^0.1.5",
     "statman-stopwatch": "^2.4.0",
+    "twilio": "^2.11.1",
     "uws": "^0.14.1",
     "ws": "^2.1.0"
   }

@@ -15,6 +15,7 @@ var dotenv  = require ( 'dotenv'   ).config(),
 
 var constant_server_restapi = require ( '../common/constant_server_restapi' );
 
+var _controllerBase         = require ( './_controllerBase' )();
 module.exports = function ( )
 {
     var vm = this || {};
@@ -28,61 +29,12 @@ module.exports = function ( )
 
     function ctor ( central_relay, storage_agent, protect_agent, restapi_agent )
     {
-        return new Promise ( function ( resolve, reject )
-        {
-            var retval = false;
+        return _controllerBase.bind_ctor (
 
-            // ////////////////////////////////////////////////////////////////
-            //
-            // framework resources
+            vm, service_init, service_name, central_relay,
+            storage_agent, protect_agent, restapi_agent
 
-            vm.central_relay = central_relay;
-            vm.storage_agent = storage_agent;
-            vm.protect_agent = protect_agent;
-            vm.restapi_agent = restapi_agent;
-
-            console.log ( chalk.green ( 'on the line :', service_name ( ) ) );
-
-            // ////////////////////////////////////////////////////////////////
-            //
-            // instance setup
-
-            service_init ( ).then (
-
-                function ( value )
-                {
-
-                },
-                function ( error )
-                {
-                    throw ( error );
-                }
-
-            ).catch (
-
-                function ( ex )
-                {
-
-                }
-
-            ).finally (
-
-                function ( )
-                {
-                    // ////////////////////////////////////////////////////////////////
-                    //
-                    // subscriptions
-                    //
-                    // { none }
-
-                    retval = true;
-
-                    resolve ( retval );
-                }
-
-            );
-
-        } );
+        );
 
     }
 
@@ -104,39 +56,6 @@ module.exports = function ( )
         } );
     }
 
-    function request_status_send ( res, _status_code, _result )
-    {
-        return res.status ( _status_code ).send (
-        {
-            status_code : _status_code,
-            result      : _result
-
-        } );
-    }
-
-    function sp_exec ( req, res, next, script )
-    {
-        vm.storage_agent.connection_exec ( script ).then (
-
-            function ( value )
-            {
-                return request_status_send ( res, 200, value );
-            },
-            function ( error )
-            {
-                throw ( error );
-            }
-
-        ).catch (
-
-            function ( error )
-            {
-                return request_status_send ( res, 400, error );
-            }
-
-        );
-    }
-
     /**
      *
      * @param req.body.accountId
@@ -148,7 +67,7 @@ module.exports = function ( )
             mysql.escape ( req.body.accountId )
         );
 
-        return sp_exec ( req, res, next, sp_script );
+        return _controllerBase.sp_exec ( req, res, next, sp_script );
     }
 
 
@@ -208,11 +127,11 @@ module.exports = function ( )
 
                 ] );
 
-                return request_status_send ( res, 200, retval );
+                return _controllerBase.request_status_send ( res, 200, retval );
             },
             function ( error )
             {
-                return request_status_send ( res, 400, error );
+                return _controllerBase.request_status_send ( res, 400, error );
             }
 
         );
@@ -388,7 +307,7 @@ module.exports = function ( )
                     token       : value.token
                 };
 
-                return request_status_send ( res, 200, retval );
+                return _controllerBase.request_status_send ( res, 200, retval );
             },
             function ( error )
             {
@@ -399,7 +318,7 @@ module.exports = function ( )
 
             function ( error )
             {
-                return request_status_send ( res, 400, error );
+                return _controllerBase.request_status_send ( res, 400, error );
             }
 
         );
@@ -472,7 +391,7 @@ module.exports = function ( )
                     throw ( 'account not found' );
                 }
 
-                return request_status_send ( res, 200, 'ok' );
+                return _controllerBase.request_status_send ( res, 200, 'ok' );
             },
             function ( error )
             {
@@ -483,7 +402,7 @@ module.exports = function ( )
 
             function ( ex )
             {
-                return request_status_send ( res, 400, ex );
+                return _controllerBase.request_status_send ( res, 400, ex );
             }
 
         );
@@ -500,7 +419,7 @@ module.exports = function ( )
 
         if ( req.body.check ) return check ( req, res, next );
 
-        return request_status_send ( res, 400, { error : 'bad request' } );
+        return _controllerBase.request_status_send ( res, 400, { error : 'bad request' } );
     }
 
     return api;

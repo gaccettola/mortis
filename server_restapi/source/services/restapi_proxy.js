@@ -3,6 +3,7 @@
 'use strict';
 
 var dotenv  = require ( 'dotenv'   ).config(),
+    _       = require ( 'lodash'   ),
     Promise = require ( 'bluebird' ),
     chalk   = require ( 'chalk'    ),
     RSVP    = require ( 'rsvp'     ),
@@ -103,7 +104,16 @@ module.exports = function ( restapi_agent )
     {
         return new Promise ( function ( resolve, reject )
         {
-            vm.listof_database_script = fs.readdirSync ( './controller/' );
+            vm.listof_controller_path = fs.readdirSync ( './controller/' );
+
+            _.forEach ( vm.listof_controller_path, function ( candidate_path )
+            {
+                if ( ! _.startsWith ( candidate_path, '_' ) )
+                {
+                    vm.listof_database_script.push ( candidate_path );
+                }
+
+            } );
 
             vm.listof_database_script.reduce ( function ( cur, controller_path )
 
