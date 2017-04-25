@@ -3,6 +3,8 @@ import { Injectable, NgZone }   from '@angular/core';
 
 import * as httpinvoke          from 'httpinvoke';
 
+import { environment }          from '../environments/environment';
+
 export interface IHttpInvokeResult {
     error   : any;
     data    : any;
@@ -27,7 +29,7 @@ export class DataframeBase
 
             } ).join ( '&' );
 
-            let url_base = 'http://localhost:8989/v1/';
+            let url_base = environment.restapiurl;
 
             let url_complete = url_base + option.url_part;
 

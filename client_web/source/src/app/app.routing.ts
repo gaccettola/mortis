@@ -6,7 +6,7 @@ import { LoginComponent }            from '../pages/login/login.component';
 import { DashboardComponent }        from '../pages/dashboard/dashboard.component';
 import { DesignerComponent }         from '../pages/designer/designer.component.base';
 import { EditorComponent }           from '../pages/editor/editor.component';
-import { MailComponent }             from '../pages/mail/mail.component';
+import { MessageHubComponent }       from '../pages/messageHub/messageHub.component.base';
 import { SettingsComponent }         from '../pages/settings/settings.component';
 
 import { AuthenticatedGuardAll }     from '../services/authenticated.guard.all';
@@ -54,8 +54,8 @@ const appRoutes: any[] =
             }
     },
     {
-        path        : 'mail',
-        component   : MailComponent,
+        path        : 'messageHub',
+        component   : MessageHubComponent,
         canActivate : [ AuthenticatedGuardAll ],
         resolve     :
         {

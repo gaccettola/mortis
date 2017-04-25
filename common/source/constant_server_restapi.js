@@ -7,7 +7,9 @@
     {
         restapi_listen      : 'restapi_listen',     // indicates that the http server should lifted
         restapi_listening   : 'restapi_listening',  // indicates that the http server has lifted
-        scheduled_minute    : 'scheduled_minute'
+        scheduled_minute    : 'scheduled_minute',
+
+        twilio_posted       : 'twilio_posted'
     };
 
     // attach to 'module.exports' if it exists, else attach to 'window'.

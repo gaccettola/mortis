@@ -7,12 +7,11 @@ import { LayoutService  }               from '../../services/layout.service';
 import { SocketService }                from '../../services/socket.service';
 import { DataframeAccount }             from '../../services/dataframe.account.service';
 
-import { MdModule }                     from 'ng2-md';
-import { MdConverter }                  from 'ng2-md';
-import { IConverterOptionsChangeable }  from 'ng2-md';
-
 import * as jQuery                      from 'jquery';
 import * as _                           from 'lodash';
+
+import * as showdown                    from 'showdown'
+import 'showdown-highlightjs-extension'
 
 @Component (
 {
@@ -50,49 +49,39 @@ export class EditorComponent implements OnInit
         theme           : 'eclipse',
 
         // mode         : 'javascript',
-        mode         : 'markdown',
+        mode            : 'markdown',
 
         lineNumbers     : true,
         lineWrapping    : true,
     };
 
     inner_html_md : string = '';
-    code_size :number = 50;
-    html_size :number = 50;
 
-    options: IConverterOptionsChangeable =
+    converter = new showdown.Converter (
     {
-        disableForced4SpacesIndentedSublists    : true,
-        encodeEmails                            : true,
-        excludeTrailingPunctuationFromURLs      : true,
-        ghCodeBlocks                            : true,
-        ghCompatibleHeaderId                    : true,
-        ghMentions                              : true,
-        ghMentionsLink                          : 'https://github.com/{u}',
+        extensions                              : [ 'highlightjs' ],
+        omitExtraWLInCodeBlocks                 : false,
+        noHeaderId                              : true,
+        prefixHeaderId                          : true,
+        parseImgDimensions                      : true,
         headerLevelStart                        : 1,
         literalMidWordUnderscores               : true,
-        noHeaderId                              : true,
-        omitExtraWLInCodeBlocks                 : false,
-        parseImgDimensions                      : true,
-        prefixHeaderId                          : true,
-        requireSpaceBeforeHeadingText           : false,
-        simpleLineBreaks                        : true,
-        simplifiedAutoLink                      : true,
-        smartIndentationFix                     : true,
-        smoothLivePreview                       : true,
         strikethrough                           : true,
         tables                                  : true,
         tablesHeaderId                          : true,
+        ghCodeBlocks                            : true,
         tasklists                               : true,
-     // trimEachLine                            : 'space'
-    };
+        smoothLivePreview                       : true,
+    } );
+
+    code_size :number = 50;
+    html_size :number = 50;
 
     constructor ( private _route            : ActivatedRoute
                 , private _layoutService    : LayoutService
                 , private _socketService    : SocketService
                 , private _dataframeAccount : DataframeAccount
-                , private _mdConverter      : MdConverter
-                , private _mdModule         : MdModule  )
+                 )
     {
     }
 
@@ -151,14 +140,14 @@ export class EditorComponent implements OnInit
 
     onCodeMirrorEditorChanged ( value )
     {
-        this.inner_html_md = value;
+        this.inner_html_md = this.converter.makeHtml(value);
     }
 
     onCodeMirrorEditorBlur ( )
     {
     }
 
-    on_change_view_size ( ) : void
+    on_change_view_size ( event ) : void
     {
         this.code_size = this.editor_config.view_size;
 

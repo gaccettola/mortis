@@ -1,0 +1,99 @@
+
+$primary:    #663399;
+$secondary:  #ffc107;
+$danger:     #f53d3d;
+$light:      #f4f4f4;
+$dark:       #222;
+
+.message-background {
+
+    background: white;
+}
+
+.message-host-toolbar {
+    height:48px;
+    min-height:48px;
+    max-height:48px;
+
+    background-color: mix($light, $primary, 90%);
+    border-top: 1px solid mix($light, $primary, 80%);
+    border-bottom: 0.5px solid mix($light, $primary, 80%);
+
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.message-host-toolbar-select {
+    margin-top: 9px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.message-host-toolbar-title {
+    margin-top: auto;
+    margin-left: auto;
+    width: 304px;
+}
+
+.message-host-toolbar-host {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.message-host-toolbar-lower {
+    height: 96px;
+    min-height: 96px;
+    max-height: 96px;
+
+    background-color: mix($light, $primary, 90%);
+    border-top: 1px solid mix($light, $primary, 80%);
+    border-bottom: 0.5px solid mix($light, $primary, 80%);
+
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.message-host-toolbar-icon {
+    height: 48px;
+    width: 48px;
+
+    color: mix($light, $primary, 30%);
+
+    line-height: 48px;
+    text-align: center;
+    user-select: none;
+
+    border-radius: 22px;
+}
+
+.message-host-toolbar-icon-inactive {
+    color: mix($light, $primary, 70%);
+}
+
+.hub-message-row {
+    background: white;
+
+    border-left: 1px solid mix($light, $primary, 80%);
+
+    padding-bottom: 15px;
+}
+
+.hub-message-col {
+    padding: 8px;
+
+    overflow-y: scroll;
+}
+
+.hub-message {
+
+    background: white;
+    border-radius: 2px;
+
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    margin: 4px 8px 8px 0px;
+
+    min-height: 48px;
+
+    padding: 4px 0px 0px 4px;
+}
