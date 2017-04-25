@@ -1,0 +1,52 @@
+
+<div class="flex-container-col complete-height"
+     style="background: purple; width: 380px; min-width: 380px" >
+
+    <div class="message-host-toolbar flex-container-row" >
+        <md-select class="message-host-toolbar-select complete-width"
+                   [(ngModel)]="selected_contact"
+                   (change)="on_change_selected_contact($event)"  >
+            <md-option *ngFor="let contact of listof_contact" [value]="contact">
+                {{ contact.contact_name }}
+            </md-option>
+        </md-select>
+    </div>
+
+    <div class="hub-message-row flex-container-row complete-height complete-width" >
+
+        <div class="#scrollMe hub-message-col flex-container-col complete-height complete-width" >
+
+            <div *ngFor="let msg of listof_message"
+                 class="flex-container-row hub-message complete-width" >
+
+                <div class="flex-container-col">{{msg.body}}</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="message-host-toolbar-lower flex-container-row" >
+
+        <md-input-container class="message-host-toolbar-title" >
+            <input mdInput type="text" min="0" max="9999"
+                   [(ngModel)]="view_config.message" >
+        </md-input-container>
+
+        <span fxFlex></span>
+
+        <div class="message-host-toolbar-host"
+             mdTooltip="quick send"
+             mdTooltipPosition="below"
+             (click)="on_toolbar_send ( )" >
+
+            <md-icon class="message-host-toolbar-icon"
+                     [ngClass]="{ 'message-host-toolbar-icon-inactive': selected_offline}">send
+            </md-icon>
+
+        </div>
+
+    </div>
+
+</div>

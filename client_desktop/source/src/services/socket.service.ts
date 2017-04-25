@@ -5,6 +5,8 @@ import { BehaviorSubject }      from "rxjs/Rx";
 
 import { NotifyService }        from './notify.service';
 
+import { environment }          from '../environments/environment';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -18,7 +20,7 @@ export interface ISocketMessage {
 @Injectable()
 export class SocketService
 {
-    server_socket_url :string   = 'ws://localhost:8989';
+    server_socket_url :string   = environment.socketUrl;
 
     primus_client               : any;
     primus_socket_options       : any =
@@ -33,6 +35,9 @@ export class SocketService
     };
 
     primus_client_event_count   : number = 0;
+
+    message_last    : any = {};
+    message_subject = new BehaviorSubject( this.message_last );
 
     constructor ( private _ngZone        : NgZone,
                   private _notifyService : NotifyService )
@@ -65,6 +70,14 @@ export class SocketService
             this.primus_client_event_count++;
 
             console.log ( 'primus event', this.primus_client_event_count );
+
+            if ( data && data.type &&'twilio_posted' === data.type )
+            {
+                this.message_last = data;
+
+                this.message_subject.next ( this.message_last );
+
+            }
 
             if ( data && data.type && data.text )
             {
@@ -196,6 +209,16 @@ export class SocketService
             retval = false;
 
         return retval;
+    }
+
+    get_message_last ( ) : string
+    {
+        return this.message_last;
+    }
+
+    observe_message ( ) : Observable<any>
+    {
+        return this.message_subject.asObservable();
     }
 
 }

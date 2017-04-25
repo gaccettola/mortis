@@ -57,4 +57,9 @@ export class DesignerComponentPropCanvas implements OnInit, OnChanges
         this.persist.emit ( event );
     }
 
+    on_width_change( event )
+    {
+
+    }
+
 }

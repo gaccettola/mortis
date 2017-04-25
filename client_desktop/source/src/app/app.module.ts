@@ -25,6 +25,8 @@ import { DataframeDesignerTreeItemConnection }  from '../services/dataframe.desi
 import { DataframeDesignerTreeItemSetting }     from '../services/dataframe.designerTreeItemSetting.service';
 import { DataframeDesignerTreeItemTerminal }    from '../services/dataframe.designerTreeItemTerminal.service';
 
+import { DataframeMessageHub }              from '../services/dataframe.messageHub.service';
+
 import { NotifyService }                    from '../services/notify.service';
 import { DatastoreService }                 from '../services/datastore.service';
 
@@ -37,9 +39,11 @@ import { FooterComponent }                  from '../pages/footer/footer.compone
 import { SidebarComponent }                 from '../pages/sidebar/sidebar.component';
 
 import { LoginComponent }                   from '../pages/login/login.component';
+
 import { DashboardComponent }               from '../pages/dashboard/dashboard.component';
 
-import { MailComponent }                    from '../pages/mail/mail.component';
+import { MessageHubComponent }              from '../pages/messageHub/messageHub.component.base';
+import { MessageHubComponentPropBase }      from '../pages/messageHub/messageHub.component.prop.base';
 
 import { DesignerComponent }                from '../pages/designer/designer.component.base';
 import { DesignerComponentPropBase }        from '../pages/designer/designer.component.prop.base';
@@ -62,8 +66,6 @@ import { AuthenticatedResolveLogin }        from '../services/authenticated.reso
 
 import { CodemirrorComponent }              from '../controls/ngCodeMirror/codemirror.component';
 
-import { MdModule }                         from 'ng2-md';
-
 @NgModule (
 {
     declarations    :
@@ -75,7 +77,10 @@ import { MdModule }                         from 'ng2-md';
 
     ,   LoginComponent
     ,   DashboardComponent
-    ,   MailComponent
+
+    ,   MessageHubComponent
+    ,   MessageHubComponentPropBase
+
     ,   DesignerComponent
 
     ,   DesignerComponentPropBase
@@ -96,8 +101,6 @@ import { MdModule }                         from 'ng2-md';
     ,   MaterialModule
     ,   FlexLayoutModule
     ,   AppRouting
-
-    ,   MdModule
     ],
     providers       :
     [
@@ -112,6 +115,9 @@ import { MdModule }                         from 'ng2-md';
     ,   DataframeDesignerTreeItemConnection
     ,   DataframeDesignerTreeItemSetting
     ,   DataframeDesignerTreeItemTerminal
+
+    ,   DataframeMessageHub
+
     ,   DesignerService
 
     ,   DatastoreService

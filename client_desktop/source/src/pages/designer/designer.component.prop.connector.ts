@@ -73,4 +73,9 @@ export class DesignerComponentPropConnector implements OnInit, OnChanges
 
     }
 
+    on_width_change( event )
+    {
+
+    }
+
 }

@@ -43,9 +43,9 @@ export class RouteService
             },
             {
                 id   : 2,
-                icon : `mail`,
-                href : `/mail`,
-                name : `Messages`
+                icon : `message`,
+                href : `/messageHub`,
+                name : `Message Hub`
             },
             {
                 id   : 3,

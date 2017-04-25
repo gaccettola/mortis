@@ -40,11 +40,18 @@
                     (blur)="onCodeMirrorEditorBlur($event)" >
         </codemirror>
 
+        <!--<div fxLayout="column" [fxFlex]="html_size"-->
+             <!--*ngIf="html_size > 0"-->
+             <!--class="card editor-preview markdown-body"-->
+             <!--[ngClass]="{'hide-panel': editor_config.view_mode===1}"-->
+             <!--[md]="inner_html_md" [options]="options" >-->
+        <!--</div>-->
+
         <div fxLayout="column" [fxFlex]="html_size"
              *ngIf="html_size > 0"
              class="card editor-preview markdown-body"
              [ngClass]="{'hide-panel': editor_config.view_mode===1}"
-             [md]="inner_html_md" [options]="options" >
+             [innerHTML]="inner_html_md" >
         </div>
 
     </div>
