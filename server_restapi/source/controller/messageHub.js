@@ -87,6 +87,10 @@ module.exports = function ( )
 
                 console.log ( '!!! RESULT : _dataframeMessageHub.on_toolbar_send -', message );
 
+                vm.central_relay.publish ( constant_server_restapi.twilio_posted,
+                {
+                } );
+
                 return _controllerBase.request_status_send (
 
                     res,

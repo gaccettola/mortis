@@ -16,6 +16,7 @@ var dotenv  = require ( 'dotenv'   ).config(),
 var constant_server_restapi = require ( '../common/constant_server_restapi' );
 
 var _controllerBase         = require ( './_controllerBase' )();
+
 module.exports = function ( )
 {
     var vm = this || {};
