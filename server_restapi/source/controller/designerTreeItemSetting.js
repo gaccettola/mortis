@@ -68,7 +68,7 @@ module.exports = function ( )
             mysql.escape ( req.body.designerTreeItemSettingId )
         );
 
-        return _controllerBase.sp_exec ( req, res, next, sp_script );
+        return _controllerBase.sp_exec ( req, res, next, vm, sp_script );
     }
 
     /**
@@ -99,7 +99,7 @@ module.exports = function ( )
 
         );
 
-        return _controllerBase.sp_exec ( req, res, next, sp_script );
+        return _controllerBase.sp_exec ( req, res, next, vm, sp_script );
     }
 
     /**
@@ -128,7 +128,7 @@ module.exports = function ( )
 
         );
 
-        return _controllerBase.sp_exec ( req, res, next, sp_script );
+        return _controllerBase.sp_exec ( req, res, next, vm, sp_script );
     }
 
 

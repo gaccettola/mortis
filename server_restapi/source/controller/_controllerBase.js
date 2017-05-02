@@ -17,6 +17,8 @@ var constant_server_restapi = require ( '../common/constant_server_restapi' );
 
 module.exports = function ( )
 {
+    var vm = this || {};
+
     var api =
     {
         bind_ctor           : bind_ctor,
@@ -99,9 +101,9 @@ module.exports = function ( )
         } );
     }
 
-    function sp_exec_all ( req, res, next, script )
+    function sp_exec_all ( req, res, next, instance, script )
     {
-        vm.storage_agent.connection_exec ( script ).then (
+        instance.storage_agent.connection_exec ( script ).then (
 
             function ( value )
             {
@@ -122,9 +124,9 @@ module.exports = function ( )
         );
     }
 
-    function sp_exec_one ( req, res, next, script )
+    function sp_exec_one ( req, res, next, instance, script )
     {
-        vm.storage_agent.connection_exec ( script ).then (
+        instance.storage_agent.connection_exec ( script ).then (
 
             function ( value )
             {
@@ -145,9 +147,9 @@ module.exports = function ( )
         );
     }
 
-    function sp_exec ( req, res, next, script )
+    function sp_exec ( req, res, next, instance, script )
     {
-        vm.storage_agent.connection_exec ( script ).then (
+        instance.storage_agent.connection_exec ( script ).then (
 
             function ( value )
             {

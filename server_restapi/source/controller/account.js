@@ -68,7 +68,7 @@ module.exports = function ( )
             mysql.escape ( req.body.accountId )
         );
 
-        return _controllerBase.sp_exec ( req, res, next, sp_script );
+        return _controllerBase.sp_exec ( req, res, next, vm, sp_script );
     }
 
 

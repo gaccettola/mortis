@@ -68,7 +68,7 @@ module.exports = function ( )
             mysql.escape ( req.body.designerTreeId )
         );
 
-        return _controllerBase.sp_exec_one ( req, res, next, sp_script );
+        return _controllerBase.sp_exec_one ( req, res, next, vm, sp_script );
     }
 
     /**
@@ -80,7 +80,7 @@ module.exports = function ( )
             'sp_designerTree_fetch_all'
         );
 
-        return _controllerBase.sp_exec_all ( req, res, next, sp_script );
+        return _controllerBase.sp_exec_all ( req, res, next, vm, sp_script );
     }
 
     /**
@@ -100,7 +100,7 @@ module.exports = function ( )
             mysql.escape ( req.body.designerTreeDesc )
         );
 
-        return _controllerBase.sp_exec_one ( req, res, next, sp_script );
+        return _controllerBase.sp_exec_one ( req, res, next, vm, sp_script );
     }
 
     /**
@@ -118,7 +118,7 @@ module.exports = function ( )
             mysql.escape ( req.body.designerTreeDesc )
         );
 
-        return _controllerBase.sp_exec_one ( req, res, next, sp_script );
+        return _controllerBase.sp_exec_one ( req, res, next, vm, sp_script );
     }
 
 

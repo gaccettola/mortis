@@ -68,7 +68,7 @@ module.exports = function ( )
             mysql.escape ( req.body.designerTreeItemTerminalId )
         );
 
-        return _controllerBase.sp_exec ( req, res, next, sp_script );
+        return _controllerBase.sp_exec ( req, res, next, vm, sp_script );
     }
 
     /**
@@ -93,7 +93,7 @@ module.exports = function ( )
             mysql.escape ( req.body.cy )
         );
 
-        return _controllerBase.sp_exec ( req, res, next, sp_script );
+        return _controllerBase.sp_exec ( req, res, next, vm, sp_script );
     }
 
     /**
@@ -116,7 +116,7 @@ module.exports = function ( )
             mysql.escape ( req.body.cy )
         );
 
-        return _controllerBase.sp_exec ( req, res, next, sp_script );
+        return _controllerBase.sp_exec ( req, res, next, vm, sp_script );
     }
 
     /**
@@ -130,7 +130,7 @@ module.exports = function ( )
             mysql.escape ( req.body.designerTreeId )
         );
 
-        return _controllerBase.sp_exec ( req, res, next, sp_script );
+        return _controllerBase.sp_exec ( req, res, next, vm, sp_script );
     }
 
     function on_restapi_post ( req, res, next )
