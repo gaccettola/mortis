@@ -121,11 +121,10 @@ $dark:       #222;
     stroke: mix($light, $primary, 20%);
     stroke-width: 2;
     fill: transparent;
-
-
 }
 
 .designer-item-connection-endpoint {
+
     fill: mix($light, $primary, 20%);
 }
 
@@ -191,6 +190,7 @@ $dark:       #222;
 }
 
 .designer-prop-item-value {
+
     min-width: 112px;
 }
 
@@ -238,7 +238,7 @@ $dark:       #222;
 
 }
 
-.designer-host-toolbar-number{
+.designer-host-toolbar-number {
 
     line-height: 48px;
     color: mix($light, $primary, 30%);

@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit
     current_token       : any;
     token_subscription  : Subscription;
 
-    username        : string = 'test@domain.com';
-    password        : string = '123456';
+    username        : string = '';
+    password        : string = '';
 
     constructor ( private _route            : ActivatedRoute
                 , private _routeService     : RouteService
