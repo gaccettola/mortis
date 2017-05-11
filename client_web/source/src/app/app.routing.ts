@@ -5,7 +5,7 @@ import { RouterModule }              from '@angular/router';
 import { LoginComponent }            from '../pages/login/login.component';
 import { DashboardComponent }        from '../pages/dashboard/dashboard.component';
 import { DesignerComponent }         from '../pages/designer/designer.component.base';
-import { EditorComponent }           from '../pages/editor/editor.component';
+import { EditorComponent }           from '../pages/editor/editor.component.base';
 import { MessageHubComponent }       from '../pages/messageHub/messageHub.component.base';
 import { SettingsComponent }         from '../pages/settings/settings.component';
 

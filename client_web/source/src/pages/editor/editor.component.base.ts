@@ -18,7 +18,7 @@ import 'showdown-highlightjs-extension'
 @Component (
 {
     selector    : 'editor'
-,   templateUrl : './editor.component.html'
+,   templateUrl : './editor.component.base.html'
 ,   styleUrls   : ['./editor.component.scss', './markdown.scss']
 } )
 export class EditorComponent implements OnInit
@@ -202,20 +202,6 @@ export class EditorComponent implements OnInit
 
     }
 
-    on_change_view_size ( event ) : void
-    {
-        this.code_size = this.editor_config.view_size;
-
-        this.html_size = 100 - this.code_size;
-
-        this.resizeFn ( );
-    }
-
-    on_toggle_toc ( ) : void
-    {
-        this.show_toc = ! this.show_toc;
-    }
-
     can_toc_prev ( ) : boolean
     {
         let retval = false;
@@ -355,16 +341,30 @@ export class EditorComponent implements OnInit
         return retval;
     }
 
-    on_toc_edit ( idx ) :void
+    on_toc_edit ( idx ) : void
     {
-
-
         this.listof_text[idx].is_edit = ! this.listof_text[idx].is_edit;
     }
 
-    on_change_toc_entry ( ) :void
+    on_change_toc_entry ( ) : void
     {
 
+    }
+
+    on_event_toggle_toc ( event ) : void
+    {
+        this.show_toc = ! this.show_toc;
+    }
+
+    on_event_update_div ( event ) : void
+    {
+        this.code_size = event.code_size;
+
+        this.html_size = event.html_size;
+
+        this.resizeFn ( );
+
+        setTimeout( () => { this.resizeFn ( ); }, 10 );
     }
 
 }

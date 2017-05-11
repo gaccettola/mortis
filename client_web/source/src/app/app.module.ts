@@ -56,7 +56,8 @@ import { DesignerComponentPropTerminal }    from '../pages/designer/designer.com
 
 import { DesignerService }                  from '../pages/designer/designer.component.service';
 
-import { EditorComponent }                  from '../pages/editor/editor.component';
+import { EditorComponent }                  from '../pages/editor/editor.component.base';
+import { EditorComponentToolbar }           from '../pages/editor/editor.component.toolbar';
 
 import { SettingsComponent }                from '../pages/settings/settings.component';
 
@@ -91,6 +92,7 @@ import { CodemirrorComponent }              from '../controls/ngCodeMirror/codem
     ,   DesignerComponentPropItem
     ,   DesignerComponentPropTerminal
     ,   EditorComponent
+    ,   EditorComponentToolbar
     ,   SettingsComponent
     ,   CodemirrorComponent
     ],

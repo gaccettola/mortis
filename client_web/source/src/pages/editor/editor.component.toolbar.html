@@ -1,0 +1,34 @@
+
+<div fxLayout="row" class="editor-host-toolbar">
+
+    <md-input-container class="editor-host-toolbar-title"
+                        (change)="on_change_editor_title($event)" >
+        <input mdInput type="text" min="0" max="9999"
+               [(ngModel)]="doc.title" >
+    </md-input-container>
+
+    <div fxLayout="column" >
+        <div class="editor-host-toolbar-host" (click)="on_toggle_toc ( )" >
+            <md-icon class="editor-host-toolbar-icon">ic_toc</md-icon>
+        </div>
+    </div>
+
+    <div fxLayout="column" fxFlex >
+    </div>
+
+    <div fxLayout="column" >
+
+        <div fxLayout="row" class="editor-host-toolbar-slide-size" >
+            <div fxLayout="column" class="editor-host-toolbar-slide-ctrl" >
+                <md-slider min="0" max="100" step="10"
+                           [(ngModel)]="editor_config.view_size" (change)="on_change_view_size($event)" >
+                </md-slider>
+            </div>
+            <div fxLayout="column" class="editor-host-toolbar-slide-label" fxFlex>
+                <span>{{code_size}} / {{html_size}}</span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
