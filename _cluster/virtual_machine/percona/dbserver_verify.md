@@ -28,6 +28,10 @@ CREATE DATABASE mortis_data;
 GRANT ALL PRIVILEGES ON mortis_data.* TO 'node_process'@'192.168.1.78';
 GRANT ALL PRIVILEGES ON mortis_data.* TO 'node_process'@'xavier';
 
+CREATE DATABASE notify_data;
+GRANT ALL PRIVILEGES ON notify_data.* TO 'node_process'@'192.168.1.78';
+GRANT ALL PRIVILEGES ON notify_data.* TO 'node_process'@'xavier';
+
 FLUSH PRIVILEGES;
 
 quit

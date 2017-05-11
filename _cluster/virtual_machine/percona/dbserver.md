@@ -48,6 +48,9 @@ mysql -u root -p
     GRANT ALL PRIVILEGES ON *.* TO "node_process"@"%";
     CREATE DATABASE mortis_data;
     GRANT ALL PRIVILEGES ON mortis_data.* TO "node_process"@"%";
+    CREATE DATABASE notify_data;
+    GRANT ALL PRIVILEGES ON notify_data.* TO "node_process"@"%";
+    
 ```
 
 ```
