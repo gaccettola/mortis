@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
-sudo chown -R gabriel:gabriel /var/www/data/accettolasystems.com
-sudo chmod -R 755 /var/www/data/accettolasystems.com
+sudo chown -R xavier:xavier /var/www/accettolasystems.com
+sudo chmod -R 755 /var/www/accettolasystems.com
 
 # with trailing
-sudo mkdir -p /var/www/data/accettolasystems.com/mortis/
+sudo mkdir -p /var/www/accettolasystems.com/mortis/
 
-sudo chown -R gabriel:gabriel /var/www/data/accettolasystems.com
-sudo chmod -R 755 /var/www/data/accettolasystems.com
+sudo chown -R xavier:xavier /var/www/accettolasystems.com
+sudo chmod -R 755 /var/www/accettolasystems.com
 
 sudo mkdir -p ${HOME}/mortis/dist/
 cd ${HOME}/mortis/dist/
 
 # no trailing
-cp -a . /var/www/data/accettolasystems.com/mortis
+cp -a . /var/www/accettolasystems.com/mortis
 
-sudo chown -R nginx:nginx /var/www/data/accettolasystems.com
+sudo chown -R www-data:www-data /var/www/accettolasystems.com
 
-sudo chmod -R 755 /var/www/data/accettolasystems.com
+sudo chmod -R 755 /var/www/accettolasystems.com
 

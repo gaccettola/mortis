@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-SERVER_NAME=acclb
+SERVER_NAME=glacclb
 SOURCE_DIST=${HOME}/_Main/_Development/_mortis/client_web/source/dist
-TARGET_DEST=/home/gabriel/mortis
+TARGET_DEST=/home/xavier/mortis
 
 # clear tmp
 echo Clearing tmp - HOME/mortis ...
