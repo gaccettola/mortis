@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-SERVER_DIR=/home/gabriel/mortis/
+SERVER_DIR=${HOME}/mortis/
 
 mkdir -p ${HOME}/.npm-packages
 
@@ -14,6 +14,10 @@ cd ${SERVER_DIR}
 rm -rf ${SERVER_DIR}/node_modules
 
 npm i
+
+pm2 stop server_restapi
+
+pm2 delete server_restapi
 
 pm2 start server_restapi.js
 

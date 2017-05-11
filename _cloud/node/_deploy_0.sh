@@ -3,7 +3,7 @@
 # glaccn0
 # glaccn1
 
-SERVER_NAME=glaccn1
+SERVER_NAME=glaccn0
 SOURCE_DIST=${HOME}/_Main/_Development/_mortis/server_restapi/source/
 TARGET_DEST=/home/xavier/mortis
 
