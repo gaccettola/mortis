@@ -12,46 +12,128 @@
                    [(ngModel)]="doc.title" >
         </md-input-container>
 
-        <span fxFlex></span>
+        <div fxLayout="column" >
+            <div class="editor-host-toolbar-host" (click)="on_toggle_toc ( )" >
+                <md-icon class="editor-host-toolbar-icon">ic_toc</md-icon>
+            </div>
+        </div>
 
-        <div fxLayout="row" class="editor-host-toolbar-slide-size" >
-            <div fxLayout="column" class="editor-host-toolbar-slide-ctrl" >
-                <md-slider min="0" max="100" step="10"
-                           [(ngModel)]="editor_config.view_size" (change)="on_change_view_size($event)" >
-                </md-slider>
+        <div fxLayout="column" fxFlex >
+        </div>
+
+        <div fxLayout="column" >
+
+            <div fxLayout="row" class="editor-host-toolbar-slide-size" >
+                <div fxLayout="column" class="editor-host-toolbar-slide-ctrl" >
+                    <md-slider min="0" max="100" step="10"
+                               [(ngModel)]="editor_config.view_size" (change)="on_change_view_size($event)" >
+                    </md-slider>
+                </div>
+                <div fxLayout="column" class="editor-host-toolbar-slide-label" fxFlex>
+                    <span>{{code_size}} / {{html_size}}</span>
+                </div>
             </div>
-            <div fxLayout="column" class="editor-host-toolbar-slide-label" fxFlex>
-                <span>{{code_size}} / {{html_size}}</span>
-            </div>
+
         </div>
 
     </div>
 
     <div fxLayout="row" fxFlex class="editor-background">
 
+        <div fxLayout="column" class="editor-toc-col" *ngIf="show_toc">
+
+            <!-- edit mode -->
+            <div [dragula]='"bag-one"' [dragulaModel]='listof_text'
+                 *ngIf="code_size > 0" >
+                <div *ngFor="let item_text of listof_text; let idx = index" >
+                    <div fxLayout="row" fxFlex
+                         [ngClass]="{'editor-toc-entry-selected': item_text.is_selected}"
+                         class="editor-toc-entry" >
+
+                        <!-- toc entry preview -->
+                        <div fxLayout="column" fxFlex *ngIf="!item_text.is_edit"
+                             class="editor-toc-entry-preview"
+                             (mousedown)="on_select_text_md ( $event, item_text, idx )">
+                            <div fxLayout="row" fxFlex>{{item_text.title}}
+                            </div>
+                        </div>
+
+                        <!-- toc entry edit -->
+                        <div fxLayout="column" fxFlex *ngIf="item_text.is_edit" >
+                            <md-input-container (change)="on_change_toc_entry($event)" >
+                                <input mdInput type="text" min="0" max="9999"
+                                       (keydown.esc)="on_toc_edit ( idx )"
+                                       (keydown.enter)="on_toc_edit ( idx )"
+                                       [(ngModel)]="item_text.title">
+                            </md-input-container>
+                        </div>
+
+                        <!-- toc entry controls -->
+                        <div fxLayout="column" class="editor-toc-entry-control">
+                            <md-icon class="editor-toc-edit-icon"
+                                     (mousedown)="on_toc_edit ( idx )">mode_edit</md-icon>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- read only mode -->
+            <div *ngIf="code_size === 0" >
+                <div *ngFor="let item_text of listof_text; let idx = index" >
+                    <div fxLayout="row" fxFlex
+                         [ngClass]="{'editor-toc-entry-selected': item_text.is_selected}"
+                         class="editor-toc-entry" >
+
+                        <!-- toc entry preview -->
+                        <div fxLayout="column" fxFlex *ngIf="!item_text.is_edit"
+                             class="editor-toc-entry-preview"
+                             (mousedown)="on_select_text_md ( $event, item_text, idx )">
+                            <div fxLayout="row" fxFlex>{{item_text.title}}
+                            </div>
+                        </div>
+
+                        <div fxLayout="column">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div fxLayout="column" class="editor-col-prev" >
+            <div fxLayout="row" class="editor-row-prev"
+                 *ngIf="can_toc_prev ( )"
+                 (click)="on_toc_prev ( )" >
+                <md-icon class="editor-row-prev-icon">chevron_left</md-icon>
+            </div>
+        </div>
+
         <codemirror fxLayout="column" [fxFlex]="code_size"
                     *ngIf="code_size > 0"
                     [ngClass]="{'hide-panel': editor_config.view_mode===3}"
-                    class="card editor-area"
-                    [(ngModel)]="codemirror_code"
+                    class="editor-area"
+                    [(ngModel)]="selected_text.plaintext"
                     [config]="codemirror_config"
                     (focus)="onCodeMirrorEditorFocused($event)"
                     (change)="onCodeMirrorEditorChanged($event)"
                     (blur)="onCodeMirrorEditorBlur($event)" >
         </codemirror>
 
-        <!--<div fxLayout="column" [fxFlex]="html_size"-->
-             <!--*ngIf="html_size > 0"-->
-             <!--class="card editor-preview markdown-body"-->
-             <!--[ngClass]="{'hide-panel': editor_config.view_mode===1}"-->
-             <!--[md]="inner_html_md" [options]="options" >-->
-        <!--</div>-->
-
         <div fxLayout="column" [fxFlex]="html_size"
              *ngIf="html_size > 0"
-             class="card editor-preview markdown-body"
+             class="editor-preview markdown-body"
              [ngClass]="{'hide-panel': editor_config.view_mode===1}"
              [innerHTML]="inner_html_md" >
+        </div>
+
+        <div fxLayout="column" class="editor-col-next" >
+            <div fxLayout="row" class="editor-row-next"
+                 *ngIf="can_toc_next ( )"
+                 (click)="on_toc_next ( )" >
+                <md-icon class="editor-row-next-icon">chevron_right</md-icon>
+            </div>
         </div>
 
     </div>

@@ -4,6 +4,8 @@ import { NgModule }                         from '@angular/core';
 import { FormsModule }                      from '@angular/forms';
 import { HttpModule }                       from '@angular/http';
 
+import { DragulaModule }                    from 'ng2-dragula';
+
 import { BrowserAnimationsModule }          from '@angular/platform-browser/animations';
 import { MaterialModule }                   from '@angular/material';
 import { FlexLayoutModule }                 from '@angular/flex-layout';
@@ -97,6 +99,7 @@ import { CodemirrorComponent }              from '../controls/ngCodeMirror/codem
         BrowserModule
     ,   FormsModule
     ,   HttpModule
+    ,   DragulaModule
     ,   BrowserAnimationsModule
     ,   MaterialModule
     ,   FlexLayoutModule
