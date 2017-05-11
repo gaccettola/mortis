@@ -7,6 +7,8 @@ import { LayoutService  }               from '../../services/layout.service';
 import { SocketService }                from '../../services/socket.service';
 import { DataframeAccount }             from '../../services/dataframe.account.service';
 
+import { InterprocessService }          from '../../services/interprocess.service';
+
 @Component (
 {
     selector    : 'settings'
@@ -24,7 +26,8 @@ export class SettingsComponent implements OnInit
     constructor ( private _route            : ActivatedRoute
                 , private _layoutService    : LayoutService
                 , private _socketService    : SocketService
-                , private _dataframeAccount : DataframeAccount )
+                , private _dataframeAccount : DataframeAccount
+                , private _ipcService        : InterprocessService )
     {
     }
 
@@ -54,6 +57,18 @@ export class SettingsComponent implements OnInit
     private resizeFn ( )
     {
         this.current_height = this._layoutService.get_content_height ( );
+    }
+
+    ipc_message ( ) : void
+    {
+        let payload =
+        {
+            text : 'test'
+        };
+
+        this._ipcService.send_data_async ( payload );
+
+        this._ipcService.send_data_sync ( payload );
     }
 
 }

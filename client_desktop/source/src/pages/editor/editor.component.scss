@@ -7,18 +7,41 @@ $dark:       #222;
 
 .editor-background {
 
-    background: #f3f3f3;
+    background: white;
 }
 
 .editor-host-toolbar {
-    height:48px;
+    height:49px;
+    min-height:49px;
+    max-height:49px;
 
     background-color: mix($light, $primary, 90%);
-    border-top: 1px solid mix($light, $primary, 80%);
-    border-bottom: 0.5px solid mix($light, $primary, 80%);
+    border-bottom: 1px solid mix($light, $primary, 80%);
 
     padding-left: 8px;
     padding-right: 8px;
+}
+
+.editor-host-toolbar-host {
+
+    line-height: 48px;
+    color: mix($light, $primary, 30%);
+    user-select: none;
+    padding-right: 10px;
+
+}
+
+.editor-host-toolbar-icon {
+
+    height: 45px !important;
+    width: 45px !important;
+    line-height: 48px;
+    text-align: center;
+    user-select: none;
+
+    border-radius: 22px;
+
+    margin-left: -68px !important;
 }
 
 .editor-host-toolbar-title {
@@ -56,12 +79,15 @@ $dark:       #222;
 }
 
 .editor-area {
+    border-right: 1px solid #ccc;
 }
 
 .editor-preview {
 
-    padding: 8px;
-    overflow: scroll;
+    padding: 8px 98px 8px 8px;
+    overflow-y: scroll;
+
+    background: white;
 }
 
 .editor-area-pad {
@@ -77,4 +103,119 @@ $dark:       #222;
     transition: all 0.2s ease;
 
     opacity: 0 !important;
+}
+
+.editor-toc-col {
+    transition: all 0.2s ease;
+    width: 356px;
+    min-width: 356px;
+    max-width: 356px;
+
+    overflow-y: scroll;
+
+    padding: 4px;
+}
+
+.editor-col-prev {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    border-right: 1px dotted mix($light, $primary, 96%);
+}
+
+.editor-row-prev {
+
+    margin: auto;
+}
+
+.editor-row-prev-icon {
+    height: 45px !important;
+    width: 45px !important;
+    line-height: 48px;
+    text-align: center;
+    user-select: none;
+    font-size: 48px;
+    color: mix($light, $primary, 60%);
+}
+
+.editor-row-prev-icon:hover {
+    color: $primary;
+}
+
+.editor-col-next {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+    margin-left: -90px;
+    border-left: 1px dotted mix($light, $primary, 96%);
+}
+
+.editor-row-next {
+
+    margin: auto;
+}
+
+.editor-row-next-icon {
+    height: 45px !important;
+    width: 45px !important;
+    line-height: 48px;
+    text-align: center;
+    user-select: none;
+    font-size: 48px;
+    color: mix($light, $primary, 60%);
+}
+
+.editor-row-next-icon:hover {
+    color: $primary;
+}
+
+.editor-toc-entry {
+
+    height: 64px;
+    margin-bottom: 4px;
+    border-radius: 2px;
+    user-select: none;
+    padding: 4px;
+    font-size: 14px;
+
+    background: mix($light, $primary, 90%);
+    border: 1px solid mix($light, $primary, 80%);
+}
+
+.editor-toc-entry:hover {
+    background: #ccc;
+}
+
+.editor-toc-entry-selected {
+
+    height: 64px;
+    margin-bottom: 4px;
+    border-radius: 2px;
+    user-select: none;
+    padding: 4px;
+    font-size: 14px;
+
+    background: mix($light, $primary, 60%);
+    border: 1px solid mix($light, $primary, 50%);
+}
+
+.editor-toc-edit-icon {
+    //height: 24px !important;
+    //width: 24px !important;
+    //line-height: 24px;
+    text-align: center;
+    user-select: none;
+    font-size: 18px;
+    color: mix($light, $dark, 60%);
+
+    user-select: none;
+    cursor: pointer;
+}
+
+.editor-toc-entry-selected:hover {
+    background: mix($light, $primary, 30%);
+}
+
+.editor-toc-entry-preview {
+    line-height: 44px;
 }

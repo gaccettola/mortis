@@ -15,10 +15,11 @@ $dark:       #222;
 }
 
 .designer-host-toolbar {
-    height:48px;
+    height:49px;
+    min-height:49px;
+    max-height:49px;
 
     background-color: mix($light, $primary, 90%);
-    border-top: 1px solid mix($light, $primary, 80%);
     border-bottom: 1px solid mix($light, $primary, 80%);
 }
 
@@ -163,10 +164,11 @@ $dark:       #222;
 }
 
 .designer-prop-toolbar {
-    height:48px;
+    height:49px;
+    min-height:49px;
+    max-height:49px;
 
     background-color: mix($light, $primary, 90%);
-    border-top: 1px solid mix($light, $primary, 80%);
     border-bottom: 1px solid mix($light, $primary, 80%);
 }
 

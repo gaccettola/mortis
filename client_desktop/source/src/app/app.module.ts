@@ -4,6 +4,8 @@ import { NgModule }                         from '@angular/core';
 import { FormsModule }                      from '@angular/forms';
 import { HttpModule }                       from '@angular/http';
 
+import { DragulaModule }                    from 'ng2-dragula';
+
 import { BrowserAnimationsModule }          from '@angular/platform-browser/animations';
 import { MaterialModule }                   from '@angular/material';
 import { FlexLayoutModule }                 from '@angular/flex-layout';
@@ -15,6 +17,7 @@ import { AppRouting }                       from './app.routing';
 import { RouteService }                     from '../services/route.service';
 import { LayoutService }                    from '../services/layout.service';
 import { SocketService }                    from '../services/socket.service';
+import { InterprocessService }              from '../services/interprocess.service';
 
 import { DataframeBase }                    from '../services/dataframe.base';
 import { DataframeAccount }                 from '../services/dataframe.account.service';
@@ -97,6 +100,7 @@ import { CodemirrorComponent }              from '../controls/ngCodeMirror/codem
         BrowserModule
     ,   FormsModule
     ,   HttpModule
+    ,   DragulaModule
     ,   BrowserAnimationsModule
     ,   MaterialModule
     ,   FlexLayoutModule
@@ -107,6 +111,8 @@ import { CodemirrorComponent }              from '../controls/ngCodeMirror/codem
         RouteService
     ,   LayoutService
     ,   SocketService
+    ,   InterprocessService
+
     ,   DataframeBase
     ,   DataframeAccount
 

@@ -1,5 +1,6 @@
 
 const electron      = require ( 'electron' );
+const ipcMain       = require ( 'electron' ).ipcMain;
 const tray          = require ( './tray' );
 const window_state  = require ( './window_state' );
 
@@ -14,6 +15,8 @@ const Menu          = electron.Menu;
 const path = require ( 'path' );
 
 const url = require ( 'url' );
+
+
 
 var main_window;
 var web_contents;
@@ -100,5 +103,23 @@ app.on ( 'activate', function ( )
     {
         create_main_window ( );
     }
+
+} );
+
+// asynchronous-message
+ipcMain.on ( 'ngEvent_async', function ( event, arg )
+{
+    console.log ( 'asynchronous-message', arg );
+
+    event.sender.send ( 'asynchronous-reply', 'pong' );
+
+} );
+
+// synchronous-message
+ipcMain.on ( 'ngEvent_sync', function ( event, arg )
+{
+    console.log ( 'synchronous-message', arg );
+
+    event.returnValue = 'pong';
 
 } );

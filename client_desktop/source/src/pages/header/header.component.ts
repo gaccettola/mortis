@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit
 
     ngOnInit ( )
     {
-        this.name = 'Mortis';
+        this.name = '';
     }
 
     on_select_page_header_menu_button ( )

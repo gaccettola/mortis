@@ -16,15 +16,14 @@ $dark:       #222;
     max-height:48px;
 
     background-color: mix($light, $primary, 90%);
-    border-top: 1px solid mix($light, $primary, 80%);
-    border-bottom: 0.5px solid mix($light, $primary, 80%);
+    border-bottom: 1px solid mix($light, $primary, 80%);
 
     padding-left: 8px;
     padding-right: 8px;
 }
 
 .message-host-toolbar-select {
-    margin-top: 9px;
+    margin-top: 8px;
     margin-left: 8px;
     margin-right: 8px;
 }
